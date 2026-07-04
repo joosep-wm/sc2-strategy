@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SC2 2v2 Terran + Protoss: Proxy Rax/Gate into 2-Base Timing</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a33;
+      --panel2: #182241;
+      --text: #e8eefc;
+      --muted: #a9b7d6;
+      --line: #344369;
+      --terran: #69a7ff;
+      --protoss: #ffd66b;
+      --proxy: #ff8f6b;
+      --home: #7ee787;
+      --danger: #ff6b8a;
+      --ok: #77e0c6;
+      --warn: #ffd166;
+      --shadow: 0 16px 40px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(105,167,255,.18), transparent 35%),
+        radial-gradient(circle at top right, rgba(255,214,107,.14), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.45;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 36px 0 64px;
+    }
+
+    header {
+      background: linear-gradient(135deg, rgba(18,26,51,.96), rgba(24,34,65,.9));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 5vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    h2, h3 { margin: 0; }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 860px;
+      margin: 0 0 20px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .chip.terran { color: var(--terran); }
+    .chip.protoss { color: var(--protoss); }
+    .chip.goal { color: var(--ok); }
+    .chip.warning { color: var(--warn); }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .summary-card {
+      background: rgba(18,26,51,.86);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .summary-card h3 {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .summary-card p {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .lane-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 110px 1fr 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 12px 0;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(11,16,32,.95), rgba(11,16,32,.72));
+    }
+
+    .lane-title {
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(18,26,51,.92);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight: 900;
+      letter-spacing: .02em;
+      text-align: center;
+    }
+
+    .lane-title.home { color: var(--home); }
+    .lane-title.proxy { color: var(--proxy); }
+
+    .timeline {
+      position: relative;
+    }
+
+    .phase {
+      display: grid;
+      grid-template-columns: 110px 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+      align-items: stretch;
+    }
+
+    .time {
+      position: relative;
+      text-align: right;
+      padding-top: 18px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-weight: 900;
+    }
+
+    .time::after {
+      content: "";
+      position: absolute;
+      right: -9px;
+      top: 26px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--text);
+      box-shadow: 0 0 0 5px rgba(255,255,255,.08);
+    }
+
+    .card {
+      background: rgba(18,26,51,.9);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: 18px;
+      min-height: 120px;
+      box-shadow: var(--shadow);
+    }
+
+    .card.home { border-left: 4px solid var(--home); }
+    .card.proxy { border-left: 4px solid var(--proxy); }
+    .card.attack { border-left-color: var(--danger); }
+    .card.transition { border-left-color: var(--ok); }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    li { margin: 6px 0; }
+
+    .race-row {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 10px;
+      margin: 8px 0;
+      align-items: start;
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 900;
+      font-family: var(--mono);
+      border-radius: 999px;
+      padding: 4px 8px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .badge.t { color: var(--terran); background: rgba(105,167,255,.12); }
+    .badge.p { color: var(--protoss); background: rgba(255,214,107,.12); }
+    .badge.team { color: var(--ok); background: rgba(119,224,198,.12); }
+    .badge.stop { color: var(--danger); background: rgba(255,107,138,.12); }
+
+    .note {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .decision-card {
+      background: rgba(18,26,51,.9);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .decision-card h3 {
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .good { color: var(--ok); font-weight: 900; }
+    .bad { color: var(--danger); font-weight: 900; }
+    .warn { color: var(--warn); font-weight: 900; }
+
+    .footer-note {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 850px) {
+      .summary-grid, .decision-grid { grid-template-columns: 1fr; }
+      .lane-header { display: none; }
+      .phase {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      .time {
+        text-align: left;
+        padding: 0;
+        font-size: 20px;
+      }
+      .time::after { display: none; }
+      .card { min-height: auto; }
+      .card::before {
+        display: inline-block;
+        margin-bottom: 8px;
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        color: var(--muted);
+      }
+      .card.home::before { content: "Home lane"; color: var(--home); }
+      .card.proxy::before { content: "Proxy lane"; color: var(--proxy); }
+    }
+
+    @media print {
+      body { background: #fff; color: #111; }
+      header, .summary-card, .card, .decision-card { box-shadow: none; background: #fff; border-color: #ccc; }
+      .subtitle, .note, .footer-note, .time { color: #444; }
+      .lane-header { position: static; background: #fff; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>2v2 Proxy Rax + Gateway → 2-Base Timing</h1>
+      <p class="subtitle">
+        Terran + Protoss synced opening. The proxy is not the win condition. It is scouting, greed punishment, and surprise damage. The real punch is the coordinated 2-base timing.
+      </p>
+      <div class="chips">
+        <span class="chip terran">Terran: 1 Proxy Barracks</span>
+        <span class="chip protoss">Protoss: 1 Proxy Gateway</span>
+        <span class="chip goal">Goal: 2-base timing wins</span>
+        <span class="chip warning">Do not accidentally become an all-in clown car</span>
+      </div>
+    </header>
+
+    <section class="summary-grid">
+      <div class="summary-card">
+        <h3>Proxy purpose</h3>
+        <p>Scout both openings, punish fast naturals, force panic spending, and create uncertainty.</p>
+      </div>
+      <div class="summary-card">
+        <h3>Attack force</h3>
+        <p>Default first hit: <strong>5–6 Marines + 2–3 Zealots</strong>. Smaller is annoying; this is dangerous.</p>
+      </div>
+      <div class="summary-card">
+        <h3>Discipline rule</h3>
+        <p>Stop reinforcing unless a kill is clearly available. Expand, gas, tech, then hit together.</p>
+      </div>
+    </section>
+
+    <section class="lane-header" aria-hidden="true">
+      <div></div>
+      <div class="lane-title home">HOME ACTION</div>
+      <div class="lane-title proxy">PROXY ACTION</div>
+    </section>
+
+    <section class="timeline">
+      <article class="phase">
+        <div class="time">0:00</div>
+        <div class="card home">
+          <h3>Start normal economy</h3>
+          <div class="race-row"><span class="badge t">Terran</span><div>SCVs nonstop. Depot at home unless your exact build wants the first Depot near proxy path.</div></div>
+          <div class="race-row"><span class="badge p">Protoss</span><div>Probes nonstop. Pylon at home or near proxy path depending on map safety.</div></div>
+          <div class="note">Do not butcher worker production. This is a tempo opener, not a cave painting.</div>
+        </div>
+        <div class="card proxy">
+          <h3>Send builders across</h3>
+          <div class="race-row"><span class="badge team">Team</span><div>SCV + Probe move toward proxy location together or staggered slightly.</div></div>
+          <ul>
+            <li>Place proxy about 60–70% across the map.</li>
+            <li>Prefer hidden, retreatable, near attack paths.</li>
+            <li>Avoid obvious “please scout me” bushes.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div class="time">~0:45</div>
+        <div class="card home">
+          <h3>Keep macro clean</h3>
+          <div class="race-row"><span class="badge t">Terran</span><div>Continue SCVs, Depot discipline, prepare natural CC soon.</div></div>
+          <div class="race-row"><span class="badge p">Protoss</span><div>Continue Probes, keep Pylon timing clean, prepare natural Nexus soon.</div></div>
+        </div>
+        <div class="card proxy">
+          <h3>Build the proxy pair</h3>
+          <div class="race-row"><span class="badge t">Terran</span><div>Start <strong>1 Barracks</strong>.</div></div>
+          <div class="race-row"><span class="badge p">Protoss</span><div>Start <strong>1 Gateway</strong>.</div></div>
+          <div class="note">These buildings are tools, not emotional support structures. They can die later.</div>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div class="time">~1:15</div>
+        <div class="card home">
+          <h3>Natural first, then gas</h3>
+          <div class="race-row"><span class="badge team">Team</span><div>Start 2nd bases as planned.</div></div>
+          <div class="race-row"><span class="badge team">Team</span><div>Take gas immediately after natural starts.</div></div>
+          <ul>
+            <li>Terran wants Stim/Factory/Medivac path.</li>
+            <li>Protoss wants Cyber Core/Warp Gate/tech path.</li>
+          </ul>
+        </div>
+        <div class="card proxy">
+          <h3>First production begins</h3>
+          <div class="race-row"><span class="badge t">Terran</span><div>Make Marines continuously until first attack group is ready.</div></div>
+          <div class="race-row"><span class="badge p">Protoss</span><div>Make Zealots continuously until first attack group is ready.</div></div>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div class="time">~2:00</div>
+        <div class="card home">
+          <h3>Read the enemy opening</h3>
+          <ul>
+            <li><span class="good">Double fast expand:</span> continue pressure plan.</li>
+            <li><span class="warn">Gas/unit expand:</span> poke, force defense, do not donate units.</li>
+            <li><span class="bad">One-base/no natural:</span> prepare defense immediately.</li>
+          </ul>
+          <div class="note">If both enemies skipped naturals, your army probably needs to come home. Yes, the party is cancelled.</div>
+        </div>
+        <div class="card proxy attack">
+          <h3>Gather, do not trickle</h3>
+          <p>Do <strong>not</strong> attack with 1 Marine + 1 Zealot unless you only need scouting.</p>
+          <p>Default gather point:</p>
+          <ul>
+            <li><strong>5–6 Marines</strong></li>
+            <li><strong>2–3 Zealots</strong></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div class="time">~2:30</div>
+        <div class="card home">
+          <h3>Transition starts behind pressure</h3>
+          <div class="race-row"><span class="badge t">Terran</span><div>Home Barracks/Factory path. Stim timing matters more than another proxy Marine.</div></div>
+          <div class="race-row"><span class="badge p">Protoss</span><div>Cyber Core, Warp Gate, then chosen tech: Blink, Robo, or Gateway flood.</div></div>
+          <div class="note">From this point, every extra proxy unit must justify itself in court.</div>
+        </div>
+        <div class="card proxy attack">
+          <h3>Hit one target together</h3>
+          <ul>
+            <li>Prefer the greediest or weakest player.</li>
+            <li>Natural first, main only if clearly open.</li>
+            <li>Zealots front, Marines behind.</li>
+            <li>Focus incomplete expansions, workers, exposed units.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div class="time">~3:00</div>
+        <div class="card home transition">
+          <h3>Commit to macro follow-up</h3>
+          <div class="race-row"><span class="badge team">Team</span><div>Rally new units at home unless the proxy attack is obviously winning.</div></div>
+          <ul>
+            <li>Saturate 2 bases.</li>
+            <li>Add production.</li>
+            <li>Start/continue key upgrades and tech.</li>
+          </ul>
+        </div>
+        <div class="card proxy attack">
+          <h3>Exit conditions</h3>
+          <ul>
+            <li><span class="good">Continue briefly</span> if natural is dying or workers are trapped.</li>
+            <li><span class="warn">Back off</span> if bunker/battery/queens/critical units stabilize.</li>
+            <li><span class="bad">Leave now</span> if enemy counterattack is moving across map.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div class="time">~4:00</div>
+        <div class="card home transition">
+          <h3>Prepare the real attack</h3>
+          <div class="race-row"><span class="badge t">Terran</span><div>Stim, Medivacs, extra Barracks, maybe Tanks/Mines depending on scout.</div></div>
+          <div class="race-row"><span class="badge p">Protoss</span><div>Warp Gate count, Gateway units, and one tech anchor if needed: Immortal/Blink/Sentry.</div></div>
+        </div>
+        <div class="card proxy">
+          <h3>Use survivors as map control</h3>
+          <ul>
+            <li>Watch enemy move-outs.</li>
+            <li>Threaten small run-bys.</li>
+            <li>Preserve units if possible.</li>
+            <li>Do not chase into defensive meat grinders.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="phase">
+        <div class="time">~5:30+</div>
+        <div class="card home transition">
+          <h3>2-base timing push</h3>
+          <p>This is the actual win condition.</p>
+          <ul>
+            <li>Move together, not two heroic solo tragedies.</li>
+            <li>Terran bio provides DPS and anti-air.</li>
+            <li>Protoss gateway/tech units tank, zone, and break positions.</li>
+            <li>Hit before enemy splash/air/late tech becomes comfortable.</li>
+          </ul>
+        </div>
+        <div class="card proxy transition">
+          <h3>Proxy has done its job</h3>
+          <p>If the proxy still exists, nice. If it died after scouting and forcing defense, also nice.</p>
+          <div class="note">The win condition is the synced 2-base army, not keeping a Barracks and Gateway alive like beloved family pets.</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="decision-grid">
+      <div class="decision-card">
+        <h3>When the opener is successful</h3>
+        <ul>
+          <li>Expansion cancelled or delayed.</li>
+          <li>Workers killed or pulled for a long time.</li>
+          <li>Bunker, Battery, Spine, or extra units forced.</li>
+          <li>Enemy strategy identified early.</li>
+          <li>Your 2-base timing lands against a disrupted team.</li>
+        </ul>
+      </div>
+      <div class="decision-card">
+        <h3>When to abort the pressure</h3>
+        <ul>
+          <li>Both enemies are one-basing.</li>
+          <li>Static defense is complete and efficient.</li>
+          <li>Speedlings, Queens, Bunkers, or Batteries make the fight bad.</li>
+          <li>Your naturals are threatened.</li>
+          <li>You are tempted to keep making proxy units “just because”.</li>
+        </ul>
+      </div>
+      <div class="decision-card">
+        <h3>Best enemy openings to punish</h3>
+        <ul>
+          <li>Double fast expand.</li>
+          <li>One greedy player + one light defender.</li>
+          <li>Slow tech without early units.</li>
+          <li>Bad wall-offs or exposed naturals.</li>
+        </ul>
+      </div>
+      <div class="decision-card">
+        <h3>Risky enemy openings</h3>
+        <ul>
+          <li>Double one-base aggression.</li>
+          <li>Fast Zergling pressure.</li>
+          <li>Proxy/cannon rush if not scouted early.</li>
+          <li>Hard turtle where pressure gets zero damage.</li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      Editable single-file HTML. Tune the timestamps after testing replays; the concept matters more than exact seconds.
+    </p>
+  </main>
+</body>
+</html>

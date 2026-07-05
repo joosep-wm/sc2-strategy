@@ -133,6 +133,17 @@ Cranking 3–4 Colossi is a fine *game plan* and a great low-micro army. But aga
 - **The Robo's job in the first 5 minutes is an OBSERVER (pops 4:34), not a Colossus.** Same building, and the Observer is *ahead* of the DTs. Build Obs first, *then* Robo Bay + Colossi.
 - Faster killing power if you scout DT tech: **Immortal pops ~5:25 from a Robo starting at 4:00** — point-and-click, no micro, shreds anything that stands still. Two Immortals + an Observer is a clean, low-micro DT answer.
 
+### Dante's standing robo rule (2026-07-05)
+**First robo always makes an Observer, then an Immortal. When the robo finishes, start a Robotics Bay + a 2nd Robo.** DB-verified timings (robo starting ~3:30):
+
+| Unit / building | Pops / done | vs the 5:00 DT rush |
+|---|---|---|
+| Observer (1st from robo) | **~4:34** | ✅ detection *before* the DTs |
+| Immortal (2nd from robo) | **~5:13** | ⚠️ lands as/just after DTs — once they're revealed, Immortal barrier shreds them |
+| Robotics Bay + 2nd Robo | start when robo done (~4:16), 46f each | macro/Colossus tech comes online ~6:30+ |
+
+This is the right **default** — one rule, no scouting-dependent decisions, closes the DT hole every game. **The tradeoff:** Obs-first pushes the Immortal ~40s later than Immortal-first, so the 4:34→5:13 window is thin. **The insurance for a *fast* all-in:** MadSysop's **Scan** the instant DTs land + a couple of Stalkers or a Cannon to bridge that gap. Default = this rule; insurance = the Scan.
+
 ### Anti-DT checklist (do this every game until it's automatic)
 1. **Scout the enemy Protoss by ~2:30–3:00.** A fast Twilight Council / Dark Shrine, few units, and missing expansion = DT or all-in tech. Missing army is the tell.
 2. **Have detection at home by 4:30**, not 5:30. Observer (robo) or Cannon (forge) or partner Scan — pick one and commit.

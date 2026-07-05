@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Protoss Stargate Opening: Double-Gate Adept into Oracle</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a33;
+      --panel2: #182241;
+      --text: #e8eefc;
+      --muted: #a9b7d6;
+      --line: #344369;
+      --protoss: #ffd66b;
+      --danger: #ff6b8a;
+      --ok: #77e0c6;
+      --warn: #ffd166;
+      --shadow: 0 16px 40px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(255,214,107,.14), transparent 35%),
+        radial-gradient(circle at top right, rgba(119,224,198,.10), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.45;
+    }
+
+    main {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 36px 0 64px;
+    }
+
+    header {
+      background: linear-gradient(135deg, rgba(18,26,51,.96), rgba(24,34,65,.9));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    h2 {
+      margin: 34px 0 14px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+    }
+
+    h3 { margin: 0 0 8px; font-size: 17px; }
+
+    .subtitle { color: var(--muted); font-size: 17px; max-width: 860px; margin: 0 0 20px; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .chip.protoss { color: var(--protoss); }
+    .chip.ok { color: var(--ok); }
+    .chip.mono { font-family: var(--mono); color: var(--muted); }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+    .summary-card {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .summary-card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+    .keytimes {
+      display: flex; flex-wrap: wrap; gap: 22px;
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: 16px 22px;
+      box-shadow: var(--shadow);
+    }
+    .keytimes > div { display: flex; align-items: baseline; gap: 9px; }
+    .kt-t { font-family: var(--mono); font-weight: 800; font-size: 19px; color: var(--protoss); }
+    .kt-l { color: var(--muted); font-size: 14px; }
+
+    .cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; align-items: start; }
+    @media (max-width: 860px) {
+      .cols, .summary-grid, .decision-grid { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .panel.pad { padding: 20px; }
+
+    table { border-collapse: collapse; width: 100%; }
+    th {
+      font-family: var(--mono); font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em; color: var(--muted);
+      text-align: left; padding: 13px 16px 9px; border-bottom: 1px solid var(--line);
+    }
+    td { padding: 8px 16px; border-bottom: 1px solid rgba(52,67,105,.55); font-size: 15px; }
+    tr:last-child td { border-bottom: none; }
+    td.supply {
+      font-family: var(--mono); font-weight: 700; color: var(--muted);
+      text-align: right; width: 3.4em; font-variant-numeric: tabular-nums;
+    }
+    td.act { color: var(--text); }
+    tr.milestone td { background: rgba(255,214,107,.07); }
+    tr.milestone td.act { color: var(--protoss); font-weight: 700; }
+    tr.decision td { background: rgba(255,107,138,.08); }
+    tr.decision td.act { color: var(--danger); font-weight: 700; }
+
+    .rail { display: flex; flex-direction: column; gap: 16px; }
+    .rail .panel.pad p, .rail .panel.pad li { color: var(--muted); font-size: 14.5px; }
+    .rail .panel.pad ul { margin: 0; padding-left: 18px; }
+    .rail .panel.pad li { margin: 8px 0; }
+    .rail .panel.pad li strong { color: var(--text); }
+    .rail .panel.pad p { margin: 0; }
+    .em { color: var(--ok); font-weight: 700; }
+
+    .decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .branch {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .scouted {
+      font-family: var(--mono); font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+      display: block; margin-bottom: 7px;
+    }
+    .read {
+      display: inline-block; font-family: var(--mono); font-size: 12px; font-weight: 700;
+      color: var(--warn); background: rgba(255,214,107,.1);
+      border: 1px solid rgba(255,214,107,.25); border-radius: 8px;
+      padding: 3px 9px; margin-bottom: 9px;
+    }
+    .branch p { margin: 0; color: var(--muted); font-size: 14.5px; }
+    .branch p strong { color: var(--text); }
+
+    .note {
+      background: rgba(119,224,198,.07);
+      border: 1px solid rgba(119,224,198,.22);
+      border-radius: var(--radius);
+      padding: 15px 18px;
+      color: var(--muted);
+      font-size: 14.5px;
+      margin-top: 14px;
+    }
+    .note strong { color: var(--ok); }
+
+    .verify td { font-family: var(--mono); font-size: 13.5px; color: var(--muted); }
+    .verify td:first-child { color: var(--text); font-family: var(--sans); font-size: 14.5px; }
+    .verify .ok { color: var(--ok); font-weight: 700; }
+
+    .footer-note { margin-top: 40px; color: var(--muted); font-size: 13px; text-align: center; }
+    .footer-note a { color: var(--ok); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Protoss Stargate Opening: Double-Gate Adept into Oracle</h1>
+      <p class="subtitle">
+        Two-gate Adept pressure, expand behind it, Oracle follow-up. The harass pays twice:
+        economic damage and a full scout. The opening ends at 5:30; the endgame is decided by
+        what the Adepts and Oracle saw, not by this page.
+      </p>
+      <div class="chips">
+        <span class="chip protoss">Protoss</span>
+        <span class="chip">PvP-sourced, works vs all</span>
+        <span class="chip ok">Replay-verified</span>
+        <span class="chip mono">Patch 5.0.16</span>
+      </div>
+    </header>
+
+    <section class="summary-grid">
+      <div class="summary-card">
+        <h3>Harass pays twice</h3>
+        <p>Two Adepts and an Oracle force damage AND read the enemy opening: gates, gas count,
+        tech, expand or not. Even a zero-kill shade is a full scout.</p>
+      </div>
+      <div class="summary-card">
+        <h3>Probes are the build</h3>
+        <p>8 &rarr; 40 workers by 6:00 in the source game, while harassing. Every chrono goes to
+        probes until ~5:30, then to upgrade structures. Never to unit production.</p>
+      </div>
+      <div class="summary-card">
+        <h3>Open-ended endgame</h3>
+        <p>The build order stops at 45 supply. Four scouting reads map to four follow-ups;
+        commit only to what the harass confirmed.</p>
+      </div>
+    </section>
+
+    <h2>Key timings</h2>
+    <div class="keytimes">
+      <div><span class="kt-t">3:12</span><span class="kt-l">expand goes down</span></div>
+      <div><span class="kt-t">3:30</span><span class="kt-l">Adepts hit the enemy mineral line</span></div>
+      <div><span class="kt-t">5:00</span><span class="kt-l">Oracle hits the enemy mineral line</span></div>
+    </div>
+
+    <h2>Build order (supply-driven)</h2>
+    <section class="cols">
+      <div class="panel">
+        <table>
+          <thead><tr><th scope="col">Supply</th><th scope="col">Action</th></tr></thead>
+          <tbody>
+            <tr><td class="supply">11</td><td class="act">Pylon</td></tr>
+            <tr><td class="supply">12</td><td class="act">Gateway</td></tr>
+            <tr><td class="supply">13</td><td class="act">Assimilator</td></tr>
+            <tr class="milestone"><td class="supply">16</td><td class="act">Gateway #2</td></tr>
+            <tr><td class="supply">17</td><td class="act">Cybernetics Core</td></tr>
+            <tr><td class="supply">17</td><td class="act">Assimilator #2</td></tr>
+            <tr><td class="supply">19</td><td class="act">Pylon</td></tr>
+            <tr class="milestone"><td class="supply">23</td><td class="act">2x Adept when Cyber finishes, send across the map together</td></tr>
+            <tr class="milestone"><td class="supply">25</td><td class="act">Stargate</td></tr>
+            <tr class="milestone"><td class="supply">27</td><td class="act">Nexus at the natural</td></tr>
+            <tr><td class="supply">27</td><td class="act">Pylon</td></tr>
+            <tr class="milestone"><td class="supply">29</td><td class="act">Oracle, fly to the enemy main</td></tr>
+            <tr><td class="supply">30</td><td class="act">2x Stalker</td></tr>
+            <tr><td class="supply">32</td><td class="act">Shield Battery at the natural</td></tr>
+            <tr><td class="supply">34</td><td class="act">Pylon</td></tr>
+            <tr><td class="supply">43</td><td class="act">Assimilator #3 + #4, Pylon</td></tr>
+            <tr class="decision"><td class="supply">45</td><td class="act">Decision point, 5:30 &mdash; pick a branch below from what you scouted</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rail">
+        <div class="panel pad">
+          <h3>Chrono rule</h3>
+          <p>Every cast on <span class="em">probes</span> until ~5:30, then upgrade buildings
+          only. Never unit production. (Source game: five Nexus casts, then Cyber, Forge,
+          Fleet Beacon, all game.)</p>
+        </div>
+        <div class="panel pad">
+          <h3>Micro notes</h3>
+          <ul>
+            <li><strong>Adepts:</strong> shade in from outside vision; cancel if Stalkers camp
+            the landing. Zero kills is still a full scout.</li>
+            <li><strong>Oracle:</strong> enter from the map edge, not down the ramp. Kill workers
+            until units respond, scout tech on the way out. Keep it alive: it is Revelation and
+            detection later.</li>
+            <li><strong>Probes:</strong> the only cuts sit around the Stargate and Nexus
+            payments. Banking 400+ minerals means the build broke.</li>
+          </ul>
+        </div>
+        <div class="panel pad">
+          <h3>Resource gates (why the timings look like this)</h3>
+          <p>The 400-mineral Nexus at 3:12 empties the bank (20 minerals). The Oracle is
+          affordable from ~3:35; gas is never the constraint (200+ banked by then).</p>
+        </div>
+      </div>
+    </section>
+
+    <h2>Decision point at 5:30 &mdash; what the harass told you</h2>
+    <section class="decision-grid">
+      <div class="branch">
+        <span class="scouted">Scouted: expand, 1-2 gates, robo or twilight</span>
+        <span class="read">standard macro game</span>
+        <p>Your pick. The source game's follow-up: <strong>+2 Stargates + Fleet Beacon at 5:40
+        into mass Void Ray</strong> (skip Warp Gate). Or Twilight into Blink (research Warp Gate
+        now).</p>
+      </div>
+      <div class="branch">
+        <span class="scouted">Scouted: one base, 3-4 gates, no expand</span>
+        <span class="read">all-in hits 4:30-5:30</span>
+        <p>Second Shield Battery, <strong>Stalkers instead of a second Oracle</strong>, Adepts
+        home, research Warp Gate for reinforcement. Hold: you out-eco after.</p>
+      </div>
+      <div class="branch">
+        <span class="scouted">Scouted: Stargate mirror</span>
+        <span class="read">oracle / void rays coming</span>
+        <p>Stalkers + Battery at home, <strong>Oracle stays defensive</strong>, consider a
+        Phoenix switch.</p>
+      </div>
+      <div class="branch">
+        <span class="scouted">Scouted: Dark Shrine or fast Twilight, few units</span>
+        <span class="read">dark templar</span>
+        <p><strong>Oracle stays home</strong>: Revelation is your detection. Robo for Observers,
+        Battery at each base.</p>
+      </div>
+    </section>
+    <div class="note">
+      <strong>Warp Gate rule:</strong> research it (50/50, 100f at the Cyber) the moment a branch
+      makes Gateways your production. Skip it while Stargates are producing; going mass air it
+      may never be worth the cost.
+    </div>
+
+    <h2>Verification</h2>
+    <section class="panel">
+      <table class="verify">
+        <thead><tr><th scope="col">Claim</th><th scope="col">Replay observed</th><th scope="col">DB (5.0.16)</th><th scope="col"></th></tr></thead>
+        <tbody>
+          <tr><td>Economy start</td><td>8 workers, 8/13 supply</td><td>constants: 8 workers, cap 13</td><td class="ok">match</td></tr>
+          <tr><td>Probe production</td><td>12.1s intervals (8.1s chronoed)</td><td>Probe 12f (&times;2/3 = 8f)</td><td class="ok">match</td></tr>
+          <tr><td>Gateway build</td><td>0:47 &rarr; 1:34 = 46.4s</td><td>46f</td><td class="ok">match</td></tr>
+          <tr><td>Cybernetics Core</td><td>1:42 &rarr; 2:18 = 35.7s</td><td>36f</td><td class="ok">match</td></tr>
+          <tr><td>Stargate</td><td>2:36 &rarr; 3:19 = 42.9s</td><td>43f</td><td class="ok">match</td></tr>
+          <tr><td>Nexus</td><td>3:12 &rarr; 4:23 = 71.4s</td><td>71f</td><td class="ok">match</td></tr>
+          <tr><td>2x Adept</td><td>trained 2:22, born 2:55</td><td>30f + command latency</td><td class="ok">match</td></tr>
+          <tr><td>Oracle</td><td>trained 3:49, born 4:27</td><td>37f</td><td class="ok">match</td></tr>
+          <tr><td>2x Stalker</td><td>trained 4:04, born 4:31</td><td>27f</td><td class="ok">match</td></tr>
+          <tr><td>Adepts hit mineral line</td><td>first kill 3:31</td><td>travel-dependent estimate</td><td class="ok">empirical</td></tr>
+          <tr><td>Oracle hits mineral line</td><td>first kill 4:57 (12 workers by 5:14)</td><td>travel-dependent estimate</td><td class="ok">empirical</td></tr>
+          <tr><td>Worker growth</td><td>8 &rarr; 32 @ 5:00 &rarr; 40 @ 6:00</td><td>&mdash;</td><td class="ok">empirical</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <div class="note">
+      Verified against patch <strong>5.0.16</strong> on 2026-07-05. Every timestamp above is
+      observed in the source replay
+      (<a href="../../replays/2026-07-04_blackrock-le_pvp_dante-vs-edge.SC2Replay" style="color:var(--ok)">
+      Blackrock LE, 2026-07-04, EU ladder PvP</a>) and cross-checked against
+      <code>data/sc2_data.json</code>. This replay is also the empirical basis for the 2026-07-05
+      building-time fix in the DB.
+    </div>
+
+    <p class="footer-note">
+      Timings validated against <a href="../../data/sc2_data.json">data/sc2_data.json</a>
+      &middot; source replay in <a href="../../replays/">replays/</a>
+    </p>
+  </main>
+</body>
+</html>

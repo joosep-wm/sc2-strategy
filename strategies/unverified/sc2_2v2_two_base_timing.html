@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2v2 P+T: Two-Base Timing (Low-Micro)</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a33;
+      --text: #e8eefc;
+      --muted: #a9b7d6;
+      --line: #344369;
+      --terran: #69a7ff;
+      --protoss: #ffd66b;
+      --danger: #ff6b8a;
+      --ok: #77e0c6;
+      --warn: #ffd166;
+      --shadow: 0 16px 40px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(255,214,107,.14), transparent 35%),
+        radial-gradient(circle at top right, rgba(105,167,255,.12), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.45;
+    }
+    main { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 36px 0 64px; }
+    header {
+      background: linear-gradient(135deg, rgba(18,26,51,.96), rgba(24,34,65,.9));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 24px; padding: 28px; box-shadow: var(--shadow); margin-bottom: 24px;
+    }
+    h1 { margin: 0 0 10px; font-size: clamp(28px, 5vw, 44px); line-height: 1.05; letter-spacing: -0.04em; }
+    h2 { margin: 34px 0 14px; font-size: 14px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+    h3 { margin: 0 0 8px; font-size: 17px; }
+    .subtitle { color: var(--muted); font-size: 17px; max-width: 860px; margin: 0 0 20px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip {
+      border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06);
+      border-radius: 999px; padding: 8px 12px; font-size: 13px; font-weight: 700;
+    }
+    .chip.protoss { color: var(--protoss); }
+    .chip.terran { color: var(--terran); }
+    .chip.warn { color: var(--warn); }
+    .chip.mono { font-family: var(--mono); color: var(--muted); }
+    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 8px; }
+    .summary-card {
+      background: var(--panel); border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow);
+    }
+    .summary-card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+    .keytimes {
+      display: flex; flex-wrap: wrap; gap: 22px; background: var(--panel);
+      border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius);
+      padding: 16px 22px; box-shadow: var(--shadow);
+    }
+    .keytimes > div { display: flex; align-items: baseline; gap: 9px; }
+    .kt-t { font-family: var(--mono); font-weight: 800; font-size: 19px; color: var(--protoss); }
+    .kt-l { color: var(--muted); font-size: 14px; }
+    .cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; align-items: start; }
+    @media (max-width: 860px) { .cols, .summary-grid, .decision-grid { grid-template-columns: 1fr; } }
+    .panel {
+      background: var(--panel); border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
+    }
+    .panel.pad { padding: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th {
+      font-family: var(--mono); font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--muted); text-align: left;
+      padding: 13px 16px 9px; border-bottom: 1px solid var(--line);
+    }
+    td { padding: 8px 16px; border-bottom: 1px solid rgba(52,67,105,.55); font-size: 15px; }
+    tr:last-child td { border-bottom: none; }
+    td.supply {
+      font-family: var(--mono); font-weight: 700; color: var(--muted); text-align: right;
+      width: 3.4em; font-variant-numeric: tabular-nums;
+    }
+    td.act { color: var(--text); }
+    tr.milestone td { background: rgba(255,214,107,.07); }
+    tr.milestone td.act { color: var(--protoss); font-weight: 700; }
+    tr.decision td { background: rgba(255,107,138,.08); }
+    tr.decision td.act { color: var(--danger); font-weight: 700; }
+    .rail { display: flex; flex-direction: column; gap: 16px; }
+    .rail .panel.pad p, .rail .panel.pad li { color: var(--muted); font-size: 14.5px; }
+    .rail .panel.pad ul { margin: 0; padding-left: 18px; }
+    .rail .panel.pad li { margin: 8px 0; }
+    .rail .panel.pad li strong { color: var(--text); }
+    .rail .panel.pad p { margin: 0; }
+    .em { color: var(--ok); font-weight: 700; }
+    .decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .branch {
+      background: var(--panel); border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow);
+    }
+    .scouted {
+      font-family: var(--mono); font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--muted); display: block; margin-bottom: 7px;
+    }
+    .read {
+      display: inline-block; font-family: var(--mono); font-size: 12px; font-weight: 700;
+      color: var(--warn); background: rgba(255,214,107,.1);
+      border: 1px solid rgba(255,214,107,.25); border-radius: 8px;
+      padding: 3px 9px; margin-bottom: 9px;
+    }
+    .branch p { margin: 0; color: var(--muted); font-size: 14.5px; }
+    .branch p strong { color: var(--text); }
+    .note {
+      background: rgba(255,214,107,.07); border: 1px solid rgba(255,214,107,.25);
+      border-radius: var(--radius); padding: 15px 18px; color: var(--muted);
+      font-size: 14.5px; margin-top: 14px;
+    }
+    .note strong { color: var(--warn); }
+    .footer-note { margin-top: 40px; color: var(--muted); font-size: 13px; text-align: center; }
+    .footer-note a { color: var(--ok); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>2v2 P+T: Two-Base Timing (Low-Micro)</h1>
+      <p class="subtitle">
+        No harass units, no shade micro. Scout with a probe and an Observer, hold the rush window
+        behind a shared wall and a Battery, saturate two bases, and land ONE synced punch at
+        8:30-9:00: Colossus + Chargelots meets stim bio. Everything in this plan a-moves.
+      </p>
+      <div class="chips">
+        <span class="chip">2v2</span>
+        <span class="chip protoss">Protoss: Dante</span>
+        <span class="chip terran">Terran: MadSysop</span>
+        <span class="chip warn">UNVERIFIED DRAFT</span>
+        <span class="chip mono">Patch 5.0.16</span>
+      </div>
+    </header>
+
+    <section class="summary-grid">
+      <div class="summary-card">
+        <h3>Why this shape</h3>
+        <p>12 team replays say the losses were never economy: they were the unscouted 4:00-5:00
+        rush window and unsynced fights. The one real win was already a 2-base Colossus timing.</p>
+      </div>
+      <div class="summary-card">
+        <h3>Scouting without micro</h3>
+        <p>Probe at 1:30 checks naturals and proxy spots; Observer is over an enemy main by
+        ~5:20 and never leaves. Two reads, zero clicks under pressure.</p>
+      </div>
+      <div class="summary-card">
+        <h3>One punch, together</h3>
+        <p>Nobody attacks alone and nobody trickles. Both armies leave home at 8:30, meet
+        mid-map, hit ONE opponent at 8:45-9:00 with upgrades and medivacs done.</p>
+      </div>
+    </section>
+
+    <h2>Key timings</h2>
+    <div class="keytimes">
+      <div><span class="kt-t">2:45</span><span class="kt-l">Nexus goes down</span></div>
+      <div><span class="kt-t">5:20</span><span class="kt-l">Observer over their main: the read</span></div>
+      <div><span class="kt-t">8:30</span><span class="kt-l">both armies move out</span></div>
+    </div>
+
+    <h2>Protoss build (supply-driven)</h2>
+    <section class="cols">
+      <div class="panel">
+        <table>
+          <thead><tr><th scope="col">Supply</th><th scope="col">Action</th></tr></thead>
+          <tbody>
+            <tr><td class="supply">11</td><td class="act">Pylon (wall segment at the shared natural)</td></tr>
+            <tr><td class="supply">12</td><td class="act">Gateway (wall)</td></tr>
+            <tr><td class="supply">13</td><td class="act">Assimilator</td></tr>
+            <tr><td class="supply">15</td><td class="act">Probe scout: enemy naturals + proxy spots</td></tr>
+            <tr><td class="supply">17</td><td class="act">Cybernetics Core (gate done)</td></tr>
+            <tr class="milestone"><td class="supply">20</td><td class="act">Nexus (~2:45)</td></tr>
+            <tr><td class="supply">20</td><td class="act">Pylon · first Stalker when Cyber finishes</td></tr>
+            <tr class="milestone"><td class="supply">24</td><td class="act">Shield Battery in the shared wall (~3:30), non-negotiable</td></tr>
+            <tr><td class="supply">26</td><td class="act">Robotics Facility (~3:50) · Assimilator #2</td></tr>
+            <tr><td class="supply">30</td><td class="act">Warp Gate research · Gateway #2 · Pylon</td></tr>
+            <tr class="milestone"><td class="supply">33</td><td class="act">Robo done: <strong>Observer first</strong> (~4:40), send to an enemy main</td></tr>
+            <tr><td class="supply">36</td><td class="act">Robotics Bay · Assimilator #3 + #4 · Gateway #3</td></tr>
+            <tr><td class="supply">40</td><td class="act">Twilight Council · Pylon</td></tr>
+            <tr class="milestone"><td class="supply">44</td><td class="act">Bay done (~6:00): <strong>Colossus #1</strong> + Thermal Lance, chrono both</td></tr>
+            <tr><td class="supply">48</td><td class="act">Charge · constant Colossus + gateway units, probes to 42-44 then stop</td></tr>
+            <tr class="milestone"><td class="supply">~62</td><td class="act">8:30: 2-3 Colossi, Chargelot/Stalker, 1-2 Sentries, Obs — <strong>move out</strong></td></tr>
+            <tr class="decision"><td class="supply">·</td><td class="act">8:45-9:00 — hit ONE base together with MadSysop, a-move behind Guardian Shield</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rail">
+        <div class="panel pad">
+          <h3>Chrono rule (unchanged doctrine)</h3>
+          <p>Every cast on <span class="em">probes</span> until the Bay finishes (~6:00), then
+          Colossus + Thermal Lance only. Never Gateways.</p>
+        </div>
+        <div class="panel pad">
+          <h3>Defense checkpoints</h3>
+          <ul>
+            <li><strong>1:30 probe read:</strong> missing workers / proxy structures / 6+ lings
+            on the map = rush. Call it in chat immediately.</li>
+            <li><strong>Rush called:</strong> 2nd Battery, Immortals instead of Bay, MadSysop
+            bunkers the wall. Hold, then counter with the same 2-base army at ~9:30.</li>
+            <li><strong>5:20 Observer read:</strong> their worker count and base count decide
+            the target: hit the greedier opponent.</li>
+            <li><strong>Nobody fights alone before 8:30.</strong> Poke range only. The
+            Undercurrent loss (dead at 4:30, tech instead of Battery) is the anti-pattern.</li>
+          </ul>
+        </div>
+        <div class="panel pad">
+          <h3>Terran side (MadSysop)</h3>
+          <ul>
+            <li>Rax → CC ~1:50 → 3 Rax bio, stim + combat shield done by ~8:20, 2 Medivacs.</li>
+            <li>Shares the wall; Bunker instead of 3rd Rax if the 1:30 scout calls rush.</li>
+            <li>Marauders vs Protoss/mech opponents (the Rust Bucket loss was 46 Marines, 2
+            Marauders into double-P), Marines vs Zerg.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <h2>Timing math (DB, patch 5.0.16)</h2>
+    <div class="note">
+      Robo 46f + Observer 18f → Obs out ~4:40, across the map ~5:20. Bay 46f → done ~6:00;
+      Colossus 54f (36f chronoed) → #1 ~6:50, #2 ~7:45, #3 ~8:30; Thermal Lance 100f started
+      ~6:05 → done ~7:45. Charge 100f started ~5:45 → done ~7:25. All faster-clock, computed
+      from <code>data/sc2_data.json</code> post building-time fix. <strong>Unverified:</strong>
+      supply column and resource gating are estimates until reproduced from a played replay —
+      that promotion is the point of this draft.
+    </div>
+
+    <p class="footer-note">
+      Motivated by the 12 team replays in <a href="../../replays/">replays/</a> (record 5-7)
+      &middot; DB: <a href="../../data/sc2_data.json">data/sc2_data.json</a>
+    </p>
+  </main>
+</body>
+</html>

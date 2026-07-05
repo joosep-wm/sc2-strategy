@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Protoss Double-Robo into Colossus: Macro Answer to the DT Rush</title>
+  <title>Protoss Double-Robo into Colossus: 2-Base Timing, Fix the Robo Start</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
@@ -262,11 +262,12 @@
 <body>
   <main>
     <header>
-      <h1>Double-Robo into Colossus: the <span class="payload">macro answer</span> to the DT rush</h1>
+      <h1>Double-Robo into Colossus: a <span class="payload">2-base timing</span> that needs one fix</h1>
       <p class="subtitle">
-        A calm two-base macro line for a low-micro player. Six Stalkers hold the early door,
-        the first Robotics Facility buys an Observer before the Dark Templars land, and a
-        second robo turns the mid-game into a wall of Colossi.
+        A two-base timing build for a low-micro player. Two Gateways go down at 1:00 and 1:35, a
+        quick Nexus follows around 2:10-3:10, and a double Robotics Facility turns the mid-game
+        into a wall of Colossi. The replays show one flaw: the robo starts too late, so detection
+        arrives after the Dark Templars. This page shows the gap and the fix.
       </p>
       <div class="chips">
         <span class="chip race">Protoss</span>
@@ -278,28 +279,29 @@
 
     <section class="summary-grid">
       <div class="card">
-        <h3>Detection before <span class="payload">5:00</span></h3>
-        <p>The first robo unit is an Observer, popping ~4:34. It is on the map before the
-          standard 5:00 Dark Templar window, not after it.</p>
+        <h3>Two gates, then a <span class="payload">quick expand</span></h3>
+        <p>Gateway at 1:00, Gateway #2 at 1:35, Nexus around 2:10-3:10. The cleanest wins
+          expanded near 2:09. This is a two-base timing, not an open-ended macro game.</p>
       </div>
       <div class="card">
-        <h3>Point-and-click defense</h3>
-        <p>Six Stalkers home by ~4:37, then an Immortal at ~5:13. Nothing here needs crisp
-          micro, just units in position when the timing hits.</p>
+        <h3>The robo is <span class="payload">too late</span></h3>
+        <p>In the replays the robo starts ~4:00-4:15, so the Observer only pops 5:20, after
+          the 5:00 DT window. That late detection is the single reason games were lost.</p>
       </div>
       <div class="card">
-        <h3>Colossi are the <span class="payload">win army</span></h3>
-        <p>When the robo finishes, add a Robotics Bay and a second Facility. Double robo
-          cranks three to four Colossi as the macro core.</p>
+        <h3>Colossi are the win army</h3>
+        <p>First Immortal ~6:30, first Colossus ~7:26, then a second Facility and a Bay crank
+          Colossi from both robos. That part already works.</p>
       </div>
     </section>
 
-    <h2>Key times</h2>
+    <h2>Key times, observed vs target</h2>
     <div class="keytimes">
-      <div class="kt"><span class="kt-t">4:34</span><span class="kt-l">Observer, detection up</span></div>
-      <div class="kt"><span class="kt-t">4:37</span><span class="kt-l">6 Stalkers home</span></div>
-      <div class="kt"><span class="kt-t">5:13</span><span class="kt-l">Immortal finishes</span></div>
-      <div class="kt"><span class="kt-t">6:40</span><span class="kt-l">first Colossus</span></div>
+      <div class="kt"><span class="kt-t">1:35</span><span class="kt-l">Gateway #2</span></div>
+      <div class="kt"><span class="kt-t">2:10-3:10</span><span class="kt-l">Nexus expand</span></div>
+      <div class="kt"><span class="kt-t">5:20</span><span class="kt-l">Observer now (target 4:34)</span></div>
+      <div class="kt"><span class="kt-t">6:30</span><span class="kt-l">first Immortal</span></div>
+      <div class="kt"><span class="kt-t">7:26</span><span class="kt-l">first Colossus</span></div>
     </div>
 
     <h2>Build order</h2>
@@ -314,20 +316,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td class="supply">14</td><td class="time">0:00</td><td class="act">Nexus (start), pull toward standard macro open</td></tr>
-            <tr><td class="supply">14</td><td class="time">1:00</td><td class="act">Gateway</td></tr>
-            <tr><td class="supply">15</td><td class="time">1:20</td><td class="act">Assimilator</td></tr>
-            <tr class="milestone"><td class="supply">17</td><td class="time">1:55</td><td class="act">Cybernetics Core</td></tr>
-            <tr><td class="supply">19</td><td class="time">2:30</td><td class="act">Warp Gate research, Gateway #2</td></tr>
-            <tr class="milestone"><td class="supply">21</td><td class="time">3:00</td><td class="act">2nd Nexus (natural), keep probing</td></tr>
-            <tr class="milestone"><td class="supply">23</td><td class="time">3:30</td><td class="act">Robotics Facility (Observer first)</td></tr>
-            <tr><td class="supply">25</td><td class="time">3:43</td><td class="act">Stalkers start popping from both gates</td></tr>
-            <tr class="milestone"><td class="supply">31</td><td class="time">4:34</td><td class="act">Observer finishes, fly it to the front and enemy main</td></tr>
-            <tr class="milestone"><td class="supply">33</td><td class="time">4:37</td><td class="act">6th Stalker home, early defense set</td></tr>
-            <tr class="milestone"><td class="supply">37</td><td class="time">5:13</td><td class="act">Immortal finishes, the point-and-click DT killer</td></tr>
-            <tr><td class="supply">37</td><td class="time">5:15</td><td class="act">Robotics Bay + Robotics Facility #2</td></tr>
-            <tr><td class="supply">39</td><td class="time">5:20</td><td class="act">Extended Thermal Lance at the Bay</td></tr>
-            <tr class="milestone"><td class="supply">44</td><td class="time">6:40</td><td class="act">First Colossus, Colossi flow from both robos after</td></tr>
+            <tr><td class="supply">8</td><td class="time">0:00</td><td class="act">8 Probes, chrono the probes</td></tr>
+            <tr><td class="supply">13</td><td class="time">0:37</td><td class="act">Pylon</td></tr>
+            <tr class="milestone"><td class="supply">15</td><td class="time">1:00</td><td class="act">Gateway #1</td></tr>
+            <tr><td class="supply">16</td><td class="time">1:16</td><td class="act">Assimilator</td></tr>
+            <tr class="milestone"><td class="supply">18</td><td class="time">1:35</td><td class="act">Gateway #2</td></tr>
+            <tr class="milestone"><td class="supply">20</td><td class="time">2:00</td><td class="act">Cybernetics Core</td></tr>
+            <tr class="milestone"><td class="supply">20</td><td class="time">2:10-3:10</td><td class="act">Nexus (natural expand), Rainfall win took it at 2:09, slower games 3:00-3:15</td></tr>
+            <tr><td class="supply">22</td><td class="time">2:20</td><td class="act">2nd Assimilator</td></tr>
+            <tr><td class="supply">24</td><td class="time">3:10</td><td class="act">First Stalker pops, Warp Gate research alongside, keep making Stalkers</td></tr>
+            <tr class="milestone"><td class="supply">28</td><td class="time">3:45-4:15</td><td class="act">Robotics Facility, start it by 3:15-3:30 to fix the Observer timing</td></tr>
+            <tr><td class="supply">·</td><td class="time">4:25</td><td class="act">Shield Battery at the natural front for defense</td></tr>
+            <tr><td class="supply">·</td><td class="time">4:40-5:20</td><td class="act">Robotics Bay</td></tr>
+            <tr class="milestone"><td class="supply">31</td><td class="time">5:20</td><td class="act">First Observer pops, target is 4:34, see the danger callout below</td></tr>
+            <tr><td class="supply">·</td><td class="time">6:00</td><td class="act">Robotics Facility #2</td></tr>
+            <tr class="milestone"><td class="supply">33</td><td class="time">6:30</td><td class="act">First Immortal, the point-and-click DT killer</td></tr>
+            <tr class="milestone"><td class="supply">44</td><td class="time">7:26</td><td class="act">First Colossus, Colossi flow from both robos after</td></tr>
           </tbody>
         </table>
       </div>
@@ -335,15 +339,15 @@
       <div class="rail">
         <div class="card">
           <h3>Dante's standing rule</h3>
-          <p>Standard macro open every game: Nexus, Gateway, Assimilator, Cyber Core, Warp Gate.
-            Build <span class="em">6 Stalkers</span> for early defense while you take the second
-            base and tech. First robo unit is always an Observer, then an Immortal.</p>
+          <p>Two-base timing every game: Pylon, two Gateways at 1:00 and 1:35, Cyber Core, then a
+            quick Nexus. Build <span class="em">Stalkers</span> for early defense while you take
+            the second base and tech. First robo unit is always an Observer, then an Immortal.</p>
         </div>
         <div class="card">
           <h3>Why double robo</h3>
           <ul>
-            <li><strong>Observer</strong> gives permanent detection before the DTs, so you never
-              get opened up.</li>
+            <li><strong>Observer</strong> gives permanent detection, but only if the robo starts
+              on time. Start it by <span class="em">3:15-3:30</span>.</li>
             <li><strong>Immortal</strong> is a defender you point and click, no micro tax.</li>
             <li><strong>Two robos + Bay</strong> means Colossi arrive fast enough to matter and
               keep coming.</li>
@@ -351,8 +355,8 @@
         </div>
         <div class="card">
           <h3>Resource note</h3>
-          <p>These are producer-start landmarks, not resource-gated frames. If a structure is
-            not affordable at its slot, finish the current probe pump first. Banking 500+
+          <p>These are replay-observed start landmarks, not resource-gated frames. If a structure
+            is not affordable at its slot, finish the current probe pump first. Banking 500+
             minerals means you cut too hard.</p>
         </div>
       </div>
@@ -360,13 +364,18 @@
 
     <h2>The one thing that loses the game</h2>
     <div class="danger">
-      <span class="tag">Danger, the DT window is 5:00</span>
-      <h3>Your Observer at <span class="t">4:34</span> is your life insurance</h3>
+      <span class="tag">Danger, your Observer is late</span>
+      <h3>Observer at <span class="t">5:20</span> today, the target is <span class="t">4:34</span></h3>
       <p>
-        Do <span class="hot">not</span> skip the Observer for a faster Colossus. The first
-        Colossus lands at <span class="t">6:40</span>, which is far too late to defend the
-        Dark Templar hit. Detection up before <span class="t">5:00</span> is non-negotiable,
-        the Immortal and Stalkers do the killing once the DTs are lit up.
+        Across the replays the robo starts <span class="hot">4:00-4:15</span>, so the Observer
+        only pops <span class="t">5:20</span>, after the 5:00 Dark Templar window. That is very
+        likely why the DT rush got through. The whole gap is the robo start time.
+      </p>
+      <p>
+        The fix: put the <span class="hot">Robotics Facility down by 3:15-3:30</span>, about 45
+        seconds sooner than the current habit. Then the Observer pops <span class="t">4:34-4:45</span>,
+        before the DTs land, and the Immortal and Stalkers do the killing once they are lit up.
+        The greedier wins already did this: Rainfall expanded at 2:09 and had detection by 4:57.
       </p>
     </div>
 
@@ -374,18 +383,19 @@
     <div class="note">
       <p style="margin:0">
         Two things beat a Dark Templar rush: <strong>detection by ~4:30</strong> and
-        <strong>something that shoots by 5:00</strong>. You have both here, the Observer at
-        <span class="t">4:34</span> and six Stalkers already home, with the Immortal at
-        <span class="t">5:13</span> as backup. In 2v2, a partner Terran Scan is
-        <span class="em">free instant detection</span>, so lean on it if your Observer is late
-        or dies. Do not chase the DT player's workers, his economy is already spent on the tech,
-        just hold and out-macro him.
+        <strong>something that shoots by 5:00</strong>. With the current robo timing you get
+        neither in time, the Observer only lands <span class="t">5:20</span>, so pull the robo
+        earlier as above. In 2v2, a partner Terran Scan is
+        <span class="em">free instant detection</span>, so lean on it while your own Observer is
+        still late or if it dies. Do not chase the DT player's workers, his economy is already
+        spent on the tech, just hold and out-macro him.
       </p>
     </div>
 
     <p class="footer-note">
-      Timings reproduced from <a href="../../data/sc2_data.json"><code>data/sc2_data.json</code></a>
-      (patch 5.0.16); producer-start based, not resource-gated. Unverified draft, 2026-07-05.
+      Build order derived from Dante's ladder replays (patch 5.0.16), landmark timings
+      cross-checked against <a href="../../data/sc2_data.json"><code>data/sc2_data.json</code></a>.
+      Unverified draft, 2026-07-05.
     </p>
   </main>
 </body>

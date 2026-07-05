@@ -259,6 +259,33 @@
     .bad { color: var(--danger); font-weight: 900; }
     .warn { color: var(--warn); font-weight: 900; }
 
+    .results-warning {
+      margin-bottom: 24px;
+      border: 1px solid var(--warn);
+      border-left: 5px solid var(--warn);
+      border-radius: var(--radius);
+      background: rgba(255,209,102,.10);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+    }
+    .results-warning .tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--warn);
+      margin-bottom: 8px;
+    }
+    .results-warning h3 {
+      font-size: 18px;
+      margin: 0 0 8px;
+      color: var(--text);
+    }
+    .results-warning p { margin: 0; color: var(--muted); font-size: 15px; }
+    .results-warning strong { color: var(--warn); }
+
     .footer-note {
       margin-top: 24px;
       color: var(--muted);
@@ -316,6 +343,19 @@
         <span class="chip warning">Do not accidentally become an all-in clown car</span>
       </div>
     </header>
+
+    <div class="results-warning">
+      <span class="tag">Warning — timing-verified, not results-proven</span>
+      <h3>The proxy opening did not work well in practice</h3>
+      <p>
+        Every timing on this page is <strong>DB-reproducible against patch 5.0.16</strong>, which
+        is why it stays in the verified set. But in actual games the proxy Rax/Gate opening
+        <strong>underperformed</strong>: the pressure rarely paid for its cost and the disruption
+        it bought was thin. Treat this build as <strong>experimental</strong> — the numbers are
+        sound, the results are not. If you want a proven line, prefer the straight 2-base timing
+        without the proxy.
+      </p>
+    </div>
 
     <section class="summary-grid">
       <div class="summary-card">

@@ -109,6 +109,13 @@
         "duration_normal_s": 20,
         "note": "Continuously boosted item finishes in 2/3 its normal time."
       },
+      "WarpGate": {
+        "research": "Warp Gate (research) at Cybernetics Core, 50/50, 100f (unchanged in 5.0.16; PTR proposal to move it to the Gateway was reverted)",
+        "transform_cost": "25/25 one-time per Gateway (5.0.16; was free). Switch between Gateway/Warp Gate modes free after purchase.",
+        "gateway_production_speedup": "~40% faster Gateway unit production once Warp Gate research completes",
+        "warp_in_time_faster_s": 4,
+        "note": "5.0.16 release notes: warp-in time = 4s (from 3.6s/11.4s slow-field); HT/DT warpgate cooldown 35. Producing from a researched-but-untransformed Gateway (~40% faster) is a valid lower-micro alternative to warp-in."
+      },
       "SpawnLarva_Inject": {
         "energy": 25,
         "from": "Queen",

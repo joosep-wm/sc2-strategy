@@ -12,7 +12,7 @@ faster_s = normal_s / 1.399902   (~ /1.4)
 
 - **`*_faster` = what the in-game clock shows = what build orders (mm:ss) use.** Plan with this.
 - **`*_normal` = raw data value.** Reference only.
-- Anchors: Marine 25n/18f · SCV 17n/12f · Command Center 71n/51f · Zealot 38n/27f.
+- Anchors: Marine 25n/18f · SCV 17n/12f · Command Center 100n/71f · Zealot 38n/27f.
 - ⚠️ Liquipedia is inconsistent (Unit Statistics page = Faster, Building Statistics page = Normal). Everything in the JSON is already normalized so `*_faster` is always real-time.
 
 ## Structure
@@ -31,7 +31,7 @@ benchmarks  empirical mm:ss reference build orders (for cross-checking; travel-d
 An item completes at `start_time + bt_faster`. Chain prerequisites and gate on resources/supply.
 
 Example — proxy Barracks first Marine:
-`SCV leaves ~0:25 → travels 60-70% map → Barracks starts ~1:05, done +33s ≈ 1:38 → Marine +18s ≈ 1:56 → walks to enemy ≈ 2:05.` (Matches the benchmark.)
+`SCV leaves ~0:25 → travels 60-70% map → Barracks starts ~1:05, done +46s ≈ 1:51 → Marine +18s ≈ 2:09 → walks to enemy ≈ 2:18.` (Benchmarks predate the 2026-07-05 building-time fix; re-verify before relying on them.)
 
 Chrono Boost / Warp Gate: multiply the affected `bt_faster` (Chrono = ×2/3 while active; Warp Gate produces Gateway units ~40% faster).
 

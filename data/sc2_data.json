@@ -28,9 +28,15 @@
     },
     "time_convention": {
       "rule": "Build/research times are stored internally in NORMAL game-seconds. The game DISPLAYS real-time seconds; on 'Faster' (ladder/tournament standard) the in-game clock ALSO runs in real-time. So faster_s = normal_s / 1.399902343750 (~/1.4). Build-order timestamps (mm:ss) and all in-game readouts are FASTER seconds. Primary column for planning = *_faster.",
-      "faster_multiplier": 1.399902343750,
-      "anchors": { "Marine": "25 normal / 18 faster", "SCV": "17 normal / 12 faster", "Command Center": "71 normal / 51 faster", "Zealot": "38 normal / 27 faster" },
-      "liquipedia_caveat": "Liquipedia is INTERNALLY INCONSISTENT: the Unit Statistics page and upgrade pages list FASTER values; the Building Statistics page lists NORMAL values. All values below are normalized so bt_faster/rt_faster is always the real-time (displayed) number."
+      "faster_multiplier": 1.39990234375,
+      "anchors": {
+        "Marine": "25 normal / 18 faster",
+        "SCV": "17 normal / 12 faster",
+        "Command Center": "100 normal / 71 faster",
+        "Zealot": "38 normal / 27 faster"
+      },
+      "liquipedia_caveat": "Liquipedia is INTERNALLY INCONSISTENT: the Unit Statistics page and upgrade pages list FASTER values; the Building Statistics page lists NORMAL values. All values below are normalized so bt_faster/rt_faster is always the real-time (displayed) number.",
+      "building_fix_2026_07_05": "Building bt values were double-converted (real-time values had been labeled normal and divided again). Fixed: bt_faster now holds the real-time/Faster value, bt_normal recomputed as faster*1.399902. Empirically verified against a 5.0.16 EU ladder replay (2026-07-04): observed Pylon 17.9f, Gateway 46.4f, Cybernetics Core 35.7f, Stargate 42.9f, Nexus 71.4f, Assimilator 21.4f, Shield Battery 28.6f, Forge 32.1f, Fleet Beacon 42.9f, Robotics Facility 46.4f — all matching the corrected bt_faster. Unit times were already correct (observed Probe 12f, Stalker 27f, Oracle 37f). bt_normal snapped to the nearest multiple of 5 when within 1 (canonical Normal times are 5-multiples: CC 100, Barracks 65, Depot 30)."
     },
     "provenance_notes": [
       "Unit costs/supply/times: Liquipedia Unit Statistics (Faster), reconciled with 5.0.16 patch notes (Ghost supply 3, Ghost HP 100).",
@@ -45,11 +51,10 @@
       "Worker mining rates are distance/saturation-dependent approximations, not exact engine constants."
     ]
   },
-
   "constants": {
     "game_speed": {
       "ladder_standard": "Faster",
-      "faster_multiplier": 1.399902343750,
+      "faster_multiplier": 1.39990234375,
       "clock": "On Faster the in-game match clock runs in real-time, so clock seconds ARE faster-seconds: 1:00 on the clock = 60 faster-s. bt_faster values therefore align directly with build-order mm:ss.",
       "conversion": "faster_s = normal_s / 1.399902; normal_s = faster_s * 1.399902"
     },
@@ -58,7 +63,11 @@
       "minerals": 50,
       "gas": 0,
       "supply_used": 8,
-      "supply_cap": { "Terran": 13, "Protoss": 13, "Zerg": 12 },
+      "supply_cap": {
+        "Terran": 13,
+        "Protoss": 13,
+        "Zerg": 12
+      },
       "note": "5.0.16 reduced starting workers 12->8. Zerg cap 12 = Hatchery(4) + starting Overlord(8). Terran/Protoss cap 13 = Command Center/Nexus(13)."
     },
     "resources_5_0_16": {
@@ -84,276 +93,2945 @@
       "note": "Rates are FASTER real-time approximations; exact income depends on patch distance and pathing. 5.0.16 changed patch SIZES (depletion), not per-trip yield."
     },
     "macro_mechanics": {
-      "MULE": { "energy": 50, "from": "Orbital Command", "lifetime_faster_s": 64, "minerals_per_trip": 25, "minerals_total": "~225", "note": "5x SCV mining; auto-deposits." },
-      "ChronoBoost": { "energy": 50, "from": "Nexus", "effect": "+50% production/research speed", "duration_faster_s": 14.3, "duration_normal_s": 20, "note": "Continuously boosted item finishes in 2/3 its normal time." },
-      "SpawnLarva_Inject": { "energy": 25, "from": "Queen", "larvae": 4, "duration_faster_s": 29, "duration_normal_s": 40 },
-      "base_larva_spawn": { "interval_faster_s": 9.5, "interval_normal_s": 13.3, "cap_without_inject": 3, "note": "5.0.16 sped periodic larva 10.7->9.5 faster-s; natural spawn stops at 3 larvae, inject can exceed." },
-      "energy": { "Orbital_start": 50, "Nexus_start": 50, "Queen_start": 25, "caster_max": 200, "regen_per_s": 0.7875 }
+      "MULE": {
+        "energy": 50,
+        "from": "Orbital Command",
+        "lifetime_faster_s": 64,
+        "minerals_per_trip": 25,
+        "minerals_total": "~225",
+        "note": "5x SCV mining; auto-deposits."
+      },
+      "ChronoBoost": {
+        "energy": 50,
+        "from": "Nexus",
+        "effect": "+50% production/research speed",
+        "duration_faster_s": 14.3,
+        "duration_normal_s": 20,
+        "note": "Continuously boosted item finishes in 2/3 its normal time."
+      },
+      "SpawnLarva_Inject": {
+        "energy": 25,
+        "from": "Queen",
+        "larvae": 4,
+        "duration_faster_s": 29,
+        "duration_normal_s": 40
+      },
+      "base_larva_spawn": {
+        "interval_faster_s": 9.5,
+        "interval_normal_s": 13.3,
+        "cap_without_inject": 3,
+        "note": "5.0.16 sped periodic larva 10.7->9.5 faster-s; natural spawn stops at 3 larvae, inject can exceed."
+      },
+      "energy": {
+        "Orbital_start": 50,
+        "Nexus_start": 50,
+        "Queen_start": 25,
+        "caster_max": 200,
+        "regen_per_s": 0.7875
+      }
     }
   },
-
   "units": {
     "Terran": [
-      { "name": "SCV", "mins": 50, "gas": 0, "supply": 1, "bt_faster": 12, "bt_normal": 17, "from": "Command Center / Orbital / Planetary", "req": [], "hp": 45, "armor": 0, "attributes": ["Biological","Light","Mechanical"], "note": "Worker; builds & repairs." },
-      { "name": "Marine", "mins": 50, "gas": 0, "supply": 1, "bt_faster": 18, "bt_normal": 25, "from": "Barracks", "req": [], "hp": 45, "armor": 0, "attributes": ["Biological","Light"], "note": "HP 55 with Combat Shield." },
-      { "name": "Marauder", "mins": 100, "gas": 25, "supply": 2, "bt_faster": 21, "bt_normal": 29, "from": "Barracks", "req": ["Barracks Tech Lab"], "hp": 125, "armor": 1, "attributes": ["Armored","Biological"] },
-      { "name": "Reaper", "mins": 50, "gas": 50, "supply": 1, "bt_faster": 32, "bt_normal": 45, "from": "Barracks", "req": [], "hp": 60, "armor": 0, "attributes": ["Biological","Light"], "note": "Cliff jump; KD8 grenade; HP regen." },
-      { "name": "Ghost", "mins": 150, "gas": 125, "supply": 3, "bt_faster": 29, "bt_normal": 41, "from": "Barracks", "req": ["Ghost Academy","Barracks Tech Lab"], "hp": 100, "armor": 0, "attributes": ["Biological","Psionic"], "note": "5.0.16: supply 2->3, HP 125->100, attack->15, range 6->7, Steady Targeting dmg->170 / energy 75." },
-      { "name": "Hellion", "mins": 100, "gas": 0, "supply": 2, "bt_faster": 21, "bt_normal": 29, "from": "Factory", "req": [], "hp": 90, "armor": 0, "attributes": ["Light","Mechanical"] },
-      { "name": "Hellbat", "mins": 100, "gas": 0, "supply": 2, "bt_faster": 21, "bt_normal": 29, "from": "Factory", "req": ["Armory"], "morph_from": "Hellion", "hp": 135, "armor": 0, "attributes": ["Biological","Light","Mechanical"], "note": "Free ~4s transform from Hellion once Armory exists." },
-      { "name": "Widow Mine", "mins": 75, "gas": 25, "supply": 2, "bt_faster": 21, "bt_normal": 29, "from": "Factory", "req": [], "hp": 90, "armor": 0, "attributes": ["Light","Mechanical"] },
-      { "name": "Cyclone", "mins": 150, "gas": 100, "supply": 3, "bt_faster": 32, "bt_normal": 45, "from": "Factory", "req": ["Factory Tech Lab"], "hp": 120, "armor": 1, "attributes": ["Armored","Mechanical"] },
-      { "name": "Siege Tank", "mins": 150, "gas": 125, "supply": 3, "bt_faster": 32, "bt_normal": 45, "from": "Factory", "req": ["Factory Tech Lab"], "hp": 175, "armor": 1, "attributes": ["Armored","Mechanical"] },
-      { "name": "Thor", "mins": 300, "gas": 200, "supply": 6, "bt_faster": 43, "bt_normal": 60, "from": "Factory", "req": ["Armory","Factory Tech Lab"], "hp": 400, "armor": 1, "attributes": ["Armored","Mechanical","Massive"] },
-      { "name": "Viking", "mins": 125, "gas": 75, "supply": 2, "bt_faster": 30, "bt_normal": 42, "from": "Starport", "req": [], "hp": 135, "armor": 0, "attributes": ["Armored","Mechanical"], "note": "5.0.15 cost 150->125 min. Air<->ground transform." },
-      { "name": "Medivac", "mins": 100, "gas": 100, "supply": 2, "bt_faster": 30, "bt_normal": 42, "from": "Starport", "req": [], "hp": 150, "armor": 1, "attributes": ["Armored","Mechanical"], "note": "Heals Biological; transport." },
-      { "name": "Liberator", "mins": 150, "gas": 125, "supply": 3, "bt_faster": 43, "bt_normal": 60, "from": "Starport", "req": [], "hp": 180, "armor": 0, "attributes": ["Armored","Mechanical"] },
-      { "name": "Banshee", "mins": 150, "gas": 100, "supply": 3, "bt_faster": 43, "bt_normal": 60, "from": "Starport", "req": ["Starport Tech Lab"], "hp": 140, "armor": 0, "attributes": ["Light","Mechanical"], "note": "Cloak upgrade; ground-only attack." },
-      { "name": "Raven", "mins": 100, "gas": 150, "supply": 2, "bt_faster": 34, "bt_normal": 48, "from": "Starport", "req": ["Starport Tech Lab"], "hp": 140, "armor": 1, "attributes": ["Light","Mechanical","Detector"] },
-      { "name": "Battlecruiser", "mins": 400, "gas": 300, "supply": 6, "bt_faster": 64, "bt_normal": 90, "from": "Starport", "req": ["Fusion Core","Starport Tech Lab"], "hp": 550, "armor": 3, "attributes": ["Armored","Mechanical","Massive"] },
-      { "name": "MULE", "mins": 0, "gas": 0, "supply": 0, "bt_faster": 0, "bt_normal": 0, "from": "Orbital Command (calldown, 50 energy)", "req": ["Orbital Command"], "hp": 60, "armor": 0, "attributes": ["Light","Mechanical"], "note": "Temporary; ~64s faster lifetime." },
-      { "name": "Auto-Turret", "mins": 0, "gas": 0, "supply": 0, "bt_faster": 0, "bt_normal": 0, "from": "Raven (ability)", "req": ["Raven"], "hp": 150, "armor": 1, "attributes": ["Armored","Mechanical","Structure"] }
+      {
+        "name": "SCV",
+        "mins": 50,
+        "gas": 0,
+        "supply": 1,
+        "bt_faster": 12,
+        "bt_normal": 17,
+        "from": "Command Center / Orbital / Planetary",
+        "req": [],
+        "hp": 45,
+        "armor": 0,
+        "attributes": [
+          "Biological",
+          "Light",
+          "Mechanical"
+        ],
+        "note": "Worker; builds & repairs."
+      },
+      {
+        "name": "Marine",
+        "mins": 50,
+        "gas": 0,
+        "supply": 1,
+        "bt_faster": 18,
+        "bt_normal": 25,
+        "from": "Barracks",
+        "req": [],
+        "hp": 45,
+        "armor": 0,
+        "attributes": [
+          "Biological",
+          "Light"
+        ],
+        "note": "HP 55 with Combat Shield."
+      },
+      {
+        "name": "Marauder",
+        "mins": 100,
+        "gas": 25,
+        "supply": 2,
+        "bt_faster": 21,
+        "bt_normal": 29,
+        "from": "Barracks",
+        "req": [
+          "Barracks Tech Lab"
+        ],
+        "hp": 125,
+        "armor": 1,
+        "attributes": [
+          "Armored",
+          "Biological"
+        ]
+      },
+      {
+        "name": "Reaper",
+        "mins": 50,
+        "gas": 50,
+        "supply": 1,
+        "bt_faster": 32,
+        "bt_normal": 45,
+        "from": "Barracks",
+        "req": [],
+        "hp": 60,
+        "armor": 0,
+        "attributes": [
+          "Biological",
+          "Light"
+        ],
+        "note": "Cliff jump; KD8 grenade; HP regen."
+      },
+      {
+        "name": "Ghost",
+        "mins": 150,
+        "gas": 125,
+        "supply": 3,
+        "bt_faster": 29,
+        "bt_normal": 41,
+        "from": "Barracks",
+        "req": [
+          "Ghost Academy",
+          "Barracks Tech Lab"
+        ],
+        "hp": 100,
+        "armor": 0,
+        "attributes": [
+          "Biological",
+          "Psionic"
+        ],
+        "note": "5.0.16: supply 2->3, HP 125->100, attack->15, range 6->7, Steady Targeting dmg->170 / energy 75."
+      },
+      {
+        "name": "Hellion",
+        "mins": 100,
+        "gas": 0,
+        "supply": 2,
+        "bt_faster": 21,
+        "bt_normal": 29,
+        "from": "Factory",
+        "req": [],
+        "hp": 90,
+        "armor": 0,
+        "attributes": [
+          "Light",
+          "Mechanical"
+        ]
+      },
+      {
+        "name": "Hellbat",
+        "mins": 100,
+        "gas": 0,
+        "supply": 2,
+        "bt_faster": 21,
+        "bt_normal": 29,
+        "from": "Factory",
+        "req": [
+          "Armory"
+        ],
+        "morph_from": "Hellion",
+        "hp": 135,
+        "armor": 0,
+        "attributes": [
+          "Biological",
+          "Light",
+          "Mechanical"
+        ],
+        "note": "Free ~4s transform from Hellion once Armory exists."
+      },
+      {
+        "name": "Widow Mine",
+        "mins": 75,
+        "gas": 25,
+        "supply": 2,
+        "bt_faster": 21,
+        "bt_normal": 29,
+        "from": "Factory",
+        "req": [],
+        "hp": 90,
+        "armor": 0,
+        "attributes": [
+          "Light",
+          "Mechanical"
+        ]
+      },
+      {
+        "name": "Cyclone",
+        "mins": 150,
+        "gas": 100,
+        "supply": 3,
+        "bt_faster": 32,
+        "bt_normal": 45,
+        "from": "Factory",
+        "req": [
+          "Factory Tech Lab"
+        ],
+        "hp": 120,
+        "armor": 1,
+        "attributes": [
+          "Armored",
+          "Mechanical"
+        ]
+      },
+      {
+        "name": "Siege Tank",
+        "mins": 150,
+        "gas": 125,
+        "supply": 3,
+        "bt_faster": 32,
+        "bt_normal": 45,
+        "from": "Factory",
+        "req": [
+          "Factory Tech Lab"
+        ],
+        "hp": 175,
+        "armor": 1,
+        "attributes": [
+          "Armored",
+          "Mechanical"
+        ]
+      },
+      {
+        "name": "Thor",
+        "mins": 300,
+        "gas": 200,
+        "supply": 6,
+        "bt_faster": 43,
+        "bt_normal": 60,
+        "from": "Factory",
+        "req": [
+          "Armory",
+          "Factory Tech Lab"
+        ],
+        "hp": 400,
+        "armor": 1,
+        "attributes": [
+          "Armored",
+          "Mechanical",
+          "Massive"
+        ]
+      },
+      {
+        "name": "Viking",
+        "mins": 125,
+        "gas": 75,
+        "supply": 2,
+        "bt_faster": 30,
+        "bt_normal": 42,
+        "from": "Starport",
+        "req": [],
+        "hp": 135,
+        "armor": 0,
+        "attributes": [
+          "Armored",
+          "Mechanical"
+        ],
+        "note": "5.0.15 cost 150->125 min. Air<->ground transform."
+      },
+      {
+        "name": "Medivac",
+        "mins": 100,
+        "gas": 100,
+        "supply": 2,
+        "bt_faster": 30,
+        "bt_normal": 42,
+        "from": "Starport",
+        "req": [],
+        "hp": 150,
+        "armor": 1,
+        "attributes": [
+          "Armored",
+          "Mechanical"
+        ],
+        "note": "Heals Biological; transport."
+      },
+      {
+        "name": "Liberator",
+        "mins": 150,
+        "gas": 125,
+        "supply": 3,
+        "bt_faster": 43,
+        "bt_normal": 60,
+        "from": "Starport",
+        "req": [],
+        "hp": 180,
+        "armor": 0,
+        "attributes": [
+          "Armored",
+          "Mechanical"
+        ]
+      },
+      {
+        "name": "Banshee",
+        "mins": 150,
+        "gas": 100,
+        "supply": 3,
+        "bt_faster": 43,
+        "bt_normal": 60,
+        "from": "Starport",
+        "req": [
+          "Starport Tech Lab"
+        ],
+        "hp": 140,
+        "armor": 0,
+        "attributes": [
+          "Light",
+          "Mechanical"
+        ],
+        "note": "Cloak upgrade; ground-only attack."
+      },
+      {
+        "name": "Raven",
+        "mins": 100,
+        "gas": 150,
+        "supply": 2,
+        "bt_faster": 34,
+        "bt_normal": 48,
+        "from": "Starport",
+        "req": [
+          "Starport Tech Lab"
+        ],
+        "hp": 140,
+        "armor": 1,
+        "attributes": [
+          "Light",
+          "Mechanical",
+          "Detector"
+        ]
+      },
+      {
+        "name": "Battlecruiser",
+        "mins": 400,
+        "gas": 300,
+        "supply": 6,
+        "bt_faster": 64,
+        "bt_normal": 90,
+        "from": "Starport",
+        "req": [
+          "Fusion Core",
+          "Starport Tech Lab"
+        ],
+        "hp": 550,
+        "armor": 3,
+        "attributes": [
+          "Armored",
+          "Mechanical",
+          "Massive"
+        ]
+      },
+      {
+        "name": "MULE",
+        "mins": 0,
+        "gas": 0,
+        "supply": 0,
+        "bt_faster": 0,
+        "bt_normal": 0,
+        "from": "Orbital Command (calldown, 50 energy)",
+        "req": [
+          "Orbital Command"
+        ],
+        "hp": 60,
+        "armor": 0,
+        "attributes": [
+          "Light",
+          "Mechanical"
+        ],
+        "note": "Temporary; ~64s faster lifetime."
+      },
+      {
+        "name": "Auto-Turret",
+        "mins": 0,
+        "gas": 0,
+        "supply": 0,
+        "bt_faster": 0,
+        "bt_normal": 0,
+        "from": "Raven (ability)",
+        "req": [
+          "Raven"
+        ],
+        "hp": 150,
+        "armor": 1,
+        "attributes": [
+          "Armored",
+          "Mechanical",
+          "Structure"
+        ]
+      }
     ],
     "Protoss": [
-      { "name": "Probe", "mins": 50, "gas": 0, "supply": 1, "bt_faster": 12, "bt_normal": 17, "from": "Nexus", "req": [], "hp": 20, "shield": 20, "armor": 0, "attributes": ["Light","Mechanical"], "note": "Worker; warps in structures then is free." },
-      { "name": "Zealot", "mins": 100, "gas": 0, "supply": 2, "bt_faster": 27, "bt_normal": 38, "from": "Gateway / Warp Gate", "req": [], "hp": 100, "shield": 50, "armor": 1, "attributes": ["Light","Biological"], "note": "Warp-in cd 22s (5.0.16). Charge upgrade at Twilight." },
-      { "name": "Stalker", "mins": 125, "gas": 50, "supply": 2, "bt_faster": 27, "bt_normal": 38, "from": "Gateway / Warp Gate", "req": ["Cybernetics Core"], "hp": 80, "shield": 80, "armor": 1, "attributes": ["Armored","Mechanical"], "note": "5.0.14 train time 30->27 (faster). Blink upgrade." },
-      { "name": "Sentry", "mins": 50, "gas": 100, "supply": 2, "bt_faster": 23, "bt_normal": 32, "from": "Gateway / Warp Gate", "req": ["Cybernetics Core"], "hp": 40, "shield": 40, "armor": 1, "attributes": ["Light","Mechanical","Psionic"], "note": "Guardian Shield, Force Field, Hallucination (baseline)." },
-      { "name": "Adept", "mins": 100, "gas": 25, "supply": 2, "bt_faster": 30, "bt_normal": 42, "from": "Gateway / Warp Gate", "req": ["Cybernetics Core"], "hp": 70, "shield": 70, "armor": 1, "attributes": ["Light","Biological"], "note": "Psionic Transfer (shade)." },
-      { "name": "High Templar", "mins": 50, "gas": 150, "supply": 2, "bt_faster": 43, "bt_normal": 60, "from": "Gateway / Warp Gate", "req": ["Templar Archives"], "hp": 40, "shield": 40, "armor": 0, "attributes": ["Light","Biological","Psionic"], "note": "Psi Storm (needs research), Feedback. Merges to Archon." },
-      { "name": "Dark Templar", "mins": 125, "gas": 125, "supply": 2, "bt_faster": 43, "bt_normal": 60, "from": "Gateway / Warp Gate", "req": ["Dark Shrine"], "hp": 40, "shield": 80, "armor": 1, "attributes": ["Light","Biological","Psionic"], "note": "Permanent cloak. Merges to Archon." },
-      { "name": "Archon", "mins": 0, "gas": 0, "supply": 4, "bt_faster": 8.57, "bt_normal": 12, "from": "merge 2 Templar (HT/DT)", "req": [], "morph_from": "2x High/Dark Templar", "hp": 10, "shield": 350, "armor": 0, "attributes": ["Psionic","Massive"] },
-      { "name": "Observer", "mins": 25, "gas": 75, "supply": 1, "bt_faster": 17.9, "bt_normal": 25, "from": "Robotics Facility", "req": [], "hp": 40, "shield": 20, "armor": 0, "attributes": ["Light","Mechanical","Detector"], "note": "Cloaked detector." },
-      { "name": "Warp Prism", "mins": 250, "gas": 0, "supply": 2, "bt_faster": 36, "bt_normal": 50, "from": "Robotics Facility", "req": [], "hp": 80, "shield": 100, "armor": 0, "attributes": ["Armored","Mechanical","Psionic"], "note": "Mobile Pylon (power field) + transport." },
-      { "name": "Immortal", "mins": 250, "gas": 100, "supply": 4, "bt_faster": 39, "bt_normal": 55, "from": "Robotics Facility", "req": [], "hp": 200, "shield": 100, "armor": 1, "attributes": ["Armored","Mechanical"], "note": "5.0.14 cost 275->250 min. Barrier shield." },
-      { "name": "Colossus", "mins": 300, "gas": 200, "supply": 6, "bt_faster": 54, "bt_normal": 76, "from": "Robotics Facility", "req": ["Robotics Bay"], "hp": 200, "shield": 150, "armor": 1, "attributes": ["Armored","Mechanical","Massive"], "note": "Attacked by both air & ground weapons." },
-      { "name": "Disruptor", "mins": 150, "gas": 150, "supply": 4, "bt_faster": 36, "bt_normal": 50, "from": "Robotics Facility", "req": ["Robotics Bay"], "hp": 100, "shield": 100, "armor": 1, "attributes": ["Armored","Mechanical"], "note": "Purification Nova." },
-      { "name": "Phoenix", "mins": 150, "gas": 100, "supply": 2, "bt_faster": 25, "bt_normal": 35, "from": "Stargate", "req": [], "hp": 120, "shield": 60, "armor": 0, "attributes": ["Light","Mechanical"], "note": "Graviton Beam; air-only." },
-      { "name": "Void Ray", "mins": 250, "gas": 150, "supply": 4, "bt_faster": 43, "bt_normal": 60, "from": "Stargate", "req": [], "hp": 150, "shield": 100, "armor": 0, "attributes": ["Armored","Mechanical"], "note": "Prismatic Alignment." },
-      { "name": "Oracle", "mins": 150, "gas": 150, "supply": 3, "bt_faster": 37, "bt_normal": 52, "from": "Stargate", "req": [], "hp": 100, "shield": 60, "armor": 0, "attributes": ["Light","Mechanical","Psionic"], "note": "Pulsar Beam, Revelation, Stasis Ward." },
-      { "name": "Tempest", "mins": 250, "gas": 175, "supply": 4, "bt_faster": 43, "bt_normal": 60, "from": "Stargate", "req": ["Fleet Beacon"], "hp": 150, "shield": 125, "armor": 2, "attributes": ["Armored","Mechanical","Massive"], "note": "5.0.14 supply 5->4. Long range." },
-      { "name": "Carrier", "mins": 350, "gas": 250, "supply": 6, "bt_faster": 64, "bt_normal": 90, "from": "Stargate", "req": ["Fleet Beacon"], "hp": 250, "shield": 150, "armor": 2, "attributes": ["Armored","Mechanical","Massive"], "note": "Launches Interceptors." },
-      { "name": "Mothership", "mins": 400, "gas": 400, "supply": 8, "bt_faster": 89, "bt_normal": 125, "from": "Nexus", "req": ["Fleet Beacon"], "hp": 350, "shield": 350, "armor": 2, "attributes": ["Armored","Mechanical","Massive","Psionic"], "note": "5.0.14 cost 300/300->400/400, supply 6->8. One per player. Cloak field, Time Warp." },
-      { "name": "Interceptor", "mins": 15, "gas": 0, "supply": 0, "bt_faster": 9, "bt_normal": 13, "from": "Carrier", "req": ["Carrier"], "hp": 40, "shield": 40, "armor": 0, "attributes": ["Light","Mechanical"] }
+      {
+        "name": "Probe",
+        "mins": 50,
+        "gas": 0,
+        "supply": 1,
+        "bt_faster": 12,
+        "bt_normal": 17,
+        "from": "Nexus",
+        "req": [],
+        "hp": 20,
+        "shield": 20,
+        "armor": 0,
+        "attributes": [
+          "Light",
+          "Mechanical"
+        ],
+        "note": "Worker; warps in structures then is free."
+      },
+      {
+        "name": "Zealot",
+        "mins": 100,
+        "gas": 0,
+        "supply": 2,
+        "bt_faster": 27,
+        "bt_normal": 38,
+        "from": "Gateway / Warp Gate",
+        "req": [],
+        "hp": 100,
+        "shield": 50,
+        "armor": 1,
+        "attributes": [
+          "Light",
+          "Biological"
+        ],
+        "note": "Warp-in cd 22s (5.0.16). Charge upgrade at Twilight."
+      },
+      {
+        "name": "Stalker",
+        "mins": 125,
+        "gas": 50,
+        "supply": 2,
+        "bt_faster": 27,
+        "bt_normal": 38,
+        "from": "Gateway / Warp Gate",
+        "req": [
+          "Cybernetics Core"
+        ],
+        "hp": 80,
+        "shield": 80,
+        "armor": 1,
+        "attributes": [
+          "Armored",
+          "Mechanical"
+        ],
+        "note": "5.0.14 train time 30->27 (faster). Blink upgrade."
+      },
+      {
+        "name": "Sentry",
+        "mins": 50,
+        "gas": 100,
+        "supply": 2,
+        "bt_faster": 23,
+        "bt_normal": 32,
+        "from": "Gateway / Warp Gate",
+        "req": [
+          "Cybernetics Core"
+        ],
+        "hp": 40,
+        "shield": 40,
+        "armor": 1,
+        "attributes": [
+          "Light",
+          "Mechanical",
+          "Psionic"
+        ],
+        "note": "Guardian Shield, Force Field, Hallucination (baseline)."
+      },
+      {
+        "name": "Adept",
+        "mins": 100,
+        "gas": 25,
+        "supply": 2,
+        "bt_faster": 30,
+        "bt_normal": 42,
+        "from": "Gateway / Warp Gate",
+        "req": [
+          "Cybernetics Core"
+        ],
+        "hp": 70,
+        "shield": 70,
+        "armor": 1,
+        "attributes": [
+          "Light",
+          "Biological"
+        ],
+        "note": "Psionic Transfer (shade)."
+      },
+      {
+        "name": "High Templar",
+        "mins": 50,
+        "gas": 150,
+        "supply": 2,
+        "bt_faster": 43,
+        "bt_normal": 60,
+        "from": "Gateway / Warp Gate",
+        "req": [
+          "Templar Archives"
+        ],
+        "hp": 40,
+        "shield": 40,
+        "armor": 0,
+        "attributes": [
+          "Light",
+          "Biological",
+          "Psionic"
+        ],
+        "note": "Psi Storm (needs research), Feedback. Merges to Archon."
+      },
+      {
+        "name": "Dark Templar",
+        "mins": 125,
+        "gas": 125,
+        "supply": 2,
+        "bt_faster": 43,
+        "bt_normal": 60,
+        "from": "Gateway / Warp Gate",
+        "req": [
+          "Dark Shrine"
+        ],
+        "hp": 40,
+        "shield": 80,
+        "armor": 1,
+        "attributes": [
+          "Light",
+          "Biological",
+          "Psionic"
+        ],
+        "note": "Permanent cloak. Merges to Archon."
+      },
+      {
+        "name": "Archon",
+        "mins": 0,
+        "gas": 0,
+        "supply": 4,
+        "bt_faster": 8.57,
+        "bt_normal": 12,
+        "from": "merge 2 Templar (HT/DT)",
+        "req": [],
+        "morph_from": "2x High/Dark Templar",
+        "hp": 10,
+        "shield": 350,
+        "armor": 0,
+        "attributes": [
+          "Psionic",
+          "Massive"
+        ]
+      },
+      {
+        "name": "Observer",
+        "mins": 25,
+        "gas": 75,
+        "supply": 1,
+        "bt_faster": 17.9,
+        "bt_normal": 25,
+        "from": "Robotics Facility",
+        "req": [],
+        "hp": 40,
+        "shield": 20,
+        "armor": 0,
+        "attributes": [
+          "Light",
+          "Mechanical",
+          "Detector"
+        ],
+        "note": "Cloaked detector."
+      },
+      {
+        "name": "Warp Prism",
+        "mins": 250,
+        "gas": 0,
+        "supply": 2,
+        "bt_faster": 36,
+        "bt_normal": 50,
+        "from": "Robotics Facility",
+        "req": [],
+        "hp": 80,
+        "shield": 100,
+        "armor": 0,
+        "attributes": [
+          "Armored",
+          "Mechanical",
+          "Psionic"
+        ],
+        "note": "Mobile Pylon (power field) + transport."
+      },
+      {
+        "name": "Immortal",
+        "mins": 250,
+        "gas": 100,
+        "supply": 4,
+        "bt_faster": 39,
+        "bt_normal": 55,
+        "from": "Robotics Facility",
+        "req": [],
+        "hp": 200,
+        "shield": 100,
+        "armor": 1,
+        "attributes": [
+          "Armored",
+          "Mechanical"
+        ],
+        "note": "5.0.14 cost 275->250 min. Barrier shield."
+      },
+      {
+        "name": "Colossus",
+        "mins": 300,
+        "gas": 200,
+        "supply": 6,
+        "bt_faster": 54,
+        "bt_normal": 76,
+        "from": "Robotics Facility",
+        "req": [
+          "Robotics Bay"
+        ],
+        "hp": 200,
+        "shield": 150,
+        "armor": 1,
+        "attributes": [
+          "Armored",
+          "Mechanical",
+          "Massive"
+        ],
+        "note": "Attacked by both air & ground weapons."
+      },
+      {
+        "name": "Disruptor",
+        "mins": 150,
+        "gas": 150,
+        "supply": 4,
+        "bt_faster": 36,
+        "bt_normal": 50,
+        "from": "Robotics Facility",
+        "req": [
+          "Robotics Bay"
+        ],
+        "hp": 100,
+        "shield": 100,
+        "armor": 1,
+        "attributes": [
+          "Armored",
+          "Mechanical"
+        ],
+        "note": "Purification Nova."
+      },
+      {
+        "name": "Phoenix",
+        "mins": 150,
+        "gas": 100,
+        "supply": 2,
+        "bt_faster": 25,
+        "bt_normal": 35,
+        "from": "Stargate",
+        "req": [],
+        "hp": 120,
+        "shield": 60,
+        "armor": 0,
+        "attributes": [
+          "Light",
+          "Mechanical"
+        ],
+        "note": "Graviton Beam; air-only."
+      },
+      {
+        "name": "Void Ray",
+        "mins": 250,
+        "gas": 150,
+        "supply": 4,
+        "bt_faster": 43,
+        "bt_normal": 60,
+        "from": "Stargate",
+        "req": [],
+        "hp": 150,
+        "shield": 100,
+        "armor": 0,
+        "attributes": [
+          "Armored",
+          "Mechanical"
+        ],
+        "note": "Prismatic Alignment."
+      },
+      {
+        "name": "Oracle",
+        "mins": 150,
+        "gas": 150,
+        "supply": 3,
+        "bt_faster": 37,
+        "bt_normal": 52,
+        "from": "Stargate",
+        "req": [],
+        "hp": 100,
+        "shield": 60,
+        "armor": 0,
+        "attributes": [
+          "Light",
+          "Mechanical",
+          "Psionic"
+        ],
+        "note": "Pulsar Beam, Revelation, Stasis Ward."
+      },
+      {
+        "name": "Tempest",
+        "mins": 250,
+        "gas": 175,
+        "supply": 4,
+        "bt_faster": 43,
+        "bt_normal": 60,
+        "from": "Stargate",
+        "req": [
+          "Fleet Beacon"
+        ],
+        "hp": 150,
+        "shield": 125,
+        "armor": 2,
+        "attributes": [
+          "Armored",
+          "Mechanical",
+          "Massive"
+        ],
+        "note": "5.0.14 supply 5->4. Long range."
+      },
+      {
+        "name": "Carrier",
+        "mins": 350,
+        "gas": 250,
+        "supply": 6,
+        "bt_faster": 64,
+        "bt_normal": 90,
+        "from": "Stargate",
+        "req": [
+          "Fleet Beacon"
+        ],
+        "hp": 250,
+        "shield": 150,
+        "armor": 2,
+        "attributes": [
+          "Armored",
+          "Mechanical",
+          "Massive"
+        ],
+        "note": "Launches Interceptors."
+      },
+      {
+        "name": "Mothership",
+        "mins": 400,
+        "gas": 400,
+        "supply": 8,
+        "bt_faster": 89,
+        "bt_normal": 125,
+        "from": "Nexus",
+        "req": [
+          "Fleet Beacon"
+        ],
+        "hp": 350,
+        "shield": 350,
+        "armor": 2,
+        "attributes": [
+          "Armored",
+          "Mechanical",
+          "Massive",
+          "Psionic"
+        ],
+        "note": "5.0.14 cost 300/300->400/400, supply 6->8. One per player. Cloak field, Time Warp."
+      },
+      {
+        "name": "Interceptor",
+        "mins": 15,
+        "gas": 0,
+        "supply": 0,
+        "bt_faster": 9,
+        "bt_normal": 13,
+        "from": "Carrier",
+        "req": [
+          "Carrier"
+        ],
+        "hp": 40,
+        "shield": 40,
+        "armor": 0,
+        "attributes": [
+          "Light",
+          "Mechanical"
+        ]
+      }
     ],
     "Zerg": [
-      { "name": "Drone", "mins": 50, "gas": 0, "supply": 1, "bt_faster": 12, "bt_normal": 17, "from": "Larva", "req": [], "hp": 40, "armor": 0, "attributes": ["Biological","Light"], "note": "Worker; consumed when morphing a structure (refunds its supply)." },
-      { "name": "Overlord", "mins": 100, "gas": 0, "supply": 0, "bt_faster": 18, "bt_normal": 25, "from": "Larva", "req": [], "provides_supply": 8, "hp": 200, "armor": 0, "attributes": ["Biological","Armored"], "note": "Supply provider; slow. Speed via Pneumatized Carapace." },
-      { "name": "Queen", "mins": 175, "gas": 0, "supply": 2, "bt_faster": 36, "bt_normal": 50, "from": "Hatchery / Lair / Hive", "req": ["Spawning Pool"], "hp": 175, "armor": 1, "attributes": ["Biological","Psionic"], "note": "5.0.14 cost 150->175. Spawn Larva, Transfusion, Creep Tumor. NOT from larva." },
-      { "name": "Zergling", "mins": 25, "gas": 0, "supply": 0.5, "bt_faster": 17, "bt_normal": 24, "from": "Larva", "req": ["Spawning Pool"], "hp": 35, "armor": 0, "attributes": ["Biological","Light"], "note": "1 larva -> 2 Zerglings (50 min / larva). Speed via Metabolic Boost." },
-      { "name": "Baneling", "mins": 25, "gas": 25, "supply": 0.5, "bt_faster": 14, "bt_normal": 20, "from": "morph from Zergling", "req": ["Baneling Nest"], "morph_from": "Zergling", "hp": 30, "armor": 0, "attributes": ["Biological"], "note": "Suicide AoE. +cost is on top of the Zergling." },
-      { "name": "Roach", "mins": 75, "gas": 25, "supply": 2, "bt_faster": 19, "bt_normal": 27, "from": "Larva", "req": ["Roach Warren"], "hp": 145, "armor": 1, "attributes": ["Biological","Armored"], "note": "Burrow-move with Tunneling Claws." },
-      { "name": "Ravager", "mins": 25, "gas": 75, "supply": 1, "bt_faster": 12, "bt_normal": 17, "from": "morph from Roach", "req": ["Roach Warren"], "morph_from": "Roach", "hp": 120, "armor": 1, "attributes": ["Biological"], "note": "Corrosive Bile. +cost/+supply on top of the Roach." },
-      { "name": "Hydralisk", "mins": 100, "gas": 50, "supply": 2, "bt_faster": 24, "bt_normal": 34, "from": "Larva", "req": ["Hydralisk Den"], "hp": 90, "armor": 0, "attributes": ["Biological","Light"] },
-      { "name": "Lurker", "mins": 50, "gas": 100, "supply": 3, "bt_faster": 18, "bt_normal": 25, "from": "morph from Hydralisk", "req": ["Lurker Den"], "morph_from": "Hydralisk", "hp": 200, "armor": 1, "attributes": ["Biological","Armored"], "note": "Burrowed AoE line attack. Total supply 3 (2 hydra + 1)." },
-      { "name": "Infestor", "mins": 100, "gas": 150, "supply": 2, "bt_faster": 36, "bt_normal": 50, "from": "Larva", "req": ["Infestation Pit"], "hp": 90, "armor": 0, "attributes": ["Biological","Armored","Psionic"], "note": "Fungal Growth, Neural Parasite (research), Microbial Shroud (5.0.16: no upgrade needed, range 12, gains auto-attack)." },
-      { "name": "Swarm Host", "mins": 100, "gas": 75, "supply": 3, "bt_faster": 29, "bt_normal": 40, "from": "Larva", "req": ["Infestation Pit"], "hp": 160, "armor": 1, "attributes": ["Biological","Armored"], "note": "Spawns free Locusts." },
-      { "name": "Mutalisk", "mins": 100, "gas": 100, "supply": 2, "bt_faster": 24, "bt_normal": 34, "from": "Larva", "req": ["Spire"], "hp": 120, "armor": 0, "attributes": ["Biological","Light"], "note": "Bouncing Glaive attack (5.0.16 prioritizes targets, arc 180)." },
-      { "name": "Corruptor", "mins": 150, "gas": 100, "supply": 2, "bt_faster": 29, "bt_normal": 40, "from": "Larva", "req": ["Spire"], "hp": 200, "armor": 2, "attributes": ["Biological","Armored"], "note": "Anti-air; Caustic Spray. Morphs to Brood Lord." },
-      { "name": "Brood Lord", "mins": 150, "gas": 150, "supply": 4, "bt_faster": 24, "bt_normal": 34, "from": "morph from Corruptor", "req": ["Greater Spire"], "morph_from": "Corruptor", "hp": 225, "armor": 1, "attributes": ["Biological","Armored","Massive"], "note": "Spawns Broodlings. +cost/+supply on top of the Corruptor." },
-      { "name": "Viper", "mins": 100, "gas": 200, "supply": 3, "bt_faster": 29, "bt_normal": 40, "from": "Larva", "req": ["Hive"], "hp": 150, "armor": 1, "attributes": ["Biological","Armored","Psionic"], "note": "Abduct, Blinding Cloud, Parasitic Bomb (5.0.16 Abduct hits sieged Tanks)." },
-      { "name": "Ultralisk", "mins": 275, "gas": 200, "supply": 6, "bt_faster": 39, "bt_normal": 55, "from": "Larva", "req": ["Ultralisk Cavern"], "hp": 500, "armor": 2, "attributes": ["Biological","Armored","Massive"] },
-      { "name": "Overseer", "mins": 50, "gas": 50, "supply": 0, "bt_faster": 12, "bt_normal": 17, "from": "morph from Overlord", "req": ["Lair"], "morph_from": "Overlord", "hp": 200, "armor": 1, "attributes": ["Biological","Armored","Detector"], "note": "Detector; Changeling, Oversight." }
+      {
+        "name": "Drone",
+        "mins": 50,
+        "gas": 0,
+        "supply": 1,
+        "bt_faster": 12,
+        "bt_normal": 17,
+        "from": "Larva",
+        "req": [],
+        "hp": 40,
+        "armor": 0,
+        "attributes": [
+          "Biological",
+          "Light"
+        ],
+        "note": "Worker; consumed when morphing a structure (refunds its supply)."
+      },
+      {
+        "name": "Overlord",
+        "mins": 100,
+        "gas": 0,
+        "supply": 0,
+        "bt_faster": 18,
+        "bt_normal": 25,
+        "from": "Larva",
+        "req": [],
+        "provides_supply": 8,
+        "hp": 200,
+        "armor": 0,
+        "attributes": [
+          "Biological",
+          "Armored"
+        ],
+        "note": "Supply provider; slow. Speed via Pneumatized Carapace."
+      },
+      {
+        "name": "Queen",
+        "mins": 175,
+        "gas": 0,
+        "supply": 2,
+        "bt_faster": 36,
+        "bt_normal": 50,
+        "from": "Hatchery / Lair / Hive",
+        "req": [
+          "Spawning Pool"
+        ],
+        "hp": 175,
+        "armor": 1,
+        "attributes": [
+          "Biological",
+          "Psionic"
+        ],
+        "note": "5.0.14 cost 150->175. Spawn Larva, Transfusion, Creep Tumor. NOT from larva."
+      },
+      {
+        "name": "Zergling",
+        "mins": 25,
+        "gas": 0,
+        "supply": 0.5,
+        "bt_faster": 17,
+        "bt_normal": 24,
+        "from": "Larva",
+        "req": [
+          "Spawning Pool"
+        ],
+        "hp": 35,
+        "armor": 0,
+        "attributes": [
+          "Biological",
+          "Light"
+        ],
+        "note": "1 larva -> 2 Zerglings (50 min / larva). Speed via Metabolic Boost."
+      },
+      {
+        "name": "Baneling",
+        "mins": 25,
+        "gas": 25,
+        "supply": 0.5,
+        "bt_faster": 14,
+        "bt_normal": 20,
+        "from": "morph from Zergling",
+        "req": [
+          "Baneling Nest"
+        ],
+        "morph_from": "Zergling",
+        "hp": 30,
+        "armor": 0,
+        "attributes": [
+          "Biological"
+        ],
+        "note": "Suicide AoE. +cost is on top of the Zergling."
+      },
+      {
+        "name": "Roach",
+        "mins": 75,
+        "gas": 25,
+        "supply": 2,
+        "bt_faster": 19,
+        "bt_normal": 27,
+        "from": "Larva",
+        "req": [
+          "Roach Warren"
+        ],
+        "hp": 145,
+        "armor": 1,
+        "attributes": [
+          "Biological",
+          "Armored"
+        ],
+        "note": "Burrow-move with Tunneling Claws."
+      },
+      {
+        "name": "Ravager",
+        "mins": 25,
+        "gas": 75,
+        "supply": 1,
+        "bt_faster": 12,
+        "bt_normal": 17,
+        "from": "morph from Roach",
+        "req": [
+          "Roach Warren"
+        ],
+        "morph_from": "Roach",
+        "hp": 120,
+        "armor": 1,
+        "attributes": [
+          "Biological"
+        ],
+        "note": "Corrosive Bile. +cost/+supply on top of the Roach."
+      },
+      {
+        "name": "Hydralisk",
+        "mins": 100,
+        "gas": 50,
+        "supply": 2,
+        "bt_faster": 24,
+        "bt_normal": 34,
+        "from": "Larva",
+        "req": [
+          "Hydralisk Den"
+        ],
+        "hp": 90,
+        "armor": 0,
+        "attributes": [
+          "Biological",
+          "Light"
+        ]
+      },
+      {
+        "name": "Lurker",
+        "mins": 50,
+        "gas": 100,
+        "supply": 3,
+        "bt_faster": 18,
+        "bt_normal": 25,
+        "from": "morph from Hydralisk",
+        "req": [
+          "Lurker Den"
+        ],
+        "morph_from": "Hydralisk",
+        "hp": 200,
+        "armor": 1,
+        "attributes": [
+          "Biological",
+          "Armored"
+        ],
+        "note": "Burrowed AoE line attack. Total supply 3 (2 hydra + 1)."
+      },
+      {
+        "name": "Infestor",
+        "mins": 100,
+        "gas": 150,
+        "supply": 2,
+        "bt_faster": 36,
+        "bt_normal": 50,
+        "from": "Larva",
+        "req": [
+          "Infestation Pit"
+        ],
+        "hp": 90,
+        "armor": 0,
+        "attributes": [
+          "Biological",
+          "Armored",
+          "Psionic"
+        ],
+        "note": "Fungal Growth, Neural Parasite (research), Microbial Shroud (5.0.16: no upgrade needed, range 12, gains auto-attack)."
+      },
+      {
+        "name": "Swarm Host",
+        "mins": 100,
+        "gas": 75,
+        "supply": 3,
+        "bt_faster": 29,
+        "bt_normal": 40,
+        "from": "Larva",
+        "req": [
+          "Infestation Pit"
+        ],
+        "hp": 160,
+        "armor": 1,
+        "attributes": [
+          "Biological",
+          "Armored"
+        ],
+        "note": "Spawns free Locusts."
+      },
+      {
+        "name": "Mutalisk",
+        "mins": 100,
+        "gas": 100,
+        "supply": 2,
+        "bt_faster": 24,
+        "bt_normal": 34,
+        "from": "Larva",
+        "req": [
+          "Spire"
+        ],
+        "hp": 120,
+        "armor": 0,
+        "attributes": [
+          "Biological",
+          "Light"
+        ],
+        "note": "Bouncing Glaive attack (5.0.16 prioritizes targets, arc 180)."
+      },
+      {
+        "name": "Corruptor",
+        "mins": 150,
+        "gas": 100,
+        "supply": 2,
+        "bt_faster": 29,
+        "bt_normal": 40,
+        "from": "Larva",
+        "req": [
+          "Spire"
+        ],
+        "hp": 200,
+        "armor": 2,
+        "attributes": [
+          "Biological",
+          "Armored"
+        ],
+        "note": "Anti-air; Caustic Spray. Morphs to Brood Lord."
+      },
+      {
+        "name": "Brood Lord",
+        "mins": 150,
+        "gas": 150,
+        "supply": 4,
+        "bt_faster": 24,
+        "bt_normal": 34,
+        "from": "morph from Corruptor",
+        "req": [
+          "Greater Spire"
+        ],
+        "morph_from": "Corruptor",
+        "hp": 225,
+        "armor": 1,
+        "attributes": [
+          "Biological",
+          "Armored",
+          "Massive"
+        ],
+        "note": "Spawns Broodlings. +cost/+supply on top of the Corruptor."
+      },
+      {
+        "name": "Viper",
+        "mins": 100,
+        "gas": 200,
+        "supply": 3,
+        "bt_faster": 29,
+        "bt_normal": 40,
+        "from": "Larva",
+        "req": [
+          "Hive"
+        ],
+        "hp": 150,
+        "armor": 1,
+        "attributes": [
+          "Biological",
+          "Armored",
+          "Psionic"
+        ],
+        "note": "Abduct, Blinding Cloud, Parasitic Bomb (5.0.16 Abduct hits sieged Tanks)."
+      },
+      {
+        "name": "Ultralisk",
+        "mins": 275,
+        "gas": 200,
+        "supply": 6,
+        "bt_faster": 39,
+        "bt_normal": 55,
+        "from": "Larva",
+        "req": [
+          "Ultralisk Cavern"
+        ],
+        "hp": 500,
+        "armor": 2,
+        "attributes": [
+          "Biological",
+          "Armored",
+          "Massive"
+        ]
+      },
+      {
+        "name": "Overseer",
+        "mins": 50,
+        "gas": 50,
+        "supply": 0,
+        "bt_faster": 12,
+        "bt_normal": 17,
+        "from": "morph from Overlord",
+        "req": [
+          "Lair"
+        ],
+        "morph_from": "Overlord",
+        "hp": 200,
+        "armor": 1,
+        "attributes": [
+          "Biological",
+          "Armored",
+          "Detector"
+        ],
+        "note": "Detector; Changeling, Oversight."
+      }
     ]
   },
-
   "buildings": {
     "Terran": [
-      { "name": "Command Center", "mins": 400, "gas": 0, "bt_normal": 71, "bt_faster": 51, "from": "SCV", "req": [], "provides_supply": 13, "hp": 1500, "note": "5.0.16 supply 15->13. Morphs to Orbital/Planetary; can lift." },
-      { "name": "Orbital Command", "mins": 150, "gas": 0, "bt_normal": 25, "bt_faster": 18, "from": "Command Center", "req": ["Barracks"], "morph_from": "Command Center", "provides_supply": 13, "hp": 1500, "note": "+cost on top of CC. Calldown MULE/Scan/Supply. Starts 50 energy." },
-      { "name": "Planetary Fortress", "mins": 150, "gas": 150, "bt_normal": 36, "bt_faster": 26, "from": "Command Center", "req": ["Engineering Bay"], "morph_from": "Command Center", "provides_supply": 13, "hp": 1500, "note": "+cost on top of CC. Cannon; cannot lift; armor 3." },
-      { "name": "Supply Depot", "mins": 100, "gas": 0, "bt_normal": 21, "bt_faster": 15, "from": "SCV", "req": [], "provides_supply": 8, "hp": 400, "note": "Lowerable for wall-off." },
-      { "name": "Barracks", "mins": 150, "gas": 0, "bt_normal": 46, "bt_faster": 33, "from": "SCV", "req": ["Supply Depot"], "hp": 1000, "note": "Add-on: Reactor or Tech Lab. Can lift." },
-      { "name": "Refinery", "mins": 75, "gas": 0, "bt_normal": 21, "bt_faster": 15, "from": "SCV", "req": [], "hp": 500 },
-      { "name": "Engineering Bay", "mins": 125, "gas": 0, "bt_normal": 25, "bt_faster": 18, "from": "SCV", "req": [], "hp": 850 },
-      { "name": "Bunker", "mins": 100, "gas": 0, "bt_normal": 29, "bt_faster": 21, "from": "SCV", "req": ["Barracks"], "hp": 400, "note": "Garrisons up to 4 (6 with Neosteel)." },
-      { "name": "Missile Turret", "mins": 100, "gas": 0, "bt_normal": 18, "bt_faster": 13, "from": "SCV", "req": ["Engineering Bay"], "hp": 250, "note": "Detector; anti-air." },
-      { "name": "Sensor Tower", "mins": 100, "gas": 50, "bt_normal": 18, "bt_faster": 13, "from": "SCV", "req": ["Engineering Bay"], "hp": 200, "note": "5.0.14 cost 125/100->100/50." },
-      { "name": "Ghost Academy", "mins": 150, "gas": 50, "bt_normal": 29, "bt_faster": 21, "from": "SCV", "req": ["Barracks"], "hp": 1250 },
-      { "name": "Factory", "mins": 150, "gas": 100, "bt_normal": 43, "bt_faster": 31, "from": "SCV", "req": ["Barracks"], "hp": 1250, "note": "Add-on: Reactor or Tech Lab." },
-      { "name": "Armory", "mins": 150, "gas": 50, "bt_normal": 46, "bt_faster": 33, "from": "SCV", "req": ["Factory"], "hp": 750, "note": "Vehicle/ship upgrades; enables Thor/Hellbat." },
-      { "name": "Starport", "mins": 150, "gas": 100, "bt_normal": 36, "bt_faster": 26, "from": "SCV", "req": ["Factory"], "hp": 1300, "note": "Add-on: Reactor or Tech Lab." },
-      { "name": "Fusion Core", "mins": 150, "gas": 150, "bt_normal": 46, "bt_faster": 33, "from": "SCV", "req": ["Starport"], "hp": 750, "note": "Enables Battlecruiser." },
-      { "name": "Reactor (add-on)", "mins": 50, "gas": 50, "bt_normal": 36, "bt_faster": 26, "from": "SCV (on Barracks/Factory/Starport)", "req": [], "hp": 400, "note": "Produce 2 units at once (basic units)." },
-      { "name": "Tech Lab (add-on)", "mins": 50, "gas": 25, "bt_normal": 18, "bt_faster": 13, "from": "SCV (on Barracks/Factory/Starport)", "req": [], "hp": 400, "note": "Unlocks advanced units & upgrades for that structure." }
+      {
+        "name": "Command Center",
+        "mins": 400,
+        "gas": 0,
+        "bt_normal": 100,
+        "bt_faster": 71,
+        "from": "SCV",
+        "req": [],
+        "provides_supply": 13,
+        "hp": 1500,
+        "note": "5.0.16 supply 15->13. Morphs to Orbital/Planetary; can lift."
+      },
+      {
+        "name": "Orbital Command",
+        "mins": 150,
+        "gas": 0,
+        "bt_normal": 35,
+        "bt_faster": 25,
+        "from": "Command Center",
+        "req": [
+          "Barracks"
+        ],
+        "morph_from": "Command Center",
+        "provides_supply": 13,
+        "hp": 1500,
+        "note": "+cost on top of CC. Calldown MULE/Scan/Supply. Starts 50 energy."
+      },
+      {
+        "name": "Planetary Fortress",
+        "mins": 150,
+        "gas": 150,
+        "bt_normal": 50,
+        "bt_faster": 36,
+        "from": "Command Center",
+        "req": [
+          "Engineering Bay"
+        ],
+        "morph_from": "Command Center",
+        "provides_supply": 13,
+        "hp": 1500,
+        "note": "+cost on top of CC. Cannon; cannot lift; armor 3."
+      },
+      {
+        "name": "Supply Depot",
+        "mins": 100,
+        "gas": 0,
+        "bt_normal": 30,
+        "bt_faster": 21,
+        "from": "SCV",
+        "req": [],
+        "provides_supply": 8,
+        "hp": 400,
+        "note": "Lowerable for wall-off."
+      },
+      {
+        "name": "Barracks",
+        "mins": 150,
+        "gas": 0,
+        "bt_normal": 65,
+        "bt_faster": 46,
+        "from": "SCV",
+        "req": [
+          "Supply Depot"
+        ],
+        "hp": 1000,
+        "note": "Add-on: Reactor or Tech Lab. Can lift."
+      },
+      {
+        "name": "Refinery",
+        "mins": 75,
+        "gas": 0,
+        "bt_normal": 30,
+        "bt_faster": 21,
+        "from": "SCV",
+        "req": [],
+        "hp": 500
+      },
+      {
+        "name": "Engineering Bay",
+        "mins": 125,
+        "gas": 0,
+        "bt_normal": 35,
+        "bt_faster": 25,
+        "from": "SCV",
+        "req": [],
+        "hp": 850
+      },
+      {
+        "name": "Bunker",
+        "mins": 100,
+        "gas": 0,
+        "bt_normal": 40,
+        "bt_faster": 29,
+        "from": "SCV",
+        "req": [
+          "Barracks"
+        ],
+        "hp": 400,
+        "note": "Garrisons up to 4 (6 with Neosteel)."
+      },
+      {
+        "name": "Missile Turret",
+        "mins": 100,
+        "gas": 0,
+        "bt_normal": 25,
+        "bt_faster": 18,
+        "from": "SCV",
+        "req": [
+          "Engineering Bay"
+        ],
+        "hp": 250,
+        "note": "Detector; anti-air."
+      },
+      {
+        "name": "Sensor Tower",
+        "mins": 100,
+        "gas": 50,
+        "bt_normal": 25,
+        "bt_faster": 18,
+        "from": "SCV",
+        "req": [
+          "Engineering Bay"
+        ],
+        "hp": 200,
+        "note": "5.0.14 cost 125/100->100/50."
+      },
+      {
+        "name": "Ghost Academy",
+        "mins": 150,
+        "gas": 50,
+        "bt_normal": 40,
+        "bt_faster": 29,
+        "from": "SCV",
+        "req": [
+          "Barracks"
+        ],
+        "hp": 1250
+      },
+      {
+        "name": "Factory",
+        "mins": 150,
+        "gas": 100,
+        "bt_normal": 60,
+        "bt_faster": 43,
+        "from": "SCV",
+        "req": [
+          "Barracks"
+        ],
+        "hp": 1250,
+        "note": "Add-on: Reactor or Tech Lab."
+      },
+      {
+        "name": "Armory",
+        "mins": 150,
+        "gas": 50,
+        "bt_normal": 65,
+        "bt_faster": 46,
+        "from": "SCV",
+        "req": [
+          "Factory"
+        ],
+        "hp": 750,
+        "note": "Vehicle/ship upgrades; enables Thor/Hellbat."
+      },
+      {
+        "name": "Starport",
+        "mins": 150,
+        "gas": 100,
+        "bt_normal": 50,
+        "bt_faster": 36,
+        "from": "SCV",
+        "req": [
+          "Factory"
+        ],
+        "hp": 1300,
+        "note": "Add-on: Reactor or Tech Lab."
+      },
+      {
+        "name": "Fusion Core",
+        "mins": 150,
+        "gas": 150,
+        "bt_normal": 65,
+        "bt_faster": 46,
+        "from": "SCV",
+        "req": [
+          "Starport"
+        ],
+        "hp": 750,
+        "note": "Enables Battlecruiser."
+      },
+      {
+        "name": "Reactor (add-on)",
+        "mins": 50,
+        "gas": 50,
+        "bt_normal": 50,
+        "bt_faster": 36,
+        "from": "SCV (on Barracks/Factory/Starport)",
+        "req": [],
+        "hp": 400,
+        "note": "Produce 2 units at once (basic units)."
+      },
+      {
+        "name": "Tech Lab (add-on)",
+        "mins": 50,
+        "gas": 25,
+        "bt_normal": 25,
+        "bt_faster": 18,
+        "from": "SCV (on Barracks/Factory/Starport)",
+        "req": [],
+        "hp": 400,
+        "note": "Unlocks advanced units & upgrades for that structure."
+      }
     ],
     "Protoss": [
-      { "name": "Nexus", "mins": 400, "gas": 0, "bt_normal": 71, "bt_faster": 51, "from": "Probe", "req": [], "provides_supply": 13, "hp": 1000, "shield": 1000, "note": "5.0.16 supply 15->13. Chrono Boost (starts 50 energy). Builds Probes & Mothership." },
-      { "name": "Pylon", "mins": 100, "gas": 0, "bt_normal": 18, "bt_faster": 13, "from": "Probe", "req": [], "provides_supply": 8, "hp": 200, "shield": 200, "note": "Powers structures (power field)." },
-      { "name": "Assimilator", "mins": 75, "gas": 0, "bt_normal": 21, "bt_faster": 15, "from": "Probe", "req": [], "hp": 300, "shield": 300 },
-      { "name": "Gateway", "mins": 150, "gas": 0, "bt_normal": 46, "bt_faster": 33, "from": "Probe", "req": ["Nexus"], "hp": 500, "shield": 500, "note": "Morphs to Warp Gate after research." },
-      { "name": "Warp Gate", "mins": 25, "gas": 25, "bt_normal": 7, "bt_faster": 5, "from": "morph from Gateway", "req": ["Warp Gate (research)"], "morph_from": "Gateway", "hp": 500, "shield": 500, "note": "5.0.16: transform now costs 25/25 (was free). Warps units in (4s warp-in) and produces Gateway units ~40% faster." },
-      { "name": "Cybernetics Core", "mins": 150, "gas": 0, "bt_normal": 36, "bt_faster": 26, "from": "Probe", "req": ["Gateway"], "hp": 550, "shield": 550, "note": "Unlocks Stalker/Sentry/Adept, air upgrades, Warp Gate research." },
-      { "name": "Forge", "mins": 150, "gas": 0, "bt_normal": 32, "bt_faster": 23, "from": "Probe", "req": ["Nexus"], "hp": 400, "shield": 400, "note": "Ground weapon/armor/shield upgrades; enables Photon Cannon." },
-      { "name": "Photon Cannon", "mins": 150, "gas": 0, "bt_normal": 29, "bt_faster": 21, "from": "Probe", "req": ["Forge"], "hp": 150, "shield": 150, "note": "Detector; anti-air & ground." },
-      { "name": "Shield Battery", "mins": 100, "gas": 0, "bt_normal": 29, "bt_faster": 21, "from": "Probe", "req": ["Gateway"], "hp": 150, "shield": 150, "note": "5.0.16 starts with 75 energy. Restores shields to nearby units." },
-      { "name": "Twilight Council", "mins": 150, "gas": 100, "bt_normal": 36, "bt_faster": 26, "from": "Probe", "req": ["Cybernetics Core"], "hp": 500, "shield": 500, "note": "Charge, Blink, Resonating Glaives; enables Templar Archives/Dark Shrine." },
-      { "name": "Robotics Facility", "mins": 150, "gas": 100, "bt_normal": 46, "bt_faster": 33, "from": "Probe", "req": ["Cybernetics Core"], "hp": 450, "shield": 450, "note": "Immortal, Observer, Warp Prism." },
-      { "name": "Robotics Bay", "mins": 150, "gas": 150, "bt_normal": 46, "bt_faster": 33, "from": "Probe", "req": ["Robotics Facility"], "hp": 500, "shield": 500, "note": "Colossus, Disruptor; Thermal Lance, gravitic upgrades." },
-      { "name": "Stargate", "mins": 150, "gas": 150, "bt_normal": 43, "bt_faster": 31, "from": "Probe", "req": ["Cybernetics Core"], "hp": 600, "shield": 600, "note": "Phoenix, Void Ray, Oracle, Tempest, Carrier." },
-      { "name": "Fleet Beacon", "mins": 300, "gas": 200, "bt_normal": 43, "bt_faster": 31, "from": "Probe", "req": ["Stargate"], "hp": 500, "shield": 500, "note": "Tempest, Carrier; air-unit upgrades." },
-      { "name": "Templar Archives", "mins": 150, "gas": 200, "bt_normal": 36, "bt_faster": 26, "from": "Probe", "req": ["Twilight Council"], "hp": 500, "shield": 500, "note": "High Templar; Psionic Storm." },
-      { "name": "Dark Shrine", "mins": 150, "gas": 150, "bt_normal": 71, "bt_faster": 51, "from": "Probe", "req": ["Twilight Council"], "hp": 500, "shield": 500, "note": "Dark Templar; Shadow Stride." }
+      {
+        "name": "Nexus",
+        "mins": 400,
+        "gas": 0,
+        "bt_normal": 100,
+        "bt_faster": 71,
+        "from": "Probe",
+        "req": [],
+        "provides_supply": 13,
+        "hp": 1000,
+        "shield": 1000,
+        "note": "5.0.16 supply 15->13. Chrono Boost (starts 50 energy). Builds Probes & Mothership."
+      },
+      {
+        "name": "Pylon",
+        "mins": 100,
+        "gas": 0,
+        "bt_normal": 25,
+        "bt_faster": 18,
+        "from": "Probe",
+        "req": [],
+        "provides_supply": 8,
+        "hp": 200,
+        "shield": 200,
+        "note": "Powers structures (power field)."
+      },
+      {
+        "name": "Assimilator",
+        "mins": 75,
+        "gas": 0,
+        "bt_normal": 30,
+        "bt_faster": 21,
+        "from": "Probe",
+        "req": [],
+        "hp": 300,
+        "shield": 300
+      },
+      {
+        "name": "Gateway",
+        "mins": 150,
+        "gas": 0,
+        "bt_normal": 65,
+        "bt_faster": 46,
+        "from": "Probe",
+        "req": [
+          "Nexus"
+        ],
+        "hp": 500,
+        "shield": 500,
+        "note": "Morphs to Warp Gate after research."
+      },
+      {
+        "name": "Warp Gate",
+        "mins": 25,
+        "gas": 25,
+        "bt_normal": 10,
+        "bt_faster": 7,
+        "from": "morph from Gateway",
+        "req": [
+          "Warp Gate (research)"
+        ],
+        "morph_from": "Gateway",
+        "hp": 500,
+        "shield": 500,
+        "note": "5.0.16: transform now costs 25/25 (was free). Warps units in (4s warp-in) and produces Gateway units ~40% faster."
+      },
+      {
+        "name": "Cybernetics Core",
+        "mins": 150,
+        "gas": 0,
+        "bt_normal": 50,
+        "bt_faster": 36,
+        "from": "Probe",
+        "req": [
+          "Gateway"
+        ],
+        "hp": 550,
+        "shield": 550,
+        "note": "Unlocks Stalker/Sentry/Adept, air upgrades, Warp Gate research."
+      },
+      {
+        "name": "Forge",
+        "mins": 150,
+        "gas": 0,
+        "bt_normal": 45,
+        "bt_faster": 32,
+        "from": "Probe",
+        "req": [
+          "Nexus"
+        ],
+        "hp": 400,
+        "shield": 400,
+        "note": "Ground weapon/armor/shield upgrades; enables Photon Cannon."
+      },
+      {
+        "name": "Photon Cannon",
+        "mins": 150,
+        "gas": 0,
+        "bt_normal": 40,
+        "bt_faster": 29,
+        "from": "Probe",
+        "req": [
+          "Forge"
+        ],
+        "hp": 150,
+        "shield": 150,
+        "note": "Detector; anti-air & ground."
+      },
+      {
+        "name": "Shield Battery",
+        "mins": 100,
+        "gas": 0,
+        "bt_normal": 40,
+        "bt_faster": 29,
+        "from": "Probe",
+        "req": [
+          "Gateway"
+        ],
+        "hp": 150,
+        "shield": 150,
+        "note": "5.0.16 starts with 75 energy. Restores shields to nearby units."
+      },
+      {
+        "name": "Twilight Council",
+        "mins": 150,
+        "gas": 100,
+        "bt_normal": 50,
+        "bt_faster": 36,
+        "from": "Probe",
+        "req": [
+          "Cybernetics Core"
+        ],
+        "hp": 500,
+        "shield": 500,
+        "note": "Charge, Blink, Resonating Glaives; enables Templar Archives/Dark Shrine."
+      },
+      {
+        "name": "Robotics Facility",
+        "mins": 150,
+        "gas": 100,
+        "bt_normal": 65,
+        "bt_faster": 46,
+        "from": "Probe",
+        "req": [
+          "Cybernetics Core"
+        ],
+        "hp": 450,
+        "shield": 450,
+        "note": "Immortal, Observer, Warp Prism."
+      },
+      {
+        "name": "Robotics Bay",
+        "mins": 150,
+        "gas": 150,
+        "bt_normal": 65,
+        "bt_faster": 46,
+        "from": "Probe",
+        "req": [
+          "Robotics Facility"
+        ],
+        "hp": 500,
+        "shield": 500,
+        "note": "Colossus, Disruptor; Thermal Lance, gravitic upgrades."
+      },
+      {
+        "name": "Stargate",
+        "mins": 150,
+        "gas": 150,
+        "bt_normal": 60,
+        "bt_faster": 43,
+        "from": "Probe",
+        "req": [
+          "Cybernetics Core"
+        ],
+        "hp": 600,
+        "shield": 600,
+        "note": "Phoenix, Void Ray, Oracle, Tempest, Carrier."
+      },
+      {
+        "name": "Fleet Beacon",
+        "mins": 300,
+        "gas": 200,
+        "bt_normal": 60,
+        "bt_faster": 43,
+        "from": "Probe",
+        "req": [
+          "Stargate"
+        ],
+        "hp": 500,
+        "shield": 500,
+        "note": "Tempest, Carrier; air-unit upgrades."
+      },
+      {
+        "name": "Templar Archives",
+        "mins": 150,
+        "gas": 200,
+        "bt_normal": 50,
+        "bt_faster": 36,
+        "from": "Probe",
+        "req": [
+          "Twilight Council"
+        ],
+        "hp": 500,
+        "shield": 500,
+        "note": "High Templar; Psionic Storm."
+      },
+      {
+        "name": "Dark Shrine",
+        "mins": 150,
+        "gas": 150,
+        "bt_normal": 100,
+        "bt_faster": 71,
+        "from": "Probe",
+        "req": [
+          "Twilight Council"
+        ],
+        "hp": 500,
+        "shield": 500,
+        "note": "Dark Templar; Shadow Stride."
+      }
     ],
     "Zerg": [
-      { "name": "Hatchery", "mins": 300, "gas": 0, "bt_normal": 71, "bt_faster": 51, "from": "Drone", "req": [], "provides_supply": 4, "hp": 1500, "note": "5.0.16 cost 275->300, supply 6->4. Spawns larva; morphs to Lair." },
-      { "name": "Lair", "mins": 150, "gas": 100, "bt_normal": 57, "bt_faster": 41, "from": "Hatchery", "req": ["Spawning Pool"], "morph_from": "Hatchery", "provides_supply": 4, "hp": 1800, "note": "+cost on top of Hatchery. Unlocks tier-2 tech." },
-      { "name": "Hive", "mins": 200, "gas": 150, "bt_normal": 71, "bt_faster": 51, "from": "Lair", "req": ["Infestation Pit"], "morph_from": "Lair", "provides_supply": 4, "hp": 2500, "note": "+cost on top of Lair. Unlocks tier-3 tech." },
-      { "name": "Extractor", "mins": 25, "gas": 0, "bt_normal": 21, "bt_faster": 15, "from": "Drone", "req": [], "hp": 500 },
-      { "name": "Spawning Pool", "mins": 200, "gas": 0, "bt_normal": 46, "bt_faster": 33, "from": "Drone", "req": ["Hatchery"], "hp": 1000, "note": "Zerglings, Queen; ling upgrades." },
-      { "name": "Evolution Chamber", "mins": 75, "gas": 0, "bt_normal": 25, "bt_faster": 18, "from": "Drone", "req": ["Hatchery"], "hp": 750, "note": "Ground melee/missile/carapace upgrades; enables Spine/Spore." },
-      { "name": "Spine Crawler", "mins": 100, "gas": 0, "bt_normal": 36, "bt_faster": 26, "from": "Drone", "req": ["Spawning Pool"], "hp": 300, "note": "Anti-ground static defense; uproots/moves on creep." },
-      { "name": "Spore Crawler", "mins": 75, "gas": 0, "bt_normal": 21, "bt_faster": 15, "from": "Drone", "req": ["Spawning Pool"], "hp": 400, "note": "Detector; anti-air. 5.0.16 +5 vs Biological." },
-      { "name": "Roach Warren", "mins": 150, "gas": 0, "bt_normal": 39, "bt_faster": 28, "from": "Drone", "req": ["Spawning Pool"], "hp": 850, "note": "Roach/Ravager; roach upgrades." },
-      { "name": "Baneling Nest", "mins": 100, "gas": 50, "bt_normal": 43, "bt_faster": 31, "from": "Drone", "req": ["Spawning Pool"], "hp": 850, "note": "Banelings; Centrifugal Hooks." },
-      { "name": "Hydralisk Den", "mins": 100, "gas": 100, "bt_normal": 29, "bt_faster": 21, "from": "Drone", "req": ["Lair"], "hp": 850, "note": "Hydralisks; range/speed upgrades." },
-      { "name": "Lurker Den", "mins": 100, "gas": 150, "bt_normal": 57, "bt_faster": 41, "from": "Drone", "req": ["Hydralisk Den","Lair"], "hp": 850, "note": "Lurkers; Adaptive Talons, Seismic Spines." },
-      { "name": "Infestation Pit", "mins": 100, "gas": 100, "bt_normal": 36, "bt_faster": 26, "from": "Drone", "req": ["Lair"], "hp": 850, "note": "Infestor, Swarm Host; enables Hive." },
-      { "name": "Nydus Network", "mins": 150, "gas": 150, "bt_normal": 36, "bt_faster": 26, "from": "Drone", "req": ["Lair"], "hp": 850, "note": "Deploys Nydus Worms for map-wide transport." },
-      { "name": "Spire", "mins": 150, "gas": 150, "bt_normal": 66, "bt_faster": 47, "from": "Drone", "req": ["Lair"], "hp": 850, "note": "5.0.15 cost 200->150, time 71->66. Mutalisk, Corruptor; flyer upgrades." },
-      { "name": "Greater Spire", "mins": 150, "gas": 200, "bt_normal": 71, "bt_faster": 51, "from": "Spire", "req": ["Hive"], "morph_from": "Spire", "hp": 1000, "note": "+cost on top of Spire. Brood Lord; flyer L3 upgrades." },
-      { "name": "Ultralisk Cavern", "mins": 150, "gas": 200, "bt_normal": 46, "bt_faster": 33, "from": "Drone", "req": ["Hive"], "hp": 850, "note": "Ultralisks; Chitinous Plating, Anabolic Synthesis." }
+      {
+        "name": "Hatchery",
+        "mins": 300,
+        "gas": 0,
+        "bt_normal": 100,
+        "bt_faster": 71,
+        "from": "Drone",
+        "req": [],
+        "provides_supply": 4,
+        "hp": 1500,
+        "note": "5.0.16 cost 275->300, supply 6->4. Spawns larva; morphs to Lair."
+      },
+      {
+        "name": "Lair",
+        "mins": 150,
+        "gas": 100,
+        "bt_normal": 80,
+        "bt_faster": 57,
+        "from": "Hatchery",
+        "req": [
+          "Spawning Pool"
+        ],
+        "morph_from": "Hatchery",
+        "provides_supply": 4,
+        "hp": 1800,
+        "note": "+cost on top of Hatchery. Unlocks tier-2 tech."
+      },
+      {
+        "name": "Hive",
+        "mins": 200,
+        "gas": 150,
+        "bt_normal": 100,
+        "bt_faster": 71,
+        "from": "Lair",
+        "req": [
+          "Infestation Pit"
+        ],
+        "morph_from": "Lair",
+        "provides_supply": 4,
+        "hp": 2500,
+        "note": "+cost on top of Lair. Unlocks tier-3 tech."
+      },
+      {
+        "name": "Extractor",
+        "mins": 25,
+        "gas": 0,
+        "bt_normal": 30,
+        "bt_faster": 21,
+        "from": "Drone",
+        "req": [],
+        "hp": 500
+      },
+      {
+        "name": "Spawning Pool",
+        "mins": 200,
+        "gas": 0,
+        "bt_normal": 65,
+        "bt_faster": 46,
+        "from": "Drone",
+        "req": [
+          "Hatchery"
+        ],
+        "hp": 1000,
+        "note": "Zerglings, Queen; ling upgrades."
+      },
+      {
+        "name": "Evolution Chamber",
+        "mins": 75,
+        "gas": 0,
+        "bt_normal": 35,
+        "bt_faster": 25,
+        "from": "Drone",
+        "req": [
+          "Hatchery"
+        ],
+        "hp": 750,
+        "note": "Ground melee/missile/carapace upgrades; enables Spine/Spore."
+      },
+      {
+        "name": "Spine Crawler",
+        "mins": 100,
+        "gas": 0,
+        "bt_normal": 50,
+        "bt_faster": 36,
+        "from": "Drone",
+        "req": [
+          "Spawning Pool"
+        ],
+        "hp": 300,
+        "note": "Anti-ground static defense; uproots/moves on creep."
+      },
+      {
+        "name": "Spore Crawler",
+        "mins": 75,
+        "gas": 0,
+        "bt_normal": 30,
+        "bt_faster": 21,
+        "from": "Drone",
+        "req": [
+          "Spawning Pool"
+        ],
+        "hp": 400,
+        "note": "Detector; anti-air. 5.0.16 +5 vs Biological."
+      },
+      {
+        "name": "Roach Warren",
+        "mins": 150,
+        "gas": 0,
+        "bt_normal": 55,
+        "bt_faster": 39,
+        "from": "Drone",
+        "req": [
+          "Spawning Pool"
+        ],
+        "hp": 850,
+        "note": "Roach/Ravager; roach upgrades."
+      },
+      {
+        "name": "Baneling Nest",
+        "mins": 100,
+        "gas": 50,
+        "bt_normal": 60,
+        "bt_faster": 43,
+        "from": "Drone",
+        "req": [
+          "Spawning Pool"
+        ],
+        "hp": 850,
+        "note": "Banelings; Centrifugal Hooks."
+      },
+      {
+        "name": "Hydralisk Den",
+        "mins": 100,
+        "gas": 100,
+        "bt_normal": 40,
+        "bt_faster": 29,
+        "from": "Drone",
+        "req": [
+          "Lair"
+        ],
+        "hp": 850,
+        "note": "Hydralisks; range/speed upgrades."
+      },
+      {
+        "name": "Lurker Den",
+        "mins": 100,
+        "gas": 150,
+        "bt_normal": 80,
+        "bt_faster": 57,
+        "from": "Drone",
+        "req": [
+          "Hydralisk Den",
+          "Lair"
+        ],
+        "hp": 850,
+        "note": "Lurkers; Adaptive Talons, Seismic Spines."
+      },
+      {
+        "name": "Infestation Pit",
+        "mins": 100,
+        "gas": 100,
+        "bt_normal": 50,
+        "bt_faster": 36,
+        "from": "Drone",
+        "req": [
+          "Lair"
+        ],
+        "hp": 850,
+        "note": "Infestor, Swarm Host; enables Hive."
+      },
+      {
+        "name": "Nydus Network",
+        "mins": 150,
+        "gas": 150,
+        "bt_normal": 50,
+        "bt_faster": 36,
+        "from": "Drone",
+        "req": [
+          "Lair"
+        ],
+        "hp": 850,
+        "note": "Deploys Nydus Worms for map-wide transport."
+      },
+      {
+        "name": "Spire",
+        "mins": 150,
+        "gas": 150,
+        "bt_normal": 92,
+        "bt_faster": 66,
+        "from": "Drone",
+        "req": [
+          "Lair"
+        ],
+        "hp": 850,
+        "note": "5.0.15 cost 200->150, time 71->66. Mutalisk, Corruptor; flyer upgrades."
+      },
+      {
+        "name": "Greater Spire",
+        "mins": 150,
+        "gas": 200,
+        "bt_normal": 100,
+        "bt_faster": 71,
+        "from": "Spire",
+        "req": [
+          "Hive"
+        ],
+        "morph_from": "Spire",
+        "hp": 1000,
+        "note": "+cost on top of Spire. Brood Lord; flyer L3 upgrades."
+      },
+      {
+        "name": "Ultralisk Cavern",
+        "mins": 150,
+        "gas": 200,
+        "bt_normal": 65,
+        "bt_faster": 46,
+        "from": "Drone",
+        "req": [
+          "Hive"
+        ],
+        "hp": 850,
+        "note": "Ultralisks; Chitinous Plating, Anabolic Synthesis."
+      }
     ]
   },
-
   "upgrades": {
     "Terran": [
-      { "name": "Stimpack", "mins": 100, "gas": 100, "rt_faster": 100, "rt_normal": 140, "at": "Barracks Tech Lab", "req": [], "effect": "Marine/Marauder spend HP for temporary attack & move speed." },
-      { "name": "Combat Shield", "mins": 100, "gas": 100, "rt_faster": 79, "rt_normal": 110, "at": "Barracks Tech Lab", "req": [], "effect": "+10 Marine HP (45->55)." },
-      { "name": "Concussive Shells", "mins": 50, "gas": 50, "rt_faster": 43, "rt_normal": 60, "at": "Barracks Tech Lab", "req": [], "effect": "Marauder attacks slow non-Massive targets." },
-      { "name": "Infantry Weapons L1", "mins": 100, "gas": 100, "rt_faster": 114, "rt_normal": 160, "at": "Engineering Bay", "req": [], "effect": "+1 infantry weapon damage." },
-      { "name": "Infantry Weapons L2", "mins": 150, "gas": 150, "rt_faster": 136, "rt_normal": 190, "at": "Engineering Bay", "req": ["Armory","Infantry Weapons L1"], "effect": "+1 infantry weapon damage (L2)." },
-      { "name": "Infantry Weapons L3", "mins": 200, "gas": 200, "rt_faster": 157, "rt_normal": 220, "at": "Engineering Bay", "req": ["Armory","Infantry Weapons L2"], "effect": "+1 infantry weapon damage (L3)." },
-      { "name": "Infantry Armor L1", "mins": 100, "gas": 100, "rt_faster": 114, "rt_normal": 160, "at": "Engineering Bay", "req": [], "effect": "+1 infantry armor." },
-      { "name": "Infantry Armor L2", "mins": 150, "gas": 150, "rt_faster": 136, "rt_normal": 190, "at": "Engineering Bay", "req": ["Armory","Infantry Armor L1"], "effect": "+1 infantry armor (L2)." },
-      { "name": "Infantry Armor L3", "mins": 200, "gas": 200, "rt_faster": 157, "rt_normal": 220, "at": "Engineering Bay", "req": ["Armory","Infantry Armor L2"], "effect": "+1 infantry armor (L3)." },
-      { "name": "Vehicle Weapons L1", "mins": 100, "gas": 100, "rt_faster": 114, "rt_normal": 160, "at": "Armory", "req": [], "effect": "+1 Factory-unit weapon damage." },
-      { "name": "Vehicle Weapons L2", "mins": 175, "gas": 175, "rt_faster": 136, "rt_normal": 190, "at": "Armory", "req": ["Vehicle Weapons L1"], "effect": "+1 (L2)." },
-      { "name": "Vehicle Weapons L3", "mins": 250, "gas": 250, "rt_faster": 157, "rt_normal": 220, "at": "Armory", "req": ["Vehicle Weapons L2"], "effect": "+1 (L3)." },
-      { "name": "Ship Weapons L1", "mins": 100, "gas": 100, "rt_faster": 114, "rt_normal": 160, "at": "Armory", "req": [], "effect": "+1 Starport-unit weapon damage." },
-      { "name": "Ship Weapons L2", "mins": 175, "gas": 175, "rt_faster": 136, "rt_normal": 190, "at": "Armory", "req": ["Ship Weapons L1"], "effect": "+1 (L2)." },
-      { "name": "Ship Weapons L3", "mins": 250, "gas": 250, "rt_faster": 157, "rt_normal": 220, "at": "Armory", "req": ["Ship Weapons L2"], "effect": "+1 (L3)." },
-      { "name": "Vehicle & Ship Plating L1", "mins": 100, "gas": 100, "rt_faster": 114, "rt_normal": 160, "at": "Armory", "req": [], "effect": "+1 mechanical armor." },
-      { "name": "Vehicle & Ship Plating L2", "mins": 175, "gas": 175, "rt_faster": 136, "rt_normal": 190, "at": "Armory", "req": ["Vehicle & Ship Plating L1"], "effect": "+1 (L2)." },
-      { "name": "Vehicle & Ship Plating L3", "mins": 250, "gas": 250, "rt_faster": 157, "rt_normal": 220, "at": "Armory", "req": ["Vehicle & Ship Plating L2"], "effect": "+1 (L3)." },
-      { "name": "Hi-Sec Auto Tracking", "mins": 100, "gas": 100, "rt_faster": 57, "rt_normal": 80, "at": "Engineering Bay", "req": [], "effect": "+1 range for Turrets/Auto-Turrets/Planetary." },
-      { "name": "Neosteel Armor", "mins": 150, "gas": 150, "rt_faster": 100, "rt_normal": 140, "at": "Engineering Bay", "req": [], "effect": "+2 structure armor; +bunker/CC cargo." },
-      { "name": "Infernal Pre-Igniter", "mins": 100, "gas": 100, "rt_faster": 79, "rt_normal": 110, "at": "Factory Tech Lab", "req": [], "effect": "+Hellion/Hellbat bonus vs Light." },
-      { "name": "Smart Servos", "mins": 100, "gas": 100, "rt_faster": 79, "rt_normal": 110, "at": "Factory Tech Lab", "req": ["Armory"], "effect": "Faster transform for Hellion/Viking/Thor." },
-      { "name": "Drilling Claws", "mins": 75, "gas": 75, "rt_faster": 79, "rt_normal": 110, "at": "Factory Tech Lab", "req": ["Armory"], "effect": "Widow Mine faster burrow; cloak while reloading." },
-      { "name": "Mag-Field Accelerator", "mins": 100, "gas": 100, "rt_faster": 100, "rt_normal": 140, "at": "Factory Tech Lab", "req": [], "effect": "+Cyclone Lock On damage." },
-      { "name": "Cloaking Field (Banshee)", "mins": 100, "gas": 100, "rt_faster": 79, "rt_normal": 110, "at": "Starport Tech Lab", "req": [], "effect": "Enables Banshee cloak." },
-      { "name": "Hyperflight Rotors (Banshee speed)", "mins": 125, "gas": 125, "rt_faster": 79, "rt_normal": 110, "at": "Starport Tech Lab", "req": [], "effect": "+Banshee move speed." },
-      { "name": "Interference Matrix", "mins": 50, "gas": 50, "rt_faster": 57, "rt_normal": 80, "at": "Starport Tech Lab", "req": [], "effect": "Raven disables a mech/psionic unit ~11s (now needs research)." },
-      { "name": "Caduceus Reactor", "mins": 100, "gas": 100, "rt_faster": 50, "rt_normal": 70, "at": "Fusion Core", "req": [], "effect": "+100% Medivac energy regen." },
-      { "name": "Weapon Refit (Yamato)", "mins": 150, "gas": 150, "rt_faster": 100, "rt_normal": 140, "at": "Fusion Core", "req": [], "effect": "Enables Battlecruiser Yamato Cannon." },
-      { "name": "Advanced Ballistics", "mins": 150, "gas": 150, "rt_faster": 79, "rt_normal": 110, "at": "Fusion Core", "req": [], "effect": "+2 Liberator siege range." },
-      { "name": "Personal Cloaking", "mins": 150, "gas": 150, "rt_faster": 86, "rt_normal": 120, "at": "Ghost Academy", "req": [], "effect": "Enables Ghost cloak." }
+      {
+        "name": "Stimpack",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 100,
+        "rt_normal": 140,
+        "at": "Barracks Tech Lab",
+        "req": [],
+        "effect": "Marine/Marauder spend HP for temporary attack & move speed."
+      },
+      {
+        "name": "Combat Shield",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Barracks Tech Lab",
+        "req": [],
+        "effect": "+10 Marine HP (45->55)."
+      },
+      {
+        "name": "Concussive Shells",
+        "mins": 50,
+        "gas": 50,
+        "rt_faster": 43,
+        "rt_normal": 60,
+        "at": "Barracks Tech Lab",
+        "req": [],
+        "effect": "Marauder attacks slow non-Massive targets."
+      },
+      {
+        "name": "Infantry Weapons L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 114,
+        "rt_normal": 160,
+        "at": "Engineering Bay",
+        "req": [],
+        "effect": "+1 infantry weapon damage."
+      },
+      {
+        "name": "Infantry Weapons L2",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 136,
+        "rt_normal": 190,
+        "at": "Engineering Bay",
+        "req": [
+          "Armory",
+          "Infantry Weapons L1"
+        ],
+        "effect": "+1 infantry weapon damage (L2)."
+      },
+      {
+        "name": "Infantry Weapons L3",
+        "mins": 200,
+        "gas": 200,
+        "rt_faster": 157,
+        "rt_normal": 220,
+        "at": "Engineering Bay",
+        "req": [
+          "Armory",
+          "Infantry Weapons L2"
+        ],
+        "effect": "+1 infantry weapon damage (L3)."
+      },
+      {
+        "name": "Infantry Armor L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 114,
+        "rt_normal": 160,
+        "at": "Engineering Bay",
+        "req": [],
+        "effect": "+1 infantry armor."
+      },
+      {
+        "name": "Infantry Armor L2",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 136,
+        "rt_normal": 190,
+        "at": "Engineering Bay",
+        "req": [
+          "Armory",
+          "Infantry Armor L1"
+        ],
+        "effect": "+1 infantry armor (L2)."
+      },
+      {
+        "name": "Infantry Armor L3",
+        "mins": 200,
+        "gas": 200,
+        "rt_faster": 157,
+        "rt_normal": 220,
+        "at": "Engineering Bay",
+        "req": [
+          "Armory",
+          "Infantry Armor L2"
+        ],
+        "effect": "+1 infantry armor (L3)."
+      },
+      {
+        "name": "Vehicle Weapons L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 114,
+        "rt_normal": 160,
+        "at": "Armory",
+        "req": [],
+        "effect": "+1 Factory-unit weapon damage."
+      },
+      {
+        "name": "Vehicle Weapons L2",
+        "mins": 175,
+        "gas": 175,
+        "rt_faster": 136,
+        "rt_normal": 190,
+        "at": "Armory",
+        "req": [
+          "Vehicle Weapons L1"
+        ],
+        "effect": "+1 (L2)."
+      },
+      {
+        "name": "Vehicle Weapons L3",
+        "mins": 250,
+        "gas": 250,
+        "rt_faster": 157,
+        "rt_normal": 220,
+        "at": "Armory",
+        "req": [
+          "Vehicle Weapons L2"
+        ],
+        "effect": "+1 (L3)."
+      },
+      {
+        "name": "Ship Weapons L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 114,
+        "rt_normal": 160,
+        "at": "Armory",
+        "req": [],
+        "effect": "+1 Starport-unit weapon damage."
+      },
+      {
+        "name": "Ship Weapons L2",
+        "mins": 175,
+        "gas": 175,
+        "rt_faster": 136,
+        "rt_normal": 190,
+        "at": "Armory",
+        "req": [
+          "Ship Weapons L1"
+        ],
+        "effect": "+1 (L2)."
+      },
+      {
+        "name": "Ship Weapons L3",
+        "mins": 250,
+        "gas": 250,
+        "rt_faster": 157,
+        "rt_normal": 220,
+        "at": "Armory",
+        "req": [
+          "Ship Weapons L2"
+        ],
+        "effect": "+1 (L3)."
+      },
+      {
+        "name": "Vehicle & Ship Plating L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 114,
+        "rt_normal": 160,
+        "at": "Armory",
+        "req": [],
+        "effect": "+1 mechanical armor."
+      },
+      {
+        "name": "Vehicle & Ship Plating L2",
+        "mins": 175,
+        "gas": 175,
+        "rt_faster": 136,
+        "rt_normal": 190,
+        "at": "Armory",
+        "req": [
+          "Vehicle & Ship Plating L1"
+        ],
+        "effect": "+1 (L2)."
+      },
+      {
+        "name": "Vehicle & Ship Plating L3",
+        "mins": 250,
+        "gas": 250,
+        "rt_faster": 157,
+        "rt_normal": 220,
+        "at": "Armory",
+        "req": [
+          "Vehicle & Ship Plating L2"
+        ],
+        "effect": "+1 (L3)."
+      },
+      {
+        "name": "Hi-Sec Auto Tracking",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 57,
+        "rt_normal": 80,
+        "at": "Engineering Bay",
+        "req": [],
+        "effect": "+1 range for Turrets/Auto-Turrets/Planetary."
+      },
+      {
+        "name": "Neosteel Armor",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 100,
+        "rt_normal": 140,
+        "at": "Engineering Bay",
+        "req": [],
+        "effect": "+2 structure armor; +bunker/CC cargo."
+      },
+      {
+        "name": "Infernal Pre-Igniter",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Factory Tech Lab",
+        "req": [],
+        "effect": "+Hellion/Hellbat bonus vs Light."
+      },
+      {
+        "name": "Smart Servos",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Factory Tech Lab",
+        "req": [
+          "Armory"
+        ],
+        "effect": "Faster transform for Hellion/Viking/Thor."
+      },
+      {
+        "name": "Drilling Claws",
+        "mins": 75,
+        "gas": 75,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Factory Tech Lab",
+        "req": [
+          "Armory"
+        ],
+        "effect": "Widow Mine faster burrow; cloak while reloading."
+      },
+      {
+        "name": "Mag-Field Accelerator",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 100,
+        "rt_normal": 140,
+        "at": "Factory Tech Lab",
+        "req": [],
+        "effect": "+Cyclone Lock On damage."
+      },
+      {
+        "name": "Cloaking Field (Banshee)",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Starport Tech Lab",
+        "req": [],
+        "effect": "Enables Banshee cloak."
+      },
+      {
+        "name": "Hyperflight Rotors (Banshee speed)",
+        "mins": 125,
+        "gas": 125,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Starport Tech Lab",
+        "req": [],
+        "effect": "+Banshee move speed."
+      },
+      {
+        "name": "Interference Matrix",
+        "mins": 50,
+        "gas": 50,
+        "rt_faster": 57,
+        "rt_normal": 80,
+        "at": "Starport Tech Lab",
+        "req": [],
+        "effect": "Raven disables a mech/psionic unit ~11s (now needs research)."
+      },
+      {
+        "name": "Caduceus Reactor",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 50,
+        "rt_normal": 70,
+        "at": "Fusion Core",
+        "req": [],
+        "effect": "+100% Medivac energy regen."
+      },
+      {
+        "name": "Weapon Refit (Yamato)",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 100,
+        "rt_normal": 140,
+        "at": "Fusion Core",
+        "req": [],
+        "effect": "Enables Battlecruiser Yamato Cannon."
+      },
+      {
+        "name": "Advanced Ballistics",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Fusion Core",
+        "req": [],
+        "effect": "+2 Liberator siege range."
+      },
+      {
+        "name": "Personal Cloaking",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 86,
+        "rt_normal": 120,
+        "at": "Ghost Academy",
+        "req": [],
+        "effect": "Enables Ghost cloak."
+      }
     ],
     "Protoss": [
-      { "name": "Warp Gate (research)", "mins": 50, "gas": 50, "rt_faster": 100, "rt_normal": 140, "at": "Cybernetics Core", "req": ["Cybernetics Core"], "effect": "Enables Gateway->Warp Gate (transform 25/25 each, 5.0.16); ~40% faster Gateway production." },
-      { "name": "Charge", "mins": 100, "gas": 100, "rt_faster": 100, "rt_normal": 140, "at": "Twilight Council", "req": ["Twilight Council"], "effect": "Zealot charge." },
-      { "name": "Blink", "mins": 150, "gas": 150, "rt_faster": 121, "rt_normal": 170, "at": "Twilight Council", "req": ["Twilight Council"], "effect": "Stalker short-range teleport." },
-      { "name": "Resonating Glaives", "mins": 100, "gas": 100, "rt_faster": 100, "rt_normal": 140, "at": "Twilight Council", "req": ["Twilight Council"], "effect": "+45% Adept attack speed." },
-      { "name": "Psionic Storm", "mins": 200, "gas": 200, "rt_faster": 79, "rt_normal": 110, "at": "Templar Archives", "req": ["Templar Archives"], "effect": "High Templar AoE (5.0.16 damage 110->100)." },
-      { "name": "Shadow Stride", "mins": 100, "gas": 100, "rt_faster": 100, "rt_normal": 140, "at": "Dark Shrine", "req": ["Dark Shrine"], "effect": "Dark Templar teleport." },
-      { "name": "Extended Thermal Lance", "mins": 150, "gas": 150, "rt_faster": 100, "rt_normal": 140, "at": "Robotics Bay", "req": ["Robotics Bay"], "effect": "+2 Colossus range (7->9)." },
-      { "name": "Gravitic Boosters", "mins": 100, "gas": 100, "rt_faster": 57, "rt_normal": 80, "at": "Robotics Bay", "req": ["Robotics Bay"], "effect": "+Observer speed." },
-      { "name": "Gravitic Drive", "mins": 100, "gas": 100, "rt_faster": 57, "rt_normal": 80, "at": "Robotics Bay", "req": ["Robotics Bay"], "effect": "+Warp Prism speed." },
-      { "name": "Anion Pulse-Crystals (Phoenix range)", "mins": 150, "gas": 150, "rt_faster": 64, "rt_normal": 90, "at": "Fleet Beacon", "req": ["Fleet Beacon"], "effect": "+2 Phoenix range (5->7)." },
-      { "name": "Flux Vanes", "mins": 100, "gas": 100, "rt_faster": 57, "rt_normal": 80, "at": "Fleet Beacon", "req": ["Fleet Beacon"], "effect": "+Void Ray speed." },
-      { "name": "Tectonic Destabilizers", "mins": 150, "gas": 150, "rt_faster": 100, "rt_normal": 140, "at": "Fleet Beacon", "req": ["Fleet Beacon"], "effect": "+40 Tempest damage vs structures." },
-      { "name": "Ground Weapons L1", "mins": 100, "gas": 100, "rt_faster": 121, "rt_normal": 170, "at": "Forge", "req": ["Forge"], "effect": "+1 ground weapon damage." },
-      { "name": "Ground Weapons L2", "mins": 150, "gas": 150, "rt_faster": 145, "rt_normal": 203, "at": "Forge", "req": ["Forge","Twilight Council"], "effect": "+1 (L2)." },
-      { "name": "Ground Weapons L3", "mins": 200, "gas": 200, "rt_faster": 168, "rt_normal": 235, "at": "Forge", "req": ["Forge","Twilight Council"], "effect": "+1 (L3)." },
-      { "name": "Ground Armor L1", "mins": 100, "gas": 100, "rt_faster": 121, "rt_normal": 170, "at": "Forge", "req": ["Forge"], "effect": "+1 ground armor." },
-      { "name": "Ground Armor L2", "mins": 150, "gas": 150, "rt_faster": 145, "rt_normal": 203, "at": "Forge", "req": ["Forge","Twilight Council"], "effect": "+1 (L2)." },
-      { "name": "Ground Armor L3", "mins": 200, "gas": 200, "rt_faster": 168, "rt_normal": 235, "at": "Forge", "req": ["Forge","Twilight Council"], "effect": "+1 (L3)." },
-      { "name": "Shields L1", "mins": 150, "gas": 150, "rt_faster": 121, "rt_normal": 170, "at": "Forge", "req": ["Forge"], "effect": "+1 plasma shields (units & structures)." },
-      { "name": "Shields L2", "mins": 200, "gas": 200, "rt_faster": 145, "rt_normal": 203, "at": "Forge", "req": ["Forge","Twilight Council"], "effect": "+1 (L2)." },
-      { "name": "Shields L3", "mins": 250, "gas": 250, "rt_faster": 168, "rt_normal": 235, "at": "Forge", "req": ["Forge","Twilight Council"], "effect": "+1 (L3)." },
-      { "name": "Air Weapons L1", "mins": 100, "gas": 100, "rt_faster": 129, "rt_normal": 181, "at": "Cybernetics Core", "req": ["Cybernetics Core"], "effect": "+1 air weapon damage." },
-      { "name": "Air Weapons L2", "mins": 175, "gas": 175, "rt_faster": 154, "rt_normal": 216, "at": "Cybernetics Core", "req": ["Cybernetics Core","Fleet Beacon"], "effect": "+1 (L2)." },
-      { "name": "Air Weapons L3", "mins": 250, "gas": 250, "rt_faster": 179, "rt_normal": 251, "at": "Cybernetics Core", "req": ["Cybernetics Core","Fleet Beacon"], "effect": "+1 (L3)." },
-      { "name": "Air Armor L1", "mins": 100, "gas": 100, "rt_faster": 129, "rt_normal": 181, "at": "Cybernetics Core", "req": ["Cybernetics Core"], "effect": "+1 air armor." },
-      { "name": "Air Armor L2", "mins": 175, "gas": 175, "rt_faster": 154, "rt_normal": 216, "at": "Cybernetics Core", "req": ["Cybernetics Core","Fleet Beacon"], "effect": "+1 (L2)." },
-      { "name": "Air Armor L3", "mins": 250, "gas": 250, "rt_faster": 179, "rt_normal": 251, "at": "Cybernetics Core", "req": ["Cybernetics Core","Fleet Beacon"], "effect": "+1 (L3)." }
+      {
+        "name": "Warp Gate (research)",
+        "mins": 50,
+        "gas": 50,
+        "rt_faster": 100,
+        "rt_normal": 140,
+        "at": "Cybernetics Core",
+        "req": [
+          "Cybernetics Core"
+        ],
+        "effect": "Enables Gateway->Warp Gate (transform 25/25 each, 5.0.16); ~40% faster Gateway production."
+      },
+      {
+        "name": "Charge",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 100,
+        "rt_normal": 140,
+        "at": "Twilight Council",
+        "req": [
+          "Twilight Council"
+        ],
+        "effect": "Zealot charge."
+      },
+      {
+        "name": "Blink",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 121,
+        "rt_normal": 170,
+        "at": "Twilight Council",
+        "req": [
+          "Twilight Council"
+        ],
+        "effect": "Stalker short-range teleport."
+      },
+      {
+        "name": "Resonating Glaives",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 100,
+        "rt_normal": 140,
+        "at": "Twilight Council",
+        "req": [
+          "Twilight Council"
+        ],
+        "effect": "+45% Adept attack speed."
+      },
+      {
+        "name": "Psionic Storm",
+        "mins": 200,
+        "gas": 200,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Templar Archives",
+        "req": [
+          "Templar Archives"
+        ],
+        "effect": "High Templar AoE (5.0.16 damage 110->100)."
+      },
+      {
+        "name": "Shadow Stride",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 100,
+        "rt_normal": 140,
+        "at": "Dark Shrine",
+        "req": [
+          "Dark Shrine"
+        ],
+        "effect": "Dark Templar teleport."
+      },
+      {
+        "name": "Extended Thermal Lance",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 100,
+        "rt_normal": 140,
+        "at": "Robotics Bay",
+        "req": [
+          "Robotics Bay"
+        ],
+        "effect": "+2 Colossus range (7->9)."
+      },
+      {
+        "name": "Gravitic Boosters",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 57,
+        "rt_normal": 80,
+        "at": "Robotics Bay",
+        "req": [
+          "Robotics Bay"
+        ],
+        "effect": "+Observer speed."
+      },
+      {
+        "name": "Gravitic Drive",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 57,
+        "rt_normal": 80,
+        "at": "Robotics Bay",
+        "req": [
+          "Robotics Bay"
+        ],
+        "effect": "+Warp Prism speed."
+      },
+      {
+        "name": "Anion Pulse-Crystals (Phoenix range)",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 64,
+        "rt_normal": 90,
+        "at": "Fleet Beacon",
+        "req": [
+          "Fleet Beacon"
+        ],
+        "effect": "+2 Phoenix range (5->7)."
+      },
+      {
+        "name": "Flux Vanes",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 57,
+        "rt_normal": 80,
+        "at": "Fleet Beacon",
+        "req": [
+          "Fleet Beacon"
+        ],
+        "effect": "+Void Ray speed."
+      },
+      {
+        "name": "Tectonic Destabilizers",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 100,
+        "rt_normal": 140,
+        "at": "Fleet Beacon",
+        "req": [
+          "Fleet Beacon"
+        ],
+        "effect": "+40 Tempest damage vs structures."
+      },
+      {
+        "name": "Ground Weapons L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 121,
+        "rt_normal": 170,
+        "at": "Forge",
+        "req": [
+          "Forge"
+        ],
+        "effect": "+1 ground weapon damage."
+      },
+      {
+        "name": "Ground Weapons L2",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 145,
+        "rt_normal": 203,
+        "at": "Forge",
+        "req": [
+          "Forge",
+          "Twilight Council"
+        ],
+        "effect": "+1 (L2)."
+      },
+      {
+        "name": "Ground Weapons L3",
+        "mins": 200,
+        "gas": 200,
+        "rt_faster": 168,
+        "rt_normal": 235,
+        "at": "Forge",
+        "req": [
+          "Forge",
+          "Twilight Council"
+        ],
+        "effect": "+1 (L3)."
+      },
+      {
+        "name": "Ground Armor L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 121,
+        "rt_normal": 170,
+        "at": "Forge",
+        "req": [
+          "Forge"
+        ],
+        "effect": "+1 ground armor."
+      },
+      {
+        "name": "Ground Armor L2",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 145,
+        "rt_normal": 203,
+        "at": "Forge",
+        "req": [
+          "Forge",
+          "Twilight Council"
+        ],
+        "effect": "+1 (L2)."
+      },
+      {
+        "name": "Ground Armor L3",
+        "mins": 200,
+        "gas": 200,
+        "rt_faster": 168,
+        "rt_normal": 235,
+        "at": "Forge",
+        "req": [
+          "Forge",
+          "Twilight Council"
+        ],
+        "effect": "+1 (L3)."
+      },
+      {
+        "name": "Shields L1",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 121,
+        "rt_normal": 170,
+        "at": "Forge",
+        "req": [
+          "Forge"
+        ],
+        "effect": "+1 plasma shields (units & structures)."
+      },
+      {
+        "name": "Shields L2",
+        "mins": 200,
+        "gas": 200,
+        "rt_faster": 145,
+        "rt_normal": 203,
+        "at": "Forge",
+        "req": [
+          "Forge",
+          "Twilight Council"
+        ],
+        "effect": "+1 (L2)."
+      },
+      {
+        "name": "Shields L3",
+        "mins": 250,
+        "gas": 250,
+        "rt_faster": 168,
+        "rt_normal": 235,
+        "at": "Forge",
+        "req": [
+          "Forge",
+          "Twilight Council"
+        ],
+        "effect": "+1 (L3)."
+      },
+      {
+        "name": "Air Weapons L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 129,
+        "rt_normal": 181,
+        "at": "Cybernetics Core",
+        "req": [
+          "Cybernetics Core"
+        ],
+        "effect": "+1 air weapon damage."
+      },
+      {
+        "name": "Air Weapons L2",
+        "mins": 175,
+        "gas": 175,
+        "rt_faster": 154,
+        "rt_normal": 216,
+        "at": "Cybernetics Core",
+        "req": [
+          "Cybernetics Core",
+          "Fleet Beacon"
+        ],
+        "effect": "+1 (L2)."
+      },
+      {
+        "name": "Air Weapons L3",
+        "mins": 250,
+        "gas": 250,
+        "rt_faster": 179,
+        "rt_normal": 251,
+        "at": "Cybernetics Core",
+        "req": [
+          "Cybernetics Core",
+          "Fleet Beacon"
+        ],
+        "effect": "+1 (L3)."
+      },
+      {
+        "name": "Air Armor L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 129,
+        "rt_normal": 181,
+        "at": "Cybernetics Core",
+        "req": [
+          "Cybernetics Core"
+        ],
+        "effect": "+1 air armor."
+      },
+      {
+        "name": "Air Armor L2",
+        "mins": 175,
+        "gas": 175,
+        "rt_faster": 154,
+        "rt_normal": 216,
+        "at": "Cybernetics Core",
+        "req": [
+          "Cybernetics Core",
+          "Fleet Beacon"
+        ],
+        "effect": "+1 (L2)."
+      },
+      {
+        "name": "Air Armor L3",
+        "mins": 250,
+        "gas": 250,
+        "rt_faster": 179,
+        "rt_normal": 251,
+        "at": "Cybernetics Core",
+        "req": [
+          "Cybernetics Core",
+          "Fleet Beacon"
+        ],
+        "effect": "+1 (L3)."
+      }
     ],
     "Zerg": [
-      { "name": "Metabolic Boost", "mins": 100, "gas": 100, "rt_faster": 79, "rt_normal": 110, "at": "Spawning Pool", "req": [], "effect": "+60% Zergling move speed." },
-      { "name": "Adrenal Glands", "mins": 200, "gas": 200, "rt_faster": 93, "rt_normal": 130, "at": "Spawning Pool", "req": ["Hive"], "effect": "Faster Zergling attack." },
-      { "name": "Centrifugal Hooks", "mins": 100, "gas": 100, "rt_faster": 71, "rt_normal": 99, "at": "Baneling Nest", "req": ["Lair"], "effect": "+Baneling speed & HP." },
-      { "name": "Glial Reconstitution", "mins": 100, "gas": 100, "rt_faster": 79, "rt_normal": 110, "at": "Roach Warren", "req": ["Lair"], "effect": "+Roach move speed." },
-      { "name": "Tunneling Claws", "mins": 100, "gas": 100, "rt_faster": 79, "rt_normal": 110, "at": "Roach Warren", "req": ["Lair"], "effect": "Roach burrow-move." },
-      { "name": "Grooved Spines", "mins": 75, "gas": 75, "rt_faster": 50, "rt_normal": 70, "at": "Hydralisk Den", "req": [], "effect": "+1 Hydralisk range." },
-      { "name": "Muscular Augments", "mins": 100, "gas": 100, "rt_faster": 64, "rt_normal": 90, "at": "Hydralisk Den", "req": ["Lair"], "effect": "+Hydralisk move speed." },
-      { "name": "Adaptive Talons", "mins": 100, "gas": 100, "rt_faster": 57, "rt_normal": 80, "at": "Lurker Den", "req": ["Hive"], "effect": "Faster Lurker burrow." },
-      { "name": "Seismic Spines", "mins": 150, "gas": 150, "rt_faster": 57, "rt_normal": 80, "at": "Lurker Den", "req": ["Hive"], "effect": "+Lurker range (8->10)." },
-      { "name": "Pneumatized Carapace", "mins": 100, "gas": 100, "rt_faster": 43, "rt_normal": 60, "at": "Hatchery / Lair / Hive", "req": [], "effect": "+Overlord/Overseer speed." },
-      { "name": "Ventral Sacs", "mins": 25, "gas": 25, "rt_faster": 15, "rt_normal": 21, "at": "Lair / Hive", "req": ["Lair"], "effect": "Overlords can transport units." },
-      { "name": "Neural Parasite", "mins": 150, "gas": 150, "rt_faster": 79, "rt_normal": 110, "at": "Infestation Pit", "req": [], "effect": "Infestor mind-control." },
-      { "name": "Microbial Shroud", "mins": 150, "gas": 150, "rt_faster": 79, "rt_normal": 110, "at": "Infestation Pit", "req": [], "effect": "Infestor anti-air damage-reduction cloud (5.0.16: no longer needs upgrade; kept for reference)." },
-      { "name": "Anabolic Synthesis", "mins": 150, "gas": 150, "rt_faster": 43, "rt_normal": 60, "at": "Ultralisk Cavern", "req": [], "effect": "+Ultralisk speed off creep." },
-      { "name": "Chitinous Plating", "mins": 150, "gas": 150, "rt_faster": 79, "rt_normal": 110, "at": "Ultralisk Cavern", "req": [], "effect": "+2 Ultralisk armor." },
-      { "name": "Burrow", "mins": 100, "gas": 100, "rt_faster": 71, "rt_normal": 99, "at": "Hatchery / Lair / Hive", "req": [], "effect": "Ground units can burrow." },
-      { "name": "Melee Attacks L1", "mins": 100, "gas": 100, "rt_faster": 114, "rt_normal": 160, "at": "Evolution Chamber", "req": [], "effect": "+melee ground damage." },
-      { "name": "Melee Attacks L2", "mins": 150, "gas": 150, "rt_faster": 136, "rt_normal": 190, "at": "Evolution Chamber", "req": ["Lair"], "effect": "+ (L2)." },
-      { "name": "Melee Attacks L3", "mins": 200, "gas": 200, "rt_faster": 157, "rt_normal": 220, "at": "Evolution Chamber", "req": ["Hive"], "effect": "+ (L3)." },
-      { "name": "Missile Attacks L1", "mins": 100, "gas": 100, "rt_faster": 114, "rt_normal": 160, "at": "Evolution Chamber", "req": [], "effect": "+ranged ground damage." },
-      { "name": "Missile Attacks L2", "mins": 150, "gas": 150, "rt_faster": 136, "rt_normal": 190, "at": "Evolution Chamber", "req": ["Lair"], "effect": "+ (L2)." },
-      { "name": "Missile Attacks L3", "mins": 200, "gas": 200, "rt_faster": 157, "rt_normal": 220, "at": "Evolution Chamber", "req": ["Hive"], "effect": "+ (L3)." },
-      { "name": "Ground Carapace L1", "mins": 100, "gas": 100, "rt_faster": 114, "rt_normal": 160, "at": "Evolution Chamber", "req": [], "effect": "+1 ground armor. 5.0.16 cost 150/150->100/100." },
-      { "name": "Ground Carapace L2", "mins": 150, "gas": 150, "rt_faster": 136, "rt_normal": 190, "at": "Evolution Chamber", "req": ["Lair"], "effect": "+1 (L2). 5.0.16 cost 200/200->150/150." },
-      { "name": "Ground Carapace L3", "mins": 200, "gas": 200, "rt_faster": 157, "rt_normal": 220, "at": "Evolution Chamber", "req": ["Hive"], "effect": "+1 (L3). 5.0.16 cost 250/250->200/200." },
-      { "name": "Flyer Attacks L1", "mins": 100, "gas": 100, "rt_faster": 114, "rt_normal": 160, "at": "Spire / Greater Spire", "req": [], "effect": "+air weapon damage." },
-      { "name": "Flyer Attacks L2", "mins": 175, "gas": 175, "rt_faster": 136, "rt_normal": 190, "at": "Spire / Greater Spire", "req": ["Lair"], "effect": "+ (L2)." },
-      { "name": "Flyer Attacks L3", "mins": 250, "gas": 250, "rt_faster": 157, "rt_normal": 220, "at": "Greater Spire", "req": ["Hive","Greater Spire"], "effect": "+ (L3)." },
-      { "name": "Flyer Carapace L1", "mins": 100, "gas": 100, "rt_faster": 114, "rt_normal": 160, "at": "Spire / Greater Spire", "req": [], "effect": "+air armor." },
-      { "name": "Flyer Carapace L2", "mins": 175, "gas": 175, "rt_faster": 136, "rt_normal": 190, "at": "Spire / Greater Spire", "req": ["Lair"], "effect": "+ (L2)." },
-      { "name": "Flyer Carapace L3", "mins": 250, "gas": 250, "rt_faster": 157, "rt_normal": 220, "at": "Greater Spire", "req": ["Hive","Greater Spire"], "effect": "+ (L3)." }
+      {
+        "name": "Metabolic Boost",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Spawning Pool",
+        "req": [],
+        "effect": "+60% Zergling move speed."
+      },
+      {
+        "name": "Adrenal Glands",
+        "mins": 200,
+        "gas": 200,
+        "rt_faster": 93,
+        "rt_normal": 130,
+        "at": "Spawning Pool",
+        "req": [
+          "Hive"
+        ],
+        "effect": "Faster Zergling attack."
+      },
+      {
+        "name": "Centrifugal Hooks",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 71,
+        "rt_normal": 99,
+        "at": "Baneling Nest",
+        "req": [
+          "Lair"
+        ],
+        "effect": "+Baneling speed & HP."
+      },
+      {
+        "name": "Glial Reconstitution",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Roach Warren",
+        "req": [
+          "Lair"
+        ],
+        "effect": "+Roach move speed."
+      },
+      {
+        "name": "Tunneling Claws",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Roach Warren",
+        "req": [
+          "Lair"
+        ],
+        "effect": "Roach burrow-move."
+      },
+      {
+        "name": "Grooved Spines",
+        "mins": 75,
+        "gas": 75,
+        "rt_faster": 50,
+        "rt_normal": 70,
+        "at": "Hydralisk Den",
+        "req": [],
+        "effect": "+1 Hydralisk range."
+      },
+      {
+        "name": "Muscular Augments",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 64,
+        "rt_normal": 90,
+        "at": "Hydralisk Den",
+        "req": [
+          "Lair"
+        ],
+        "effect": "+Hydralisk move speed."
+      },
+      {
+        "name": "Adaptive Talons",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 57,
+        "rt_normal": 80,
+        "at": "Lurker Den",
+        "req": [
+          "Hive"
+        ],
+        "effect": "Faster Lurker burrow."
+      },
+      {
+        "name": "Seismic Spines",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 57,
+        "rt_normal": 80,
+        "at": "Lurker Den",
+        "req": [
+          "Hive"
+        ],
+        "effect": "+Lurker range (8->10)."
+      },
+      {
+        "name": "Pneumatized Carapace",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 43,
+        "rt_normal": 60,
+        "at": "Hatchery / Lair / Hive",
+        "req": [],
+        "effect": "+Overlord/Overseer speed."
+      },
+      {
+        "name": "Ventral Sacs",
+        "mins": 25,
+        "gas": 25,
+        "rt_faster": 15,
+        "rt_normal": 21,
+        "at": "Lair / Hive",
+        "req": [
+          "Lair"
+        ],
+        "effect": "Overlords can transport units."
+      },
+      {
+        "name": "Neural Parasite",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Infestation Pit",
+        "req": [],
+        "effect": "Infestor mind-control."
+      },
+      {
+        "name": "Microbial Shroud",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Infestation Pit",
+        "req": [],
+        "effect": "Infestor anti-air damage-reduction cloud (5.0.16: no longer needs upgrade; kept for reference)."
+      },
+      {
+        "name": "Anabolic Synthesis",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 43,
+        "rt_normal": 60,
+        "at": "Ultralisk Cavern",
+        "req": [],
+        "effect": "+Ultralisk speed off creep."
+      },
+      {
+        "name": "Chitinous Plating",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 79,
+        "rt_normal": 110,
+        "at": "Ultralisk Cavern",
+        "req": [],
+        "effect": "+2 Ultralisk armor."
+      },
+      {
+        "name": "Burrow",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 71,
+        "rt_normal": 99,
+        "at": "Hatchery / Lair / Hive",
+        "req": [],
+        "effect": "Ground units can burrow."
+      },
+      {
+        "name": "Melee Attacks L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 114,
+        "rt_normal": 160,
+        "at": "Evolution Chamber",
+        "req": [],
+        "effect": "+melee ground damage."
+      },
+      {
+        "name": "Melee Attacks L2",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 136,
+        "rt_normal": 190,
+        "at": "Evolution Chamber",
+        "req": [
+          "Lair"
+        ],
+        "effect": "+ (L2)."
+      },
+      {
+        "name": "Melee Attacks L3",
+        "mins": 200,
+        "gas": 200,
+        "rt_faster": 157,
+        "rt_normal": 220,
+        "at": "Evolution Chamber",
+        "req": [
+          "Hive"
+        ],
+        "effect": "+ (L3)."
+      },
+      {
+        "name": "Missile Attacks L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 114,
+        "rt_normal": 160,
+        "at": "Evolution Chamber",
+        "req": [],
+        "effect": "+ranged ground damage."
+      },
+      {
+        "name": "Missile Attacks L2",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 136,
+        "rt_normal": 190,
+        "at": "Evolution Chamber",
+        "req": [
+          "Lair"
+        ],
+        "effect": "+ (L2)."
+      },
+      {
+        "name": "Missile Attacks L3",
+        "mins": 200,
+        "gas": 200,
+        "rt_faster": 157,
+        "rt_normal": 220,
+        "at": "Evolution Chamber",
+        "req": [
+          "Hive"
+        ],
+        "effect": "+ (L3)."
+      },
+      {
+        "name": "Ground Carapace L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 114,
+        "rt_normal": 160,
+        "at": "Evolution Chamber",
+        "req": [],
+        "effect": "+1 ground armor. 5.0.16 cost 150/150->100/100."
+      },
+      {
+        "name": "Ground Carapace L2",
+        "mins": 150,
+        "gas": 150,
+        "rt_faster": 136,
+        "rt_normal": 190,
+        "at": "Evolution Chamber",
+        "req": [
+          "Lair"
+        ],
+        "effect": "+1 (L2). 5.0.16 cost 200/200->150/150."
+      },
+      {
+        "name": "Ground Carapace L3",
+        "mins": 200,
+        "gas": 200,
+        "rt_faster": 157,
+        "rt_normal": 220,
+        "at": "Evolution Chamber",
+        "req": [
+          "Hive"
+        ],
+        "effect": "+1 (L3). 5.0.16 cost 250/250->200/200."
+      },
+      {
+        "name": "Flyer Attacks L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 114,
+        "rt_normal": 160,
+        "at": "Spire / Greater Spire",
+        "req": [],
+        "effect": "+air weapon damage."
+      },
+      {
+        "name": "Flyer Attacks L2",
+        "mins": 175,
+        "gas": 175,
+        "rt_faster": 136,
+        "rt_normal": 190,
+        "at": "Spire / Greater Spire",
+        "req": [
+          "Lair"
+        ],
+        "effect": "+ (L2)."
+      },
+      {
+        "name": "Flyer Attacks L3",
+        "mins": 250,
+        "gas": 250,
+        "rt_faster": 157,
+        "rt_normal": 220,
+        "at": "Greater Spire",
+        "req": [
+          "Hive",
+          "Greater Spire"
+        ],
+        "effect": "+ (L3)."
+      },
+      {
+        "name": "Flyer Carapace L1",
+        "mins": 100,
+        "gas": 100,
+        "rt_faster": 114,
+        "rt_normal": 160,
+        "at": "Spire / Greater Spire",
+        "req": [],
+        "effect": "+air armor."
+      },
+      {
+        "name": "Flyer Carapace L2",
+        "mins": 175,
+        "gas": 175,
+        "rt_faster": 136,
+        "rt_normal": 190,
+        "at": "Spire / Greater Spire",
+        "req": [
+          "Lair"
+        ],
+        "effect": "+ (L2)."
+      },
+      {
+        "name": "Flyer Carapace L3",
+        "mins": 250,
+        "gas": 250,
+        "rt_faster": 157,
+        "rt_normal": 220,
+        "at": "Greater Spire",
+        "req": [
+          "Hive",
+          "Greater Spire"
+        ],
+        "effect": "+ (L3)."
+      }
     ]
   },
-
   "benchmarks": {
     "note": "Community/empirical reference landmarks in the FASTER in-game clock (mm:ss). Use to sanity-check computed timings. Travel-dependent events (proxy hits) vary with map/spawn distance. These are approximate, not derived from the tables above.",
     "orders": [
-      { "name": "Terran 1-Rax Reaper Expand", "race": "Terran", "landmarks": [
-        { "event": "First Supply Depot", "mmss": "0:19" },
-        { "event": "Barracks", "mmss": "0:44" },
-        { "event": "First Reaper pops", "mmss": "1:35" },
-        { "event": "Orbital Command done", "mmss": "2:05" },
-        { "event": "Natural CC started", "mmss": "2:20" }
-      ]},
-      { "name": "Terran Proxy Barracks (proxy Marine)", "race": "Terran", "landmarks": [
-        { "event": "SCV leaves for proxy", "mmss": "0:20-0:30" },
-        { "event": "Proxy Barracks started", "mmss": "1:00-1:15" },
-        { "event": "First Marine pops at proxy", "mmss": "~1:58" },
-        { "event": "First Marine reaches enemy", "mmss": "2:00-2:15" }
-      ]},
-      { "name": "Protoss Nexus-First (Gateway Expand)", "race": "Protoss", "landmarks": [
-        { "event": "First Pylon", "mmss": "0:20" },
-        { "event": "Natural Nexus", "mmss": "~0:48" },
-        { "event": "Gateway", "mmss": "~1:05" },
-        { "event": "First Zealot pops", "mmss": "~2:07" }
-      ]},
-      { "name": "Protoss Proxy Gateway (proxy Zealot)", "race": "Protoss", "landmarks": [
-        { "event": "Probe leaves for proxy", "mmss": "0:20-0:30" },
-        { "event": "Proxy Pylon", "mmss": "~0:55" },
-        { "event": "Proxy Gateway", "mmss": "~1:15" },
-        { "event": "First Zealot pops at proxy", "mmss": "~2:10" },
-        { "event": "First Zealot reaches enemy", "mmss": "2:10-2:30" }
-      ]},
-      { "name": "Zerg Hatch-First into Speedling", "race": "Zerg", "landmarks": [
-        { "event": "Natural Hatchery", "mmss": "~1:00" },
-        { "event": "Spawning Pool", "mmss": "~1:15" },
-        { "event": "Pool done / Queen + lings", "mmss": "~1:50" },
-        { "event": "Ling speed done", "mmss": "~3:00" }
-      ]},
-      { "name": "Zerg 12-Pool (fastest lings)", "race": "Zerg", "landmarks": [
-        { "event": "Spawning Pool", "mmss": "~0:50" },
-        { "event": "First Zerglings pop", "mmss": "~1:45" },
-        { "event": "Zerglings reach enemy", "mmss": "2:10-2:30" }
-      ]}
+      {
+        "name": "Terran 1-Rax Reaper Expand",
+        "race": "Terran",
+        "landmarks": [
+          {
+            "event": "First Supply Depot",
+            "mmss": "0:19"
+          },
+          {
+            "event": "Barracks",
+            "mmss": "0:44"
+          },
+          {
+            "event": "First Reaper pops",
+            "mmss": "1:35"
+          },
+          {
+            "event": "Orbital Command done",
+            "mmss": "2:05"
+          },
+          {
+            "event": "Natural CC started",
+            "mmss": "2:20"
+          }
+        ]
+      },
+      {
+        "name": "Terran Proxy Barracks (proxy Marine)",
+        "race": "Terran",
+        "landmarks": [
+          {
+            "event": "SCV leaves for proxy",
+            "mmss": "0:20-0:30"
+          },
+          {
+            "event": "Proxy Barracks started",
+            "mmss": "1:00-1:15"
+          },
+          {
+            "event": "First Marine pops at proxy",
+            "mmss": "~1:58"
+          },
+          {
+            "event": "First Marine reaches enemy",
+            "mmss": "2:00-2:15"
+          }
+        ]
+      },
+      {
+        "name": "Protoss Nexus-First (Gateway Expand)",
+        "race": "Protoss",
+        "landmarks": [
+          {
+            "event": "First Pylon",
+            "mmss": "0:20"
+          },
+          {
+            "event": "Natural Nexus",
+            "mmss": "~0:48"
+          },
+          {
+            "event": "Gateway",
+            "mmss": "~1:05"
+          },
+          {
+            "event": "First Zealot pops",
+            "mmss": "~2:07"
+          }
+        ]
+      },
+      {
+        "name": "Protoss Proxy Gateway (proxy Zealot)",
+        "race": "Protoss",
+        "landmarks": [
+          {
+            "event": "Probe leaves for proxy",
+            "mmss": "0:20-0:30"
+          },
+          {
+            "event": "Proxy Pylon",
+            "mmss": "~0:55"
+          },
+          {
+            "event": "Proxy Gateway",
+            "mmss": "~1:15"
+          },
+          {
+            "event": "First Zealot pops at proxy",
+            "mmss": "~2:10"
+          },
+          {
+            "event": "First Zealot reaches enemy",
+            "mmss": "2:10-2:30"
+          }
+        ]
+      },
+      {
+        "name": "Zerg Hatch-First into Speedling",
+        "race": "Zerg",
+        "landmarks": [
+          {
+            "event": "Natural Hatchery",
+            "mmss": "~1:00"
+          },
+          {
+            "event": "Spawning Pool",
+            "mmss": "~1:15"
+          },
+          {
+            "event": "Pool done / Queen + lings",
+            "mmss": "~1:50"
+          },
+          {
+            "event": "Ling speed done",
+            "mmss": "~3:00"
+          }
+        ]
+      },
+      {
+        "name": "Zerg 12-Pool (fastest lings)",
+        "race": "Zerg",
+        "landmarks": [
+          {
+            "event": "Spawning Pool",
+            "mmss": "~0:50"
+          },
+          {
+            "event": "First Zerglings pop",
+            "mmss": "~1:45"
+          },
+          {
+            "event": "Zerglings reach enemy",
+            "mmss": "2:10-2:30"
+          }
+        ]
+      }
     ]
   }
 }

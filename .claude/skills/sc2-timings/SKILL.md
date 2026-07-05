@@ -13,7 +13,7 @@ Times exist in two units. The DB stores both; **always plan with `*_faster`.**
 
 - `*_faster` = **in-game clock (Faster) seconds** = what build orders (mm:ss) and the game UI show. **This is the planning unit.**
 - `*_normal` = raw data (Normal) seconds. Reference only. `faster = normal / 1.399902`.
-- Anchors to sanity-check any new number: Marine 25n/18f · SCV 17n/12f · Command Center 71n/51f · Zealot 38n/27f.
+- Anchors to sanity-check any new number: Marine 25n/18f · SCV 17n/12f · Command Center 100n/71f · Zealot 38n/27f.
 - Liquipedia is inconsistent (its Unit page shows Faster, its Building page shows Normal). The DB is already normalized; keep it that way if you add entries.
 
 ## Query tool

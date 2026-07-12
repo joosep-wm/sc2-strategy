@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Protoss Low-APM Opening: Continuous Stalker + Natural Battery</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a33;
+      --text: #e8eefc;
+      --muted: #a9b7d6;
+      --line: #344369;
+      --protoss: #ffd66b;
+      --ok: #77e0c6;
+      --warn: #ffd166;
+      --bad: #ff8b8b;
+      --radius: 16px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.55; }
+    main { width: min(960px, calc(100% - 32px)); margin: 0 auto; padding: 40px 0 72px; }
+    header { background: var(--panel); border: 1px solid rgba(255,255,255,.08); border-radius: 22px; padding: 30px; margin-bottom: 30px; }
+    h1 { margin: 0 0 12px; font-size: clamp(28px, 4.6vw, 44px); line-height: 1.06; letter-spacing: -0.03em; }
+    .subtitle { color: var(--muted); font-size: 17px; max-width: 700px; margin: 0 0 18px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 9px; }
+    .chip { border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 6px 12px; font-size: 12.5px; font-weight: 700; color: var(--muted); font-family: var(--mono); }
+    .chip.draft { color: var(--warn); border-color: rgba(255,209,102,.4); }
+    .chip.race { color: var(--protoss); }
+    h2 { margin: 40px 0 14px; font-size: 13px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .card { background: var(--panel); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding: 18px; }
+    .card h3 { margin: 0 0 6px; font-size: 17px; }
+    .card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+    table { width: 100%; border-collapse: collapse; background: var(--panel); border-radius: var(--radius); overflow: hidden; }
+    th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,.07); font-size: 14.5px; }
+    th { color: var(--muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: .08em; }
+    td.t { font-family: var(--mono); color: var(--ok); white-space: nowrap; }
+    td.s { font-family: var(--mono); color: var(--muted); white-space: nowrap; }
+    .rule { background: var(--panel); border-left: 3px solid var(--ok); border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; margin: 12px 0; }
+    .rule.alarm { border-left-color: var(--bad); }
+    .rule strong { color: var(--text); }
+    .rule p { margin: 4px 0 0; color: var(--muted); font-size: 14.5px; }
+    .src { font-size: 12.5px; color: var(--muted); font-family: var(--mono); }
+    .footer-note { margin-top: 44px; color: var(--muted); font-size: 13px; text-align: center; }
+    .footer-note a { color: var(--ok); text-decoration: none; }
+    @media (max-width: 720px) { .cards { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Low-APM Opening: Continuous Stalker + Natural Battery</h1>
+    <p class="subtitle">
+      One gate never idles, one Battery covers the natural, zero shade micro. Replaces the
+      double-Adept opening for players whose APM budget goes to probes and pylons. First
+      defender out at 2:45, before the earliest harass observed in 60 replays (2:49).
+    </p>
+    <div class="chips">
+      <span class="chip draft">DRAFT</span>
+      <span class="chip race">Protoss</span>
+      <span class="chip">1v1 + 2v2</span>
+      <span class="chip">Patch 5.0.16</span>
+      <span class="chip">Low-micro</span>
+    </div>
+  </header>
+
+  <h2>Why this build exists</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Harass was deciding games</h3>
+      <p>A kill in our base before 5:00 meant a 25% winrate vs 62% without, with 12 workers
+      lost on average before 7:00. The old opening sent both Adepts away at 2:55, right as
+      harass arrived.</p>
+    </div>
+    <div class="card">
+      <h3>Units came too late</h3>
+      <p>First gateway unit at median 3:12, only 2 combat units by 4:00. This build has a
+      Stalker at 2:45 and six by 5:00, from one gateway, with no micro.</p>
+    </div>
+    <div class="card">
+      <h3>One geyser funds it</h3>
+      <p>Stalker cadence from one gate needs ~111 gas/min; one geyser with 3 probes yields
+      ~114 (DB mining model). Gas #2 is entirely for the tech path.</p>
+    </div>
+  </div>
+
+  <h2>Key timings</h2>
+  <div class="cards">
+    <div class="card"><h3>2:45</h3><p>Stalker #1 born, holds the mineral line</p></div>
+    <div class="card"><h3>~3:12</h3><p>Nexus at the natural</p></div>
+    <div class="card"><h3>~3:49</h3><p>Shield Battery finished at the natural</p></div>
+  </div>
+
+  <h2>Build order (supply-driven)</h2>
+  <table>
+    <tr><th>Supply</th><th>Time</th><th>Action</th></tr>
+    <tr><td class="s">11</td><td class="t">~0:25</td><td>Pylon <span class="src">(v)</span></td></tr>
+    <tr><td class="s">12</td><td class="t">0:47</td><td>Gateway, done 1:34 <span class="src">(v)</span></td></tr>
+    <tr><td class="s">13</td><td class="t">~0:55</td><td>Assimilator, 3 probes in gas immediately</td></tr>
+    <tr><td class="s">15</td><td class="t">~1:30</td><td>Pylon</td></tr>
+    <tr><td class="s">17</td><td class="t">1:42</td><td>Cybernetics Core, done 2:18 <span class="src">(v)</span></td></tr>
+    <tr><td class="s">20</td><td class="t">2:18</td><td>Stalker #1, born 2:45 <span class="src">(db 27f)</span>. Hold at the mineral line</td></tr>
+    <tr><td class="s">22</td><td class="t">2:45</td><td>Stalker #2; the gate never idles from here on</td></tr>
+    <tr><td class="s">22</td><td class="t">~2:45</td><td>Probe scout leaves to check the enemy natural</td></tr>
+    <tr><td class="s">24</td><td class="t">~3:12</td><td>Nexus at the natural <span class="src">(v anchor)</span></td></tr>
+    <tr><td class="s">24</td><td class="t">~3:20</td><td>Shield Battery at the natural, done ~3:49 <span class="src">(db 29f, 100m, needs only a Gateway)</span></td></tr>
+    <tr><td class="s">26</td><td class="t">~3:30</td><td>Assimilator #2 (funds the tech path)</td></tr>
+    <tr><td class="s">28</td><td class="t">~3:45</td><td>Gateway #2</td></tr>
+    <tr><td class="s">30</td><td class="t">~4:00</td><td>Pylon; Stalkers keep landing 3:39, 4:06, 4:33, 5:00 <span class="src">(db cadence)</span></td></tr>
+    <tr><td class="s">~36</td><td class="t">~4:30</td><td>Warp Gate research <span class="src">(db 50/50, 100f)</span></td></tr>
+    <tr><td class="s">~45</td><td class="t">5:30</td><td>Decision point: pick ONE tech path</td></tr>
+  </table>
+
+  <h2>Rules</h2>
+  <div class="rule">
+    <strong>Chrono on probes only until 5:30.</strong>
+    <p>Unchanged from the verified Stargate opening.</p>
+  </div>
+  <div class="rule">
+    <strong>The gate is never idle.</strong>
+    <p>If gas dips, insert a Zealot (100m, 0g, 27f) instead of waiting for 50 gas.</p>
+  </div>
+  <div class="rule">
+    <strong>Low-APM Warp Gate.</strong>
+    <p>After Warp Gate research completes, an untransformed Gateway produces about 40%
+    faster (DB note). Most of the benefit, zero warp-in micro. Transform (25/25 each in
+    5.0.16) only when you want forward warp-ins.</p>
+  </div>
+  <div class="rule alarm">
+    <strong>The 3:30 scout rule.</strong>
+    <p>Enemy naturals start at median 3:06 (66 opponents measured). If the probe sees NO
+    enemy natural by 3:30: second Battery immediately, Stalkers from both gates, no tech
+    until 6:00. Observed one-base all-ins ended games between 4:57 and 6:02.</p>
+  </div>
+  <div class="rule alarm">
+    <strong>No second tech building before 5:30. Ever.</strong>
+    <p>Tech sprawl was the number one loss pattern in the 2v2 replay set.</p>
+  </div>
+
+  <h2>Tech paths at 5:30 (one per game)</h2>
+  <table>
+    <tr><th>Path</th><th>Notes</th></tr>
+    <tr><td>Robo into Colossus</td><td>Use the Double-Robo draft with its known fix: Robo on time so the Observer is out before the DT window</td></tr>
+    <tr><td>Twilight into Zealot/Templar/Archon</td><td>Storm is 100 dmg in 5.0.16; lowest-micro late-game army of the four</td></tr>
+    <tr><td>Dark Shrine</td><td>Only as the sole tech path; panic Dark Shrines after minute 14 never worked in the replay set</td></tr>
+    <tr><td>Stargate into Fleet Beacon / Mothership</td><td>Most expensive; only when both fronts are scouted safe in 2v2</td></tr>
+  </table>
+
+  <h2>Verification status</h2>
+  <div class="rule">
+    <strong>Unverified.</strong>
+    <p>Timings are DB-computed plus anchors (v) observed in the verified Stargate opening
+    replay. Promotion requires reproducing in a replay: Stalker #1 born by 2:50, Nexus by
+    3:15, Battery done by 3:55, six Stalkers at 5:00, zero gate idle time.</p>
+  </div>
+
+  <p class="footer-note">
+    Timings validated against <a href="../../data/sc2_data.json">data/sc2_data.json</a>
+    · analysis basis: 60 ladder replays, 2026-07-12
+  </p>
+</main>
+</body>
+</html>

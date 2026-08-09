@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chargelot Five: 5:00-5:30 Punch</title>
+  <style>
+    :root { --bg:#0b1020; --panel:#121a33; --text:#e8eefc; --muted:#a9b7d6; --protoss:#ffd66b; --ok:#77e0c6; --warn:#ffd166; --bad:#ff8b8b; --radius:16px; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; --sans:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif; }
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55}
+    main{width:min(860px,calc(100% - 32px));margin:0 auto;padding:40px 0 72px}
+    header{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:28px;margin-bottom:26px}
+    h1{margin:0 0 10px;font-size:clamp(26px,4.4vw,40px);letter-spacing:-.03em;line-height:1.06}
+    .subtitle{color:var(--muted);font-size:16px;margin:0 0 16px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:700;color:var(--muted);font-family:var(--mono)}
+    .chip.draft{color:var(--warn)} .chip.race{color:var(--protoss)}
+    h2{margin:32px 0 12px;font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;background:var(--panel);border-radius:var(--radius);overflow:hidden}
+    td{padding:8px 13px;border-bottom:1px solid rgba(255,255,255,.07);font-size:14.5px}
+    td.t{font-family:var(--mono);color:var(--ok);white-space:nowrap;width:70px}
+    .rule{background:var(--panel);border-left:3px solid var(--ok);border-radius:0 var(--radius) var(--radius) 0;padding:11px 16px;margin:10px 0;font-size:14.5px;color:var(--muted)}
+    .rule strong{color:var(--text)} .rule.alarm{border-left-color:var(--bad)}
+    .footer-note{margin-top:36px;color:var(--muted);font-size:13px;text-align:center}
+    .footer-note a{color:var(--ok);text-decoration:none}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Chargelot Five: 5:00-5:30 Punch</h1>
+    <p class="subtitle">Coached 3-gate skeleton, Twilight instead of Robo. 10-12 Chargelots hit
+    before 5:30, before Mutas can exist. DB-computed from Kaido's own anchors; unplayed.</p>
+    <div class="chips">
+      <span class="chip draft">DRAFT</span><span class="chip race">Protoss</span>
+      <span class="chip">1v1 + 2v2</span><span class="chip">PvZ-first</span>
+      <span class="chip">Patch 5.0.16b</span><span class="chip">Low-micro</span>
+    </div>
+  </header>
+
+  <h2>Build order</h2>
+  <table>
+    <tr><td class="t">0:54</td><td>Gateway; two Assimilators by 1:30</td></tr>
+    <tr><td class="t">1:48</td><td>Gateway #2</td></tr>
+    <tr><td class="t">1:53</td><td>Cybernetics Core (done 2:29)</td></tr>
+    <tr><td class="t">2:30</td><td>Twilight Council + Warp Gate research together</td></tr>
+    <tr><td class="t">2:32</td><td>Gateway #3; Zealots nonstop from every gate</td></tr>
+    <tr><td class="t">3:06</td><td>Charge, chrono it: done ~4:20</td></tr>
+    <tr><td class="t">4:30</td><td>Scout probe plants a hidden Pylon outside the enemy natural</td></tr>
+    <tr><td class="t">4:45</td><td>One warp round there; hit 5:00-5:30 with 10-12 Chargelots + 2 Stalkers</td></tr>
+  </table>
+
+  <h2>Rules</h2>
+  <div class="rule"><strong>Probes stop at 22.</strong> Bank under 200 at 5:00 or the build broke.</div>
+  <div class="rule"><strong>2v2 sync:</strong> Joosep's Liberator born median 5:01 (measured, 15 games).
+    Chargelots absorb, Liberator kills Queens above them.</div>
+  <div class="rule alarm"><strong>Go/no-go at 4:30.</strong> Enemy expanded, light defense: go.
+    No natural or mass units: warp at home, Battery, hold. Defensive record in those games is strong.</div>
+  <div class="rule alarm"><strong>Banelings:</strong> spread Zealots, never one clump on creep.</div>
+  <div class="rule"><strong>Failsafe:</strong> damages but does not kill: Archives next (CIA follow-up), Nexus behind.</div>
+  <div class="rule alarm"><strong>Known weakness:</strong> zero detection. DTs or burrow beat you blind. Accepted at Gold.</div>
+
+  <p class="footer-note">Timings from <a href="../../data/sc2_data.json">data/sc2_data.json</a> +
+  observed anchors (coached games, 2026-08-08). Verify per repo rules before promotion.</p>
+</main>
+</body>
+</html>

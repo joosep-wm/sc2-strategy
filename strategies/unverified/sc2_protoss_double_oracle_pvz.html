@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Double Oracle vs Zerg: Wall-In Expand</title>
+  <style>
+    :root { --bg:#0b1020; --panel:#121a33; --text:#e8eefc; --muted:#a9b7d6; --protoss:#ffd66b; --ok:#77e0c6; --warn:#ffd166; --bad:#ff8b8b; --radius:16px; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; --sans:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif; }
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55}
+    main{width:min(860px,calc(100% - 32px));margin:0 auto;padding:40px 0 72px}
+    header{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:28px;margin-bottom:26px}
+    h1{margin:0 0 10px;font-size:clamp(26px,4.4vw,40px);letter-spacing:-.03em;line-height:1.06}
+    .subtitle{color:var(--muted);font-size:16px;margin:0 0 16px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:700;color:var(--muted);font-family:var(--mono)}
+    .chip.draft{color:var(--warn)} .chip.race{color:var(--protoss)}
+    h2{margin:32px 0 12px;font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;background:var(--panel);border-radius:var(--radius);overflow:hidden}
+    td{padding:8px 13px;border-bottom:1px solid rgba(255,255,255,.07);font-size:14.5px}
+    td.t{font-family:var(--mono);color:var(--ok);white-space:nowrap;width:70px}
+    .rule{background:var(--panel);border-left:3px solid var(--ok);border-radius:0 var(--radius) var(--radius) 0;padding:11px 16px;margin:10px 0;font-size:14.5px;color:var(--muted)}
+    .rule strong{color:var(--text)} .rule.alarm{border-left-color:var(--bad)}
+    .footer-note{margin-top:36px;color:var(--muted);font-size:13px;text-align:center}
+    .footer-note a{color:var(--ok);text-decoration:none}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Double Oracle vs Zerg: Wall-In Expand</h1>
+    <p class="subtitle">Meta-standard PvZ on 5.0.16 (Harstem opening, 95% approval on Spawning
+    Tool). Wall at home, expand behind it, two Oracles for drone kills and the scouting that
+    the muta loss proved we need. Unplayed by us; timings from the source build.</p>
+    <div class="chips">
+      <span class="chip draft">DRAFT</span><span class="chip race">Protoss</span>
+      <span class="chip">1v1 PvZ</span><span class="chip">Patch 5.0.16</span>
+      <span class="chip">Micro: medium</span>
+    </div>
+  </header>
+
+  <h2>Build order (Harstem 5.0.16, abbreviated)</h2>
+  <table>
+    <tr><td class="t">0:34</td><td>Pylon in the wall position</td></tr>
+    <tr><td class="t">1:00</td><td>Gateway (wall); two Assimilators by 1:15</td></tr>
+    <tr><td class="t">1:54</td><td>Nexus, then 2:05 Cybernetics Core (wall)</td></tr>
+    <tr><td class="t">2:41</td><td>Adept, chrono; Zealot or Adept completes the wall gap</td></tr>
+    <tr><td class="t">2:49</td><td>Stargate; 3:05 Warp Gate research</td></tr>
+    <tr><td class="t">3:35</td><td>Oracle #1, chrono; harass drone lines from the map edge</td></tr>
+    <tr><td class="t">4:45</td><td>Oracle #2; 4:30 Gateway #2 completes the natural wall</td></tr>
+    <tr><td class="t">5:00</td><td>Twilight Council; then follow the Chargelot/CIA follow-up</td></tr>
+  </table>
+
+  <h2>Rules</h2>
+  <div class="rule alarm"><strong>Queens are not Light</strong> (DB: Biological, Psionic, 175 HP,
+    1 armor). Oracles kill drones fast and queens slowly. Two Oracles can finish a lone queen,
+    but drones and scouting are the paycheck; leave defended queens alone.</div>
+  <div class="rule"><strong>The Oracles are the scout.</strong> Every pass reads gas count and
+    tech. 4+ Extractors by 4:30 = tech commit; Spire seen at T = Mutas from ~T+1:30: cannons in
+    both mineral lines, Stalkers home. This is the muta insurance the wall does not provide.</div>
+  <div class="rule"><strong>Stasis is permanent in 5.0.16.</strong> A ward on the attack path
+    holds a ling runby indefinitely; place one at the third-base route once Oracles are idle.</div>
+  <div class="rule alarm"><strong>APM honesty:</strong> Oracle beam toggling under queen fire is
+    the most micro this playbook asks anywhere. If both Oracles die with under 10 drone kills,
+    revert to Chargelot Five and keep the wall.</div>
+
+  <p class="footer-note">Source: <a href="https://lotv.spawningtool.com/build/203087/">Harstem
+  5.0.16 PvZ (Spawning Tool)</a> · DB checks from <a href="../../data/sc2_data.json">data/sc2_data.json</a></p>
+</main>
+</body>
+</html>

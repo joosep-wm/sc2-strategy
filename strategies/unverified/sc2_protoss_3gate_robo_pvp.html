@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>3-Gate Robo: PvP Stalker-Prism Punch</title>
+  <title>3-Gate Robo: Stalker-Prism Punch (PvP / PvT)</title>
   <style>
     :root { --bg:#0b1020; --panel:#121a33; --text:#e8eefc; --muted:#a9b7d6; --protoss:#ffd66b; --ok:#77e0c6; --warn:#ffd166; --bad:#ff8b8b; --radius:16px; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; --sans:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif; }
     *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55}
@@ -27,14 +27,14 @@
 <body>
 <main>
   <header>
-    <h1>3-Gate Robo: PvP Stalker-Prism Punch</h1>
+    <h1>3-Gate Robo: Stalker-Prism Punch (PvP / PvT)</h1>
     <p class="subtitle">Coach Dns's build. One base, three gates, Robo for the Prism, one forward
-    warp round, kill by 6:00. Observed twice on ladder (both wins, 5:52 and 6:07). PvP only:
-    coach's verdict is that it is weak vs Zerg.</p>
+    warp round, kill by 6:00. Observed in 8 ladder games (PvP 2-0, PvT 2-4). Works vs Terran
+    only if the warp round is down before the first Siege Tank. Weak vs Zerg (coach's verdict).</p>
     <div class="chips">
       <span class="chip draft">DRAFT</span><span class="chip race">Protoss</span>
-      <span class="chip">1v1 PvP</span><span class="chip">Patch 5.0.16b</span>
-      <span class="chip">Replay-observed n=2</span>
+      <span class="chip">1v1 PvP + PvT</span><span class="chip">Patch 5.0.16b</span>
+      <span class="chip">Replay-observed n=8</span>
     </div>
   </header>
 
@@ -62,6 +62,18 @@
     it. One Observer before crossing the map is cheap insurance; the Robo is already paid for.</div>
   <div class="rule alarm"><strong>Not for PvZ.</strong> Queens + lings hold Stalker pressure.
     Use Chargelot Five vs Zerg.</div>
+
+  <h2>PvT: the tank clock (measured 2026-08-09, 6 games)</h2>
+  <div class="rule alarm"><strong>First enemy Siege Tanks were born 5:19, 5:21 and 5:45.</strong>
+    The warp round must be DOWN by 5:00 and hitting by 5:10. After the first tank sieges,
+    the punch is dead; both long games after a failed punch were losses.</div>
+  <div class="rule"><strong>The deadline is set by the Prism chain, not Warp Gate.</strong>
+    In the 21:29 Lockdown loss, WG finished 4:23, only 10s late. The lost minute was:
+    Robo 3:10 (24s late) then Prism born 4:40 (41s late) then warp at 5:41, after the 5:19 tank.
+    Checkpoints: Robo 2:46, Prism BORN 3:59 and flying at once, warp round 4:45-4:55.</div>
+  <div class="rule"><strong>Early Stalker poke wins games.</strong> Both PvT wins had first kills
+    before 4:15 with the initial Stalkers pressuring while the Prism crossed. Losses mostly
+    poked late or not at all.</div>
 
   <p class="footer-note">Anchors observed in replays (Rainfall LE, Lockdown LE, 2026-08-08),
   cross-checked against <a href="../../data/sc2_data.json">data/sc2_data.json</a>.</p>

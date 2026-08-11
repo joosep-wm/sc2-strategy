@@ -29,8 +29,10 @@
   <header>
     <h1>Double Oracle vs Zerg: Wall-In Expand</h1>
     <p class="subtitle">Meta-standard PvZ on 5.0.16 (Harstem opening, 95% approval on Spawning
-    Tool). Wall at home, expand behind it, two Oracles for drone kills and the scouting that
-    the muta loss proved we need. Unplayed by us; timings from the source build.</p>
+    Tool). Wall to the natural, expand behind it, two Oracles fly to the Zerg main for the
+    queen + drones and the scouting that the muta loss proved we need. One practice rep so far
+    (2026-08-08, vs AI): it proved the concept and failed the clock; see the rep review.
+    Ladder PvZ is our weakest matchup (7-8 over the replay set), which is what this build is for.</p>
     <div class="chips">
       <span class="chip draft">DRAFT</span><span class="chip race">Protoss</span>
       <span class="chip">1v1 PvZ</span><span class="chip">Patch 5.0.16</span>
@@ -51,18 +53,44 @@
   </table>
 
   <h2>Rules</h2>
-  <div class="rule alarm"><strong>Queens are not Light</strong> (DB: Biological, Psionic, 175 HP,
-    1 armor). Oracles kill drones fast and queens slowly. Two Oracles can finish a lone queen,
-    but drones and scouting are the paycheck; leave defended queens alone.</div>
+  <div class="rule"><strong>The mission in the main: queen first if it is alone, then drones.</strong>
+    Queens are not Light (DB: Biological, Psionic, 175 HP, 1 armor), so Oracles kill drones fast
+    and queens slowly; two Oracles can finish a lone queen, and with it dead the drone line is
+    free. If a second queen or a Spore is up, take drones on the edge or leave with the scout;
+    defended queens are not the paycheck.</div>
+  <div class="rule alarm"><strong>Spore seen = note tech, retreat, set the trap.</strong> Do not
+    trade Oracles into a Spore. On the way out read gas count, Lair, Spire. Then both Oracles drop
+    Stasis Wards in front of our natural wall, the trap that catches the counterattack the Spore
+    usually announces. Standard 21s stasis on triggering units.</div>
   <div class="rule"><strong>The Oracles are the scout.</strong> Every pass reads gas count and
     tech. 4+ Extractors by 4:30 = tech commit; Spire seen at T = Mutas from ~T+1:30: cannons in
     both mineral lines, Stalkers home. This is the muta insurance the wall does not provide.</div>
   <div class="rule"><strong>Stasis Wards on the runby path</strong> once Oracles are idle; standard
     21s stasis on triggering units. (Correction 2026-08-09: a third-party claim that 5.0.16 made
     stasis permanent is NOT in the official patch notes and was removed from this guide.)</div>
+  <div class="rule"><strong>The wall is load-bearing.</strong> In the replay set Zerg pools went
+    down at 0:50-1:13 in seven of fifteen ladder games. The 0:34 wall Pylon and the 1:00 wall
+    Gateway are not optional decoration; a hole here loses before the Stargate exists.</div>
   <div class="rule alarm"><strong>APM honesty:</strong> Oracle beam toggling under queen fire is
     the most micro this playbook asks anywhere. If both Oracles die with under 10 drone kills,
     revert to Chargelot Five and keep the wall.</div>
+
+  <h2>First rep review (2026-08-08, Void Training vs AI)</h2>
+  <div class="rule alarm"><strong>The build died on the clock, not the concept.</strong>
+    Observed: Nexus 1:52 (on time) but Stargate 5:44 (plan 2:49, 2:55 late) and Oracle #1 born
+    6:38 (plan: born ~4:12, DB build time 37s from a 3:35 start). Spores were up at 6:33-6:36 before the first Oracle ever
+    flew, the exact scenario the retreat branch exists for, created by our own lateness. The
+    Twilight at 3:49 came before the Stargate; vs Zerg the Stargate cuts the line. Drill order:
+    Nexus 1:54 → Core 2:05 → <strong>Stargate 2:49</strong> → everything else.</div>
+
+  <h2>Follow-up: Chargelots + Void Rays, Mothership on top</h2>
+  <div class="rule"><strong>Twilight ~5:00 → Charge; the Stargate never idles.</strong> After
+    Oracle #2 it makes Void Rays; Gateways warp Chargelots behind the wall. Chargelots absorb,
+    Void Rays kill the Roach/Queen layer the Zealots bounce off.</div>
+  <div class="rule"><strong>Mothership when the third pays for it.</strong> Practice-rep anchors:
+    second Stargate 7:48, Fleet Beacon 7:34, Mothership started 9:11. Cloak field over the
+    Chargelot-Void Ray army is the low-APM force multiplier; timings are replay-observed once and
+    not yet DB-verified.</div>
 
   <p class="footer-note">Source: <a href="https://lotv.spawningtool.com/build/203087/">Harstem
   5.0.16 PvZ (Spawning Tool)</a> · DB checks from <a href="../../data/sc2_data.json">data/sc2_data.json</a></p>

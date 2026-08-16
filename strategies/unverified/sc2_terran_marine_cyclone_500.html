@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terran Marine-Cyclone: 1-Base 5:00 Hit, CC Behind It</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #16191f;
+      --card: #1f242d;
+      --text: #e5e7ec;
+      --muted: #a2a9b6;
+      --vivid: #4da3ff;
+      --brand: #1d5fa8;
+      --ember: #e26c45;
+      --border: #333a46;
+      --radius: 14px;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: "Zilla Slab", Georgia, "Times New Roman", serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0 72px;
+    }
+
+    header {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 20px;
+      padding: 32px 30px;
+      margin-bottom: 40px;
+    }
+    h1 {
+      font-family: var(--serif);
+      margin: 0 0 14px;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      font-weight: 700;
+      color: var(--text);
+    }
+    h1 .payload { color: var(--vivid); }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 18px);
+      max-width: 760px;
+      margin: 0 0 22px;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 9px; }
+    .chip {
+      font-family: var(--mono);
+      line-height: normal;
+      border: 1px solid var(--border);
+      background: transparent;
+      border-radius: 999px;
+      padding: 7px 13px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .02em;
+      color: var(--muted);
+    }
+    .chip.race { color: var(--vivid); border-color: var(--brand); }
+    .chip.warn { color: var(--ember); border-color: var(--ember); }
+
+    h2 {
+      font-family: var(--mono);
+      margin: 48px 0 18px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--muted);
+      font-weight: 700;
+      line-height: normal;
+    }
+    h3 {
+      font-family: var(--serif);
+      margin: 0 0 8px;
+      font-size: 19px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text);
+    }
+    h3 .payload { color: var(--vivid); }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .keytimes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 26px;
+    }
+    .kt { display: flex; align-items: baseline; gap: 10px; }
+    .kt-t {
+      font-family: var(--mono);
+      line-height: normal;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--vivid);
+      font-variant-numeric: tabular-nums;
+    }
+    .kt-l { color: var(--muted); font-size: 14px; line-height: normal; }
+
+    .cols {
+      display: grid;
+      grid-template-columns: 1.5fr 0.9fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .table-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow-x: auto;
+    }
+    table { border-collapse: collapse; width: 100%; min-width: 420px; }
+    th {
+      font-family: var(--mono);
+      line-height: normal;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--muted);
+      text-align: left;
+      padding: 15px 18px 11px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 10px 18px;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    td.supply, td.time {
+      font-family: var(--mono);
+      line-height: normal;
+      font-weight: 500;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    td.supply { text-align: right; width: 3.2em; }
+    td.time { color: var(--vivid); width: 4.4em; }
+    td.act { color: var(--text); }
+    tr.milestone td { background: rgba(77, 163, 255, .08); }
+    tr.milestone td.act { color: var(--vivid); font-weight: 600; }
+
+    .rail { display: flex; flex-direction: column; gap: 20px; }
+    .rail .card p, .rail .card li { color: var(--muted); font-size: 15px; }
+    .rail .card p { margin: 0; }
+    .rail .card ul { margin: 8px 0 0; padding-left: 20px; }
+    .rail .card li { margin: 8px 0; }
+    .rail .card li strong { color: var(--text); font-weight: 600; }
+    .em { color: var(--vivid); font-weight: 600; }
+
+    .danger {
+      border: 1px solid var(--ember);
+      border-left: 4px solid var(--ember);
+      background: rgba(226, 108, 69, .08);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-top: 8px;
+    }
+    .danger .tag {
+      display: inline-block;
+      font-family: var(--mono);
+      line-height: normal;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--ember);
+      margin-bottom: 8px;
+    }
+    .danger h3 { color: var(--text); }
+    .danger p { margin: 6px 0 0; color: var(--text); font-size: 15.5px; }
+    .danger p .hot { color: var(--ember); font-weight: 600; }
+    .danger .t { font-family: var(--mono); font-weight: 700; }
+
+    .note {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      color: var(--muted);
+      font-size: 15px;
+      margin-top: 20px;
+    }
+    .note strong { color: var(--text); font-weight: 600; }
+    .note .em { color: var(--vivid); font-weight: 600; }
+    .note .t { font-family: var(--mono); font-weight: 500; color: var(--vivid); }
+
+    .footer-note {
+      margin-top: 52px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      text-align: center;
+    }
+    .footer-note a { color: var(--vivid); text-decoration: none; }
+    .footer-note a:hover { text-decoration: underline; }
+    .footer-note code { font-family: var(--mono); font-size: 12px; }
+
+    a { color: var(--vivid); }
+
+    @media (max-width: 820px) {
+      .cols, .summary-grid { grid-template-columns: 1fr; }
+      header { padding: 26px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Marine-Cyclone: a <span class="payload">1-base 5:00 hit</span> with a CC behind it</h1>
+      <p class="subtitle">
+        The Terran half of the 2v2 five-minute punch: move out at 4:25 with 11-13 Marines and
+        2 Cyclones (both pop before you leave), and Stim completes at 5:00 sharp — the moment
+        you arrive at the enemy gates alongside the Protoss Chargelot round. The natural
+        Command Center starts the moment you move out, so a defended hit doesn't leave you behind.
+      </p>
+      <div class="chips">
+        <span class="chip race">Terran</span>
+        <span class="chip">2v2</span>
+        <span class="chip">1-base</span>
+        <span class="chip warn">UNVERIFIED DRAFT</span>
+        <span class="chip">patch 5.0.16</span>
+      </div>
+    </header>
+
+    <section class="summary-grid">
+      <div class="card">
+        <h3>Yes, it's <span class="payload">realistic</span></h3>
+        <p>One Barracks with Tech Lab never stops making Marines from 1:46; a second naked
+          Barracks joins ~3:06. Factory Tech Lab gives Cyclone #1 at 3:47 and #2 at 4:19 —
+          both in the army before it leaves. 11-13 Marines + 2 Cyclones at the 4:25 move-out.</p>
+      </div>
+      <div class="card">
+        <h3>Gas is the <span class="payload">binding constraint</span></h3>
+        <p>The whole plan costs 450 gas, all spent by 3:47. Two Refineries (second at 1:50)
+          mine ~525 by 4:00 (114/min each once staffed) — early enough that only the Factory
+          is gas-gated; everything after is structure-gated. One gas, and this build does
+          not exist.</p>
+      </div>
+      <div class="card">
+        <h3>CC <span class="payload">behind the push</span></h3>
+        <p>Cutting SCVs at ~23 (3:30) plus MULE income pays for the 400-mineral Command
+          Center at the natural as you move out. It finishes ~5:36. If they hold the 5:00
+          hit, you're expanding, not dead.</p>
+      </div>
+    </section>
+
+    <h2>Key times</h2>
+    <div class="keytimes">
+      <div class="kt"><span class="kt-t">2:14</span><span class="kt-l">Factory</span></div>
+      <div class="kt"><span class="kt-t">3:20</span><span class="kt-l">Stim starts</span></div>
+      <div class="kt"><span class="kt-t">3:47</span><span class="kt-l">Cyclone #1 pops</span></div>
+      <div class="kt"><span class="kt-t">4:25</span><span class="kt-l">move out + CC</span></div>
+      <div class="kt"><span class="kt-t">5:00</span><span class="kt-l">hit the gates, Stim completes</span></div>
+    </div>
+
+    <h2>Build order (Faster clock)</h2>
+    <section class="cols">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Supply</th><th scope="col">Time</th><th scope="col">Action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="supply">8</td><td class="time">0:00</td><td class="act">SCVs nonstop from the start (12s each)</td></tr>
+            <tr><td class="supply">10</td><td class="time">0:19</td><td class="act">Supply Depot (done 0:40)</td></tr>
+            <tr class="milestone"><td class="supply">12</td><td class="time">0:42</td><td class="act">Barracks (done 1:28)</td></tr>
+            <tr><td class="supply">12</td><td class="time">0:45</td><td class="act">Refinery #1 — 3 SCVs in at ~1:08</td></tr>
+            <tr><td class="supply">15</td><td class="time">1:28</td><td class="act">Tech Lab on Barracks (done 1:46)</td></tr>
+            <tr><td class="supply">16</td><td class="time">1:36</td><td class="act">Orbital Command (done 2:01; SCV production pauses)</td></tr>
+            <tr class="milestone"><td class="supply">16</td><td class="time">1:46</td><td class="act">Marine #1 — this Barracks never idles again (18s each)</td></tr>
+            <tr><td class="supply">17</td><td class="time">1:50</td><td class="act">Refinery #2 — 3 SCVs in at ~2:15</td></tr>
+            <tr><td class="supply">17</td><td class="time">1:55</td><td class="act">Supply Depot #2</td></tr>
+            <tr class="milestone"><td class="supply">18</td><td class="time">2:14</td><td class="act">Factory (gas-gated; done 2:57). MULE on cooldown from 2:01</td></tr>
+            <tr><td class="supply">19</td><td class="time">2:20</td><td class="act">Barracks #2, no add-on (may slip to ~2:35 on minerals; done ~3:06-3:21)</td></tr>
+            <tr><td class="supply">24</td><td class="time">2:45</td><td class="act">Supply Depot #3</td></tr>
+            <tr><td class="supply">26</td><td class="time">2:57</td><td class="act">Tech Lab on Factory (done 3:15)</td></tr>
+            <tr class="milestone"><td class="supply">32</td><td class="time">3:15</td><td class="act">Cyclone #1 (pops 3:47) — start the moment the Factory Tech Lab finishes</td></tr>
+            <tr class="milestone"><td class="supply">32</td><td class="time">3:20</td><td class="act">Stim at the Barracks Tech Lab — done 5:00 sharp (gas is there from 3:15; 3:20 is the choice, not the gate)</td></tr>
+            <tr><td class="supply">34</td><td class="time">3:30</td><td class="act">Supply Depot #4 · stop SCV production at ~23</td></tr>
+            <tr><td class="supply">38</td><td class="time">3:47</td><td class="act">Cyclone #2 (pops 4:19)</td></tr>
+            <tr><td class="supply">41</td><td class="time">4:10</td><td class="act">Supply Depot #5 (keeps reinforcements flowing)</td></tr>
+            <tr class="milestone"><td class="supply">44</td><td class="time">4:25</td><td class="act">MOVE OUT with everything · start Command Center at the natural (done ~5:36)</td></tr>
+            <tr class="milestone"><td class="supply">·</td><td class="time">5:00</td><td class="act">Arrive at the enemy gates with the Protoss Chargelot round — Stim completes as you engage</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="rail">
+        <div class="card">
+          <h3>Marine upgrades: pick <span class="payload">one</span></h3>
+          <p>The upgrade slot opens at 3:15 (Rax Tech Lab free, gas available); 3:20 is the
+            5:00-sharp choice. One Tech Lab runs one research at a time:</p>
+          <ul>
+            <li><strong>Stim</strong> (100/100, 100s) — start 3:20, done <span class="em">5:00 sharp</span>. Recommended: biggest swing in the fight, timed to arrival.</li>
+            <li><strong>Combat Shield</strong> (100/100, 79s) — done <span class="em">~4:39</span>. Safest if you hate Stim HP-loss micro.</li>
+            <li><strong>+1 Infantry Weapons</strong> (100/100, 114s) — done <span class="em">~5:14</span>, too late in this slot; only makes 5:00 (4:52) if it takes gas priority over Cyclone #1 and you build a 125-mineral Engineering Bay by ~2:33.</li>
+          </ul>
+          <p style="margin-top:8px">A second upgrade before 5:00 means cutting a Cyclone.
+            Otherwise queue Combat Shield when Stim finishes (5:00 → done ~6:19, for the
+            reinforcement wave).</p>
+        </div>
+        <div class="card">
+          <h3>Why only 2 Cyclones</h3>
+          <p>Cyclones are 100 gas each and 32s each from one Factory Tech Lab. Gas mined by
+            4:00 is ~525; the build already spends 450 by 3:47. A third Cyclone (start 4:19,
+            pop 4:51) would miss the move-out and delay Stim — reinforce with Marines instead,
+            they're pure minerals.</p>
+        </div>
+        <div class="card">
+          <h3>Execution</h3>
+          <ul>
+            <li><strong>Pull 2 SCVs</strong> with the push to repair Cyclones — they're your only tanky units.</li>
+            <li><strong>Both Barracks keep producing</strong> during the attack; rally to the front.</li>
+            <li><strong>2v2 sync:</strong> shared resources unlock at 5:00 — your ally can help fund the CC/Orbital if the hit stalls.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="danger">
+      <span class="tag">The two ways this dies in the build phase</span>
+      <h3>One gas, or the wrong add-on</h3>
+      <p><span class="hot">One Refinery is not enough.</span> On single gas you afford the
+        Factory tech and either Stim or one Cyclone — not both. Refinery #2 by <span class="t">1:50</span>
+        is as load-bearing as the Barracks. And the first Barracks takes a <span class="hot">Tech Lab,
+        not a Reactor</span>: without it there is nowhere to research Stim, and the Factory's own
+        Tech Lab is busy being the Cyclone prerequisite.</p>
+    </div>
+
+    <h2>Timing math (DB, patch 5.0.16)</h2>
+    <div class="note">
+      DB-chained (from <code>data/sc2_data.json</code>, Faster seconds): Depot 100m/21s ·
+      Barracks 150m/46s · Refinery 75m/21s · Factory 150m 100g/43s · Tech Lab 50m 25g/18s ·
+      Orbital 150m/25s · CC 400m/71s · Marine 50m/18s · Cyclone 150m 100g/32s (requires Factory
+      Tech Lab) · Stim 100/100/100s · Combat Shield 100/100/79s · +1 Infantry Weapons
+      100/100/114s. Gas model: 3 SCVs/geyser ≈ 114 gas/min (Refinery #1 staffed ~1:08, #2
+      ~2:15). Chain check: Barracks 0:42+46s = 1:28 → Tech Lab +18s = 1:46 → Marine +18s pops
+      2:04; Factory 2:14+43s = 2:57 → Tech Lab +18s = 3:15; Cyclones 3:15/3:47 +32s pop
+      3:47/4:19; Stim 3:20+100s = 5:00; CC 4:25+71s = 5:36.
+      <br /><br />
+      <strong>Unverified:</strong> the supply column, Depot #2-5, Barracks #2 start, the SCV
+      cut, and CC affordability come from an income model (~40-55 min/worker/min + MULE 225),
+      not the DB — mineral float is near the edge, so expect 11-13 Marines, not always 13.
+      The 4:25 move-out assumes a <span class="em">30-40s cross-map walk</span> (map- and
+      spawn-dependent); calibrate on your map so arrival, not departure, is the 5:00 anchor.
+      Ally sync (Chargelot round at the gates 5:00-5:30) is from
+      <a href="sc2_protoss_chargelot_five.html">Chargelot Five</a>, itself unplayed.
+    </div>
+
+    <p class="footer-note">
+      Unverified draft, 2026-08-16 · timings computed from
+      <a href="../../data/sc2_data.json"><code>data/sc2_data.json</code></a> (patch 5.0.16,
+      Faster clock) · promote per <code>strategies/unverified/README.md</code> after a replay pass.
+    </p>
+  </main>
+</body>
+</html>

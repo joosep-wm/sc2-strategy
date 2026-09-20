@@ -9,8 +9,8 @@
 <style>
 :root{
   --bg:#0f1118; --panel:#161a24; --panel2:#1d2230; --line:#2a3040;
-  --ink:#e8ebf3; --ink2:#99a1b8; --ink3:#6a7288;
-  --gold:#e0a838;
+  --ink:#eef1f8; --ink2:#aeb6ca; --ink3:#7b8299;
+  --gold:#e5ae42;
   --r-group:#c9a227; --r-group-ink:#1a1405;
   --r-cam:#3f7fc4; --r-cam-ink:#f2f7ff;
   --r-rapid:#3d8f5e; --r-rapid-ink:#f0fff5;
@@ -26,7 +26,7 @@
 }
 @media (prefers-color-scheme:light){ :root:not([data-theme="dark"]){
   --bg:#eeece6; --panel:#f8f7f3; --panel2:#ffffff; --line:#d7d4cb;
-  --ink:#191c24; --ink2:#5b6172; --ink3:#868c9e; --gold:#9a6b0c;
+  --ink:#14171e; --ink2:#4d5464; --ink3:#767d8e; --gold:#8c5f08;
   --r-group:#d8b73a; --r-group-ink:#241c02;
   --r-cam:#3273bd; --r-cam-ink:#ffffff;
   --r-rapid:#3f9463; --r-rapid-ink:#ffffff;
@@ -42,7 +42,7 @@
 }}
 :root[data-theme="dark"]{
   --bg:#0f1118; --panel:#161a24; --panel2:#1d2230; --line:#2a3040;
-  --ink:#e8ebf3; --ink2:#99a1b8; --ink3:#6a7288; --gold:#e0a838;
+  --ink:#eef1f8; --ink2:#aeb6ca; --ink3:#7b8299; --gold:#e5ae42;
   --r-group:#c9a227; --r-group-ink:#1a1405;
   --r-cam:#3f7fc4; --r-cam-ink:#f2f7ff;
   --r-rapid:#3d8f5e; --r-rapid-ink:#f0fff5;
@@ -57,54 +57,65 @@
   --cap-top:rgba(255,255,255,.16); --cap-bot:rgba(0,0,0,.26); --cap-drop:rgba(0,0,0,.30);
 }
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;margin:0}
-.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:24px 48px}
-h1{font-family:"Chakra Petch",system-ui,sans-serif;font-weight:700;font-size:clamp(1.4rem,4vw,2rem);margin:0;text-wrap:balance}
-.sub{color:var(--ink2);margin:.35rem 0 0;font-size:.92rem;max-width:64ch}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;margin:0;font-size:17px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.wrap{max-width:1140px;margin:0 auto;padding-inline:20px;padding-block:28px 64px}
+h1{font-family:"Chakra Petch",system-ui,sans-serif;font-weight:700;font-size:clamp(1.65rem,4.4vw,2.45rem);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.sub{color:var(--ink2);margin:.5rem 0 0;font-size:1.05rem;line-height:1.55;max-width:60ch;text-wrap:pretty}
 .rule{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:16px 0 0;border-radius:2px}
-nav{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 22px;border-bottom:1px solid var(--line);padding-bottom:12px}
-.nav-btn{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.92rem;padding:8px 15px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--ink2);cursor:pointer}
+nav{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 28px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.nav-btn{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:1.02rem;padding:9px 17px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--ink2);cursor:pointer}
 .nav-btn:hover{color:var(--ink);background:var(--panel)}
 .nav-btn[aria-selected="true"]{background:var(--gold);color:#17120a}
 .nav-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-h2.sec{font-family:"Chakra Petch",sans-serif;font-size:1.15rem;margin:28px 0 12px;color:var(--ink)}
+h2.sec{font-family:"Chakra Petch",sans-serif;font-size:1.4rem;line-height:1.25;margin:40px 0 14px;color:var(--ink);text-wrap:balance;padding-top:14px;border-top:1px solid var(--line)}
+h2.sec:first-of-type{border-top:none;padding-top:0}
 h2.sec:first-of-type{margin-top:0}
-p,li{font-size:.9rem;line-height:1.58;color:var(--ink2)}
-.lede{color:var(--ink2);font-size:.9rem;margin:0 0 18px;max-width:72ch}
+p,li{font-size:1rem;line-height:1.68;color:var(--ink2)}
+section > p{max-width:72ch;text-wrap:pretty}
+p strong,li strong{color:var(--ink)}
+/* labelled key-list paragraphs */
+.kb{margin:0;padding:14px 0;border-bottom:1px solid var(--line);max-width:none}
+.kb:last-of-type{border-bottom:none}
+.kb > strong{display:block;margin:0 0 6px;color:var(--gold);font-family:"Chakra Petch",sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.5}
+@media (min-width:780px){
+  .kb{position:relative;padding-left:11.5rem}
+  .kb > strong{position:absolute;left:0;top:calc(14px + .18em);width:10rem;margin:0}
+}
+.lede{color:var(--ink2);font-size:1.08rem;line-height:1.6;margin:0 0 26px;max-width:68ch;text-wrap:pretty;border-left:3px solid var(--line);padding-left:16px}
 
 /* ---------- pad ---------- */
 .padbar{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end;justify-content:space-between;margin-bottom:14px}
 .tabsets{display:flex;flex-wrap:wrap;gap:16px 22px}
 .tset{display:flex;flex-direction:column;gap:7px;min-width:0}
-.tlabel{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.tlabel{font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
 .tabs{display:flex;flex-wrap:wrap;gap:5px}
-.tab{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.78rem;padding:5px 11px;border-radius:5px;border:1px solid var(--line);background:var(--panel);color:var(--ink2);cursor:pointer}
+.tab{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.88rem;padding:6px 13px;border-radius:5px;border:1px solid var(--line);background:var(--panel);color:var(--ink2);cursor:pointer}
 .tab:hover{border-color:var(--gold);color:var(--ink)}
 .tab[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#17120a}
 .tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .tab.race[aria-pressed="true"]{background:var(--r-cam);border-color:var(--r-cam);color:var(--r-cam-ink)}
 
 .livebox{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.togg{display:inline-flex;align-items:center;gap:7px;font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:5px 12px;cursor:pointer}
+.togg{display:inline-flex;align-items:center;gap:7px;font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:5px 12px;cursor:pointer}
 .togg:hover{border-color:var(--gold);color:var(--ink2)}
 .togg[aria-pressed="true"]{border-color:var(--ok);color:var(--ink)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--r-off);box-shadow:0 0 0 1px var(--line)}
 .togg[aria-pressed="true"] .dot{background:var(--ok);box-shadow:0 0 8px var(--ok)}
-.readout{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--gold);min-height:1em}
-.scrollhint{display:none;font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:8px 0 0}
+.readout{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--gold);min-height:1em}
+.scrollhint{display:none;font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:8px 0 0}
 @media (max-width:640px){.scrollhint{display:block}}
 
 .padshell{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:inset 0 1px 0 var(--cap-top)}
 .padwrap{overflow-x:auto;padding-bottom:4px}
-.pad{--u:clamp(50px,6vw,64px);--gap:6px;display:flex;gap:10px;align-items:stretch;width:max-content;margin:0 auto}
+.pad{--u:clamp(52px,6.4vw,70px);--gap:6px;display:flex;gap:10px;align-items:stretch;width:max-content;margin:0 auto}
 .gcol,.rcol{display:flex;flex-direction:column;gap:var(--gap)}
 .gcol{justify-content:center}
 .rcol{justify-content:space-between}
 .mid{display:flex;flex-direction:column;gap:var(--gap);width:calc(var(--u)*7.15)}
 .mstrip{display:flex;gap:4px;justify-content:flex-end;margin-bottom:1px}
-.mbtn{font-family:"IBM Plex Mono",monospace;font-size:.58rem;letter-spacing:.04em;padding:3px 7px;border-radius:4px;background:var(--r-off);color:var(--r-off-ink);border:1px solid var(--line)}
+.mbtn{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.04em;padding:3px 7px;border-radius:4px;background:var(--r-off);color:var(--r-off-ink);border:1px solid var(--line)}
 .row{display:grid;grid-template-columns:repeat(14,1fr);gap:var(--gap)}
-.key{position:relative;border:none;text-align:left;cursor:pointer;border-radius:calc(var(--u)*.14);padding:calc(var(--u)*.09) calc(var(--u)*.1) calc(var(--u)*.11);min-height:calc(var(--u)*1.06);display:flex;flex-direction:column;justify-content:space-between;gap:2px;background:var(--r-none);color:var(--r-none-ink);font-family:inherit;
+.key{position:relative;border:none;text-align:left;cursor:pointer;border-radius:calc(var(--u)*.14);padding:calc(var(--u)*.09) calc(var(--u)*.08) calc(var(--u)*.11);min-height:calc(var(--u)*1.06);display:flex;flex-direction:column;justify-content:space-between;gap:2px;background:var(--r-none);color:var(--r-none-ink);font-family:inherit;
   box-shadow:inset 0 1px 0 var(--cap-top),inset 0 -2px 0 var(--cap-bot),0 2px 3px var(--cap-drop);
   transition:transform .08s ease,box-shadow .12s ease,opacity .16s ease,filter .16s ease}
 .key:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 var(--cap-top),inset 0 -2px 0 var(--cap-bot),0 8px 17px var(--cap-drop)}
@@ -112,8 +123,8 @@ p,li{font-size:.9rem;line-height:1.58;color:var(--ink2)}
 .key[data-sel="1"]{outline:2px solid var(--gold);outline-offset:1px}
 .key.hit{transform:translateY(2px);box-shadow:inset 0 2px 6px rgba(0,0,0,.4),0 0 0 2px var(--gold)}
 .key.dim{opacity:.22;filter:saturate(.25)}
-.cap{font-family:"IBM Plex Mono",monospace;font-size:clamp(.52rem,calc(var(--u)*.14),.68rem);font-weight:600;opacity:.7;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.act{font-family:"Chakra Petch",sans-serif;font-size:clamp(.6rem,calc(var(--u)*.155),.78rem);font-weight:600;line-height:1.12;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:break-word;hyphens:none}
+.cap{font-family:"IBM Plex Mono",monospace;font-size:clamp(.56rem,calc(var(--u)*.135),.76rem);font-weight:600;opacity:.7;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.act{font-family:"Chakra Petch",sans-serif;font-size:clamp(.63rem,calc(var(--u)*.15),.86rem);font-weight:600;line-height:1.12;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:break-word;hyphens:none}
 .k-group{background:var(--r-group);color:var(--r-group-ink)}
 .k-cam{background:var(--r-cam);color:var(--r-cam-ink)}
 .k-rapid{background:var(--r-rapid);color:var(--r-rapid-ink)}
@@ -128,42 +139,44 @@ p,li{font-size:.9rem;line-height:1.58;color:var(--ink2)}
 .rkey{width:calc(var(--u)*1.6)}
 .rkey.space{flex:0 0 auto;min-height:calc(var(--u)*2.7);justify-content:flex-end}
 .legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-.lchip{display:inline-flex;align-items:center;gap:7px;font-family:inherit;font-size:.73rem;color:var(--ink2);background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:4px 11px 4px 8px;cursor:pointer}
+.lchip{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:.84rem;color:var(--ink2);background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:6px 14px 6px 10px;cursor:pointer}
 .lchip:hover{border-color:var(--gold);color:var(--ink)}
 .lchip[aria-pressed="true"]{border-color:var(--gold);background:var(--panel2);color:var(--ink)}
 .lchip .n{font-family:"IBM Plex Mono",monospace;font-size:.65rem;color:var(--ink3)}
-.sw{width:12px;height:12px;border-radius:3px;display:inline-block;flex:0 0 auto}
+.sw{width:14px;height:14px;border-radius:3px;display:inline-block;flex:0 0 auto}
 
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:14px;margin-top:20px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
-.card h3{font-family:"Chakra Petch",sans-serif;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 9px}
-.card ol,.card ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:5px}
-kbd{font-family:"IBM Plex Mono",monospace;font-size:.78rem;background:var(--panel2);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:1px 5px;color:var(--ink);white-space:nowrap}
-#detail{margin-top:14px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-height:86px}
-#detail h3{font-family:"Chakra Petch",sans-serif;margin:0 0 8px;font-size:1rem;color:var(--ink);letter-spacing:0;text-transform:none}
-.dgrid{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:.84rem}
-.dgrid dt{font-family:"IBM Plex Mono",monospace;color:var(--ink3);font-size:.76rem;white-space:nowrap}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.card h3{font-family:"Chakra Petch",sans-serif;font-size:.86rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+.card ol,.card ul{margin:0;padding-left:1.2rem;display:flex;flex-direction:column;gap:9px}
+kbd{font-family:"IBM Plex Mono",monospace;font-size:.86rem;background:var(--panel2);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:2px 7px;color:var(--ink);white-space:nowrap}
+#detail{margin-top:16px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:18px 22px;min-height:96px}
+#detail h3{font-family:"Chakra Petch",sans-serif;margin:0 0 10px;font-size:1.2rem;color:var(--ink);letter-spacing:0;text-transform:none}
+.dgrid{display:grid;grid-template-columns:auto 1fr;gap:7px 18px;font-size:.96rem}
+.dgrid dt{font-family:"IBM Plex Mono",monospace;color:var(--ink3);font-size:.84rem;white-space:nowrap}
 .dgrid dd{margin:0;color:var(--ink2)}
-.dhead{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:12px 0 5px}
+.dhead{font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:12px 0 5px}
 .dhead:first-of-type{margin-top:0}
 .tblwrap{overflow-x:auto;margin:12px 0}
-table{border-collapse:collapse;width:100%;font-size:.85rem;min-width:420px}
-th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
-th{font-family:"Chakra Petch",sans-serif;color:var(--ink);font-size:.78rem;letter-spacing:.04em}
+table{border-collapse:collapse;width:100%;font-size:.96rem;min-width:460px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top;line-height:1.5}
+th{font-family:"Chakra Petch",sans-serif;color:var(--ink);font-size:.88rem;letter-spacing:.04em}
 td strong{color:var(--ink)}
-pre{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:.76rem;line-height:1.5;color:var(--ink2);margin:10px 0}
-code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
-.adr{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:15px 17px;margin-bottom:12px}
-.adr h3{font-family:"Chakra Petch",sans-serif;font-size:1rem;margin:0 0 4px;color:var(--ink)}
-.adr .meta{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:9px}
-.adr p{margin:0 0 7px}
+pre{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px;overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:.85rem;line-height:1.6;color:var(--ink2);margin:14px 0}
+code{font-family:"IBM Plex Mono",monospace;font-size:.88em;color:var(--ink);background:var(--panel2);border-radius:4px;padding:1px 5px}
+pre code{background:none;border-radius:0;padding:0;font-size:1em}
+kbd code{background:none;padding:0}
+.adr{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:20px 24px;margin-bottom:16px}
+.adr h3{font-family:"Chakra Petch",sans-serif;font-size:1.2rem;line-height:1.3;margin:0 0 6px;color:var(--ink)}
+.adr .meta{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:9px}
+.adr p{margin:0 0 10px;max-width:74ch}
 .adr p:last-child{margin-bottom:0}
 .adr b{color:var(--ink);font-weight:600}
-.pill{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:99px;border:1px solid currentColor}
+.pill{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:99px;border:1px solid currentColor}
 .p-ok{color:var(--ok)} .p-warn{color:var(--warn)} .p-risk{color:var(--risk)}
 .adr.open{border-left-color:var(--warn)}
-.note{font-size:.79rem;color:var(--ink3);margin-top:18px;line-height:1.5}
-.who{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.note{font-size:.9rem;color:var(--ink3);margin-top:26px;line-height:1.6;max-width:74ch}
+.who{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
 .card.flag{border-left:3px solid var(--warn)}
 @media (max-width:560px){.padshell{padding:10px;border-radius:14px}.pad{gap:7px}}
 </style>
@@ -221,9 +234,9 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
     <div class="grid2">
       <div class="card">
         <h3>What differs from the repo</h3>
-        <p style="margin:0 0 8px">Fifteen added alternates. Nothing removed, nothing moved.</p>
+        <p style="margin:0 0 8px">Fourteen added alternates. Nothing else removed, nothing moved.</p>
         <ul>
-          <li><kbd>N</kbd> Move and <kbd>P</kbd> Gather &mdash; the pad has no H or Y</li>
+          <li><kbd>P</kbd> Gather &mdash; the pad has no Y key</li>
           <li><kbd>`</kbd> trash group, <kbd>Shift+`</kbd> last alert &mdash; no BackSlash key</li>
           <li><kbd>O</kbd> on all six group-6 commands, because the pad's Caps Lock now sends O</li>
           <li>Four landing points for Karabiner's rerouted chords, never pressed directly</li>
@@ -282,10 +295,10 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
     <p><kbd>Ctrl+key</kbd> adds to a group, <kbd>Ctrl+Shift+key</kbd> creates one. Both <em>steal</em>, meaning the units leave whatever group they were in. That is TheCore's deliberate default. One upstream quirk: <kbd>Ctrl+W</kbd> also fires <code>ToggleWorldPanel</code>, so prefer <kbd>Alt+Q</kbd> for the Nexus group, which is the same command and already in the start sequence.</p>
 
     <h2 class="sec">Protoss keys</h2>
-    <p><strong>Production.</strong> Nexus: Probe Space, Mothership F. Gateway and Warp Gate: Zealot D, Stalker R, Sentry C, Adept F, High Templar Space, Dark Templar T. Robo: Observer Space, Immortal D, Prism F, Colossus C, Disruptor V. Stargate: Phoenix D, Oracle F, Void Ray R, Tempest V, Carrier G. Gateway to Warp Gate <kbd>E</kbd>, back <kbd>M</kbd> (the globe key).</p>
-    <p><strong>Research.</strong> Core: Warp Gate E, air weapons D, air armour Space. Forge: weapons D, armour Space, shields E. Twilight: Charge D, Blink R, Glaives F. Robo Bay: Thermal Lance C, Observer speed Space, Prism speed F. Templar Archive: Storm Space. Fleet Beacon: Anion D, Tempest range F, Void Ray speed R, Oracle stasis E.</p>
-    <p><strong>Abilities.</strong> E and C are the precision keys, so a spell that needs placing usually carries one of them as an alternate. Everything else lives on the pad map tab, which is the authoritative version.</p>
-    <p><strong>Commands.</strong> Attack D, Move N, Stop V, Hold G, Patrol T. Subgroup Tab, select all army Ctrl+Tab, town camera B, idle worker F1. Cameras: save Alt+key, jump Shift+key, where key 0 to 7 is W, 1, 2, 3, A, S, Z, X.</p>
+    <p class="kb"><strong>Production</strong> Nexus: Probe Space, Mothership F. Gateway and Warp Gate: Zealot D, Stalker R, Sentry C, Adept F, High Templar Space, Dark Templar T. Robo: Observer Space, Immortal D, Prism F, Colossus C, Disruptor V. Stargate: Phoenix D, Oracle F, Void Ray R, Tempest V, Carrier G. Gateway to Warp Gate <kbd>E</kbd>, back <kbd>M</kbd> (the globe key).</p>
+    <p class="kb"><strong>Research</strong> Core: Warp Gate E, air weapons D, air armour Space. Forge: weapons D, armour Space, shields E. Twilight: Charge D, Blink R, Glaives F. Robo Bay: Thermal Lance C, Observer speed Space, Prism speed F. Templar Archive: Storm Space. Fleet Beacon: Anion D, Tempest range F, Void Ray speed R, Oracle stasis E.</p>
+    <p class="kb"><strong>Abilities</strong> E and C are the precision keys, so a spell that needs placing usually carries one of them as an alternate. Everything else lives on the pad map tab, which is the authoritative version.</p>
+    <p class="kb"><strong>Commands</strong> Attack D, Stop V, Hold G, Patrol T. Move has no key: right click does it. Subgroup Tab, select all army Ctrl+Tab, town camera B, idle worker F1. Cameras: save Alt+key, jump Shift+key, where key 0 to 7 is W, 1, 2, 3, A, S, Z, X.</p>
 
     <h2 class="sec">Drills</h2>
     <div class="card" style="margin-bottom:14px">
@@ -350,11 +363,11 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
     </div>
 
     <h2 class="sec">Terran keys</h2>
-    <p><strong>Production.</strong> Command Center: SCV Space, Orbital Command E, Planetary Fortress D, MULE E, Supply Drop D, Scan C, lift 5, land 4. Barracks: Marine D, Reaper F, Marauder R, Ghost Space. Factory: Hellion D, Hellbat R, Widow Mine F, Siege Tank Space, Cyclone V, Thor G. Starport: Viking D, Medivac F, Liberator R, Raven Space, Banshee V, Battlecruiser G. Add-ons, identical on all three: Tech Lab C, Reactor E.</p>
-    <p><strong>Building.</strong> SCV basic menu <kbd>C</kbd>: Command Center E, Supply Depot D, Refinery F, Barracks C, Engineering Bay 4, Bunker R, Missile Turret Space, Sensor Tower T. Advanced menu <kbd>E</kbd>: Factory D, Starport R, Armory F, Fusion Core G, Ghost Academy Space. The basic menu is deliberately the same shape as Protoss and Zerg: E is always the town hall, F the gas, D the supply, C the first tier-one production building, 4 the upgrade building, Space the anti-air static defence.</p>
-    <p><strong>Research.</strong> Barracks Tech Lab: Stimpack Space, Combat Shield D, Concussive Shells R. Factory Tech Lab: Siege Tech Space, Infernal Pre-igniter D, Drilling Claws F, Cyclone lock-on damage C. Starport Tech Lab: Banshee cloak 4, Hyperflight Rotors V, Advanced Ballistics R, Rapid Reignition F, Interference Matrix Space. Engineering Bay: infantry weapons D, infantry armour Space, Hi-Sec Auto Tracking E, Neosteel Frame R, building armour C. Armory: ship weapons D, ship plating Space, vehicle weapons E, vehicle plating C. Ghost Academy: Personal Cloaking F, Enhanced Shockwaves Space, arm nuke D.</p>
-    <p><strong>Abilities.</strong> The transform pair is always Space out and R back: Siege Mode Space, Unsiege R; Viking fighter Space, assault R; Hellion to Hellbat Space, back R; Widow Mine burrow Space, unburrow R. Cloak is Space on, F off, for both Banshee and Ghost. Stim Space. Medivac heal F, boost Space. Ghost EMP E, Snipe R. Raven auto-turret Space, Anti-armor Missile C, Interference Matrix E. Battlecruiser Yamato E then Space, Tactical Jump R. Repair R, Salvage F, halt 5.</p>
-    <p><strong>Commands.</strong> Identical to the other races: Attack D, Move N, Stop V, Hold G, Patrol T, return cargo F, gather P. Subgroup Tab, select all army Ctrl+Tab, town camera B or Shift+Alt+E, idle worker F1.</p>
+    <p class="kb"><strong>Production</strong> Command Center: SCV Space, Orbital Command E, Planetary Fortress D, MULE E, Supply Drop D, Scan C, lift 5, land 4. Barracks: Marine D, Reaper F, Marauder R, Ghost Space. Factory: Hellion D, Hellbat R, Widow Mine F, Siege Tank Space, Cyclone V, Thor G. Starport: Viking D, Medivac F, Liberator R, Raven Space, Banshee V, Battlecruiser G. Add-ons, identical on all three: Tech Lab C, Reactor E.</p>
+    <p class="kb"><strong>Building</strong> SCV basic menu <kbd>C</kbd>: Command Center E, Supply Depot D, Refinery F, Barracks C, Engineering Bay 4, Bunker R, Missile Turret Space, Sensor Tower T. Advanced menu <kbd>E</kbd>: Factory D, Starport R, Armory F, Fusion Core G, Ghost Academy Space. The basic menu is deliberately the same shape as Protoss and Zerg: E is always the town hall, F the gas, D the supply, C the first tier-one production building, 4 the upgrade building, Space the anti-air static defence.</p>
+    <p class="kb"><strong>Research</strong> Barracks Tech Lab: Stimpack Space, Combat Shield D, Concussive Shells R. Factory Tech Lab: Siege Tech Space, Infernal Pre-igniter D, Drilling Claws F, Cyclone lock-on damage C. Starport Tech Lab: Banshee cloak 4, Hyperflight Rotors V, Advanced Ballistics R, Rapid Reignition F, Interference Matrix Space. Engineering Bay: infantry weapons D, infantry armour Space, Hi-Sec Auto Tracking E, Neosteel Frame R, building armour C. Armory: ship weapons D, ship plating Space, vehicle weapons E, vehicle plating C. Ghost Academy: Personal Cloaking F, Enhanced Shockwaves Space, arm nuke D.</p>
+    <p class="kb"><strong>Abilities</strong> The transform pair is always Space out and R back: Siege Mode Space, Unsiege R; Viking fighter Space, assault R; Hellion to Hellbat Space, back R; Widow Mine burrow Space, unburrow R. Cloak is Space on, F off, for both Banshee and Ghost. Stim Space. Medivac heal F, boost Space. Ghost EMP E, Snipe R. Raven auto-turret Space, Anti-armor Missile C, Interference Matrix E. Battlecruiser Yamato E then Space, Tactical Jump R. Repair R, Salvage F, halt 5.</p>
+    <p class="kb"><strong>Commands</strong> Identical to the other races: Attack D, Stop V, Hold G, Patrol T, return cargo F, gather P. Move has no key, right click does it. Subgroup Tab, select all army Ctrl+Tab, town camera B or Shift+Alt+E, idle worker F1.</p>
 
     <h2 class="sec">Left open</h2>
     <div class="card flag">
@@ -434,12 +447,12 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
     <p>Five units are deliberately left off that list and need larva selected first: <strong>Overlord E</strong> (shares the key with Queen, so E is the Zerg mineral-only macro key), <strong>Infestor F</strong> (shares with the Lair and Hive morph), <strong>Mutalisk V</strong>, <strong>Viper 4</strong> and <strong>Swarm Host 5</strong>. TheCore's stated reason is that these are casters or situational units, and that dumping a whole round of larva into them by accident loses games.</p>
 
     <h2 class="sec">Zerg keys</h2>
-    <p><strong>Production.</strong> Larva: Drone Space, Zergling D, Roach R, Hydralisk C, Corruptor T, Ultralisk G, Overlord E, Infestor F, Mutalisk V, Viper 4, Swarm Host 5. Hatchery: Queen E, morph to Lair F, and from Lair to Hive F again.</p>
-    <p><strong>Morphs.</strong> <kbd>F</kbd> is the evolve key throughout: Zergling to Baneling, Roach to Ravager, Hydralisk to Lurker, Corruptor to Brood Lord, Overlord to transport, Spire to Greater Spire, Hatchery up the tech tree. The one exception is Overlord to Overseer on <kbd>Space</kbd>, because an Overseer is the useful ability rather than a morph in the combat sense; Overseer back to plain Overlord is <kbd>R</kbd>.</p>
-    <p><strong>Building.</strong> Drone basic menu <kbd>C</kbd>: Hatchery E, Extractor F, Spawning Pool D, Evolution Chamber 4, Spine Crawler C, Spore Crawler Space. Advanced menu <kbd>E</kbd>: Roach Warren R, Baneling Nest T, Hydralisk Den C, Lurker Den Space, Infestation Pit F, Nydus Network D, Spire R, Ultralisk Cavern G.</p>
-    <p><strong>Research.</strong> <kbd>E</kbd> is the speed key wherever a research makes something faster. Spawning Pool: Metabolic Boost E, Adrenal Glands D. Evolution Chamber: melee D, missile F, ground carapace Space. Roach Warren: Glial Reconstitution E, Tunneling Claws 4. Baneling Nest: Centrifugal Hooks E. Hydralisk Den: Muscular Augments E, Grooved Spines D. Lurker Den: Adaptive Talons E, Seismic Spines Space. Infestation Pit: Neural Parasite Space. Spire: flyer attack D, flyer carapace Space. Ultralisk Cavern: Anabolic Synthesis E, Chitinous Plating Space.</p>
-    <p><strong>Abilities.</strong> Burrow R, unburrow 4, across every unit that has it. Queen: creep tumour C, Transfusion E. Overseer: changeling E, Oversight Space, Contaminate C. Infestor: Fungal Growth E, Neural Parasite Space, Infested Terrans F. Viper: Blinding Cloud C, Parasitic Bomb 4, Consume Space. Ravager: Corrosive Bile E or Space. Baneling: Explode E, structure attack toggle Space and F. Corruptor: Caustic Spray E or Space. Overlord: generate creep 4.</p>
-    <p><strong>Commands.</strong> As everywhere else: Attack D, Move N, Stop V, Hold G, Patrol T, return cargo F, gather P.</p>
+    <p class="kb"><strong>Production</strong> Larva: Drone Space, Zergling D, Roach R, Hydralisk C, Corruptor T, Ultralisk G, Overlord E, Infestor F, Mutalisk V, Viper 4, Swarm Host 5. Hatchery: Queen E, morph to Lair F, and from Lair to Hive F again.</p>
+    <p class="kb"><strong>Morphs</strong> <kbd>F</kbd> is the evolve key throughout: Zergling to Baneling, Roach to Ravager, Hydralisk to Lurker, Corruptor to Brood Lord, Overlord to transport, Spire to Greater Spire, Hatchery up the tech tree. The one exception is Overlord to Overseer on <kbd>Space</kbd>, because an Overseer is the useful ability rather than a morph in the combat sense; Overseer back to plain Overlord is <kbd>R</kbd>.</p>
+    <p class="kb"><strong>Building</strong> Drone basic menu <kbd>C</kbd>: Hatchery E, Extractor F, Spawning Pool D, Evolution Chamber 4, Spine Crawler C, Spore Crawler Space. Advanced menu <kbd>E</kbd>: Roach Warren R, Baneling Nest T, Hydralisk Den C, Lurker Den Space, Infestation Pit F, Nydus Network D, Spire R, Ultralisk Cavern G.</p>
+    <p class="kb"><strong>Research</strong> <kbd>E</kbd> is the speed key wherever a research makes something faster. Spawning Pool: Metabolic Boost E, Adrenal Glands D. Evolution Chamber: melee D, missile F, ground carapace Space. Roach Warren: Glial Reconstitution E, Tunneling Claws 4. Baneling Nest: Centrifugal Hooks E. Hydralisk Den: Muscular Augments E, Grooved Spines D. Lurker Den: Adaptive Talons E, Seismic Spines Space. Infestation Pit: Neural Parasite Space. Spire: flyer attack D, flyer carapace Space. Ultralisk Cavern: Anabolic Synthesis E, Chitinous Plating Space.</p>
+    <p class="kb"><strong>Abilities</strong> Burrow R, unburrow 4, across every unit that has it. Queen: creep tumour C, Transfusion E. Overseer: changeling E, Oversight Space, Contaminate C. Infestor: Fungal Growth E, Neural Parasite Space, Infested Terrans F. Viper: Blinding Cloud C, Parasitic Bomb 4, Consume Space. Ravager: Corrosive Bile E or Space. Baneling: Explode E, structure attack toggle Space and F. Corruptor: Caustic Spray E or Space. Overlord: generate creep 4.</p>
+    <p class="kb"><strong>Commands</strong> As everywhere else: Attack D, Stop V, Hold G, Patrol T, return cargo F, gather P. Move has no key, right click does it.</p>
 
     <h2 class="sec">Left open</h2>
     <div class="card flag">
@@ -472,11 +485,12 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
     </div>
 
     <div class="adr">
-      <h3>3. Move to N, Gather to P</h3>
-      <div class="meta">2026-09-18 &middot; <span class="pill p-ok">settled</span></div>
+      <h3>3. Gather to P. Move stays unbound</h3>
+      <div class="meta">2026-09-18, revised 2026-09-20 &middot; <span class="pill p-ok">settled</span></div>
       <p><b>Context.</b> The pad has no <b>H</b> and no <b>Y</b>. Upstream puts Move on H with no alternate, and Gather on Y.</p>
-      <p><b>Decision.</b> Add N and P as alternates. N and P are the only letter keys on the pad that TheCore does not use in multiplayer.</p>
-      <p><b>Alternative rejected.</b> Leaving Move unbound. Right-click covers most of it, but not moving onto a unit without interacting.</p>
+      <p><b>Decision.</b> Gather gets <b>P</b> as an alternate. <b>Move gets nothing.</b> Right click issues a move and costs no key at all, so a Move key is a binding to remember for a case the mouse already covers.</p>
+      <p><b>Revised.</b> N was added as a Move alternate on 18 September and removed on 20 September. The original reasoning was that right click will not move onto a unit without interacting with it. True, and judged not worth a key. Fewer bindings beat completeness on a pad this small.</p>
+      <p><b>Consequence.</b> <code>Move=H</code> is now byte-identical to upstream, and N is a dead key on this pad.</p>
     </div>
 
     <div class="adr">
@@ -575,11 +589,10 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
       <li>Launch SC2, pick the profile in Options &rarr; Hotkeys, click <b>Ignore</b> on the conflict dialog.</li>
     </ol>
 
-    <h2 class="sec">The hotkey file: all fifteen changes</h2>
+    <h2 class="sec">The hotkey file: all fourteen changes</h2>
     <div class="tblwrap"><table>
       <thead><tr><th>Command</th><th>Upstream</th><th>Installed</th><th>Reason</th></tr></thead>
       <tbody>
-        <tr><td><code>Move</code></td><td>H</td><td>H,<strong>N</strong></td><td>no H key</td></tr>
         <tr><td><code>GatherProt</code></td><td>Y</td><td>Y,<strong>P</strong></td><td>no Y key</td></tr>
         <tr><td><code>AlertRecall</code></td><td>Shift+BackSlash</td><td>+<strong>Shift+OEM102</strong></td><td>no BackSlash</td></tr>
         <tr><td><code>ControlGroupAssignAndSteal6</code></td><td>Ctrl+Shift+CapsLock,BackSlash</td><td>+<strong>OEM102</strong></td><td>trash group on tilde</td></tr>
@@ -704,61 +717,61 @@ const RCOL=[["g1","G1 · F1"],["space","Space"]];
 
 const base={
  esc:["Cancel","ui"], f1:["Idle worker","ui"], f2:["Minimap colours","ui"], f3:["free","off"], f4:["free","off"],
- m:["Morph Warp Gate → Gateway","rapid"], grave:["Trash group (steal into 6)","group"],
+ m:["Warp Gate → Gateway","rapid"], grave:["Trash group → 6","group"],
  "1":["Group 1","group"],"2":["Group 2","group"],"3":["Group 3","group"],
  "4":["Command key","rapid"],"5":["Command key","rapid"],"6":["Command key","rapid"],
- tab:["Subgroup next","ui"], q:["Group 4 · production","group"], w:["Group 5 · bases + tech","group"],
+ tab:["Subgroup next","ui"], q:["Group 4 · army","group"], w:["Group 5 · base/tech","group"],
  e:["Precision key 1","prec"], r:["Command key","rapid"], t:["Patrol","rapid"],
  caps:["Group 6 · pad sends O","group"], a:["Group 7","group"], s:["Group 8","group"],
  d:["Attack","rapid"], f:["Command key","rapid"], g:["Hold","rapid"],
  shift:["Modifier","mod"], z:["Group 9","group"], x:["Group 0","group"],
- c:["Precision key 2","prec"], v:["Stop / cancel target","rapid"], b:["Base camera","cam"],
+ c:["Precision key 2","prec"], v:["Stop / cancel","rapid"], b:["Base camera","cam"],
  ctrl:["Modifier","mod"], fn:["Firmware only","off"], alt:["Modifier","mod"],
- n:["Move","add"], p:["Gather","add"], space:["Primary ability / train","rapid"],
+ n:["free","off"], p:["Gather","add"], space:["Primary ability / train","rapid"],
  g1:["Idle worker","ui"], g2:["Minimap colours","ui"], g3:["free","off"], g4:["free","off"], g5:["Select all army","add"]
 };
 const shift={
  esc:["Cancel","ui"], f1:["Terrain minimap","ui"], f2:["Team resources","ui"],
  grave:["Jump to last alert","cam"],
- "1":["Jump camera 1","cam"],"2":["Jump camera 2","cam"],"3":["Jump camera 3","cam"],
- tab:["Subgroup previous","ui"], q:["Select production","group"], w:["Jump camera 0 · rally","cam"],
+ "1":["Jump cam 1","cam"],"2":["Jump cam 2","cam"],"3":["Jump cam 3","cam"],
+ tab:["Subgroup previous","ui"], q:["Select production","group"], w:["Jump cam 0 · rally","cam"],
  e:["Precision key 1, queued","prec"], t:["Patrol, queued","rapid"],
- a:["Jump camera 4","cam"], s:["Jump camera 5","cam"], d:["Attack, queued","rapid"], g:["Hold, queued","rapid"],
- z:["Jump camera 6","cam"], x:["Jump camera 7","cam"], c:["Precision key 2","prec"],
- v:["Select group 1 · utility","group"], b:["Base camera","cam"],
- n:["Move, queued","add"], space:["Ability, queued","rapid"], shift:["Modifier","mod"],
+ a:["Jump cam 4","cam"], s:["Jump cam 5","cam"], d:["Attack, queued","rapid"], g:["Hold, queued","rapid"],
+ z:["Jump cam 6","cam"], x:["Jump cam 7","cam"], c:["Precision key 2","prec"],
+ v:["Group 1 · utility","group"], b:["Base camera","cam"],
+ space:["Ability, queued","rapid"], shift:["Modifier","mod"],
  g1:["Terrain minimap","ui"]
 };
 const alt={
  f1:["Push to talk","ui"], f2:["Show FPS","ui"],
  grave:["Centre on selection","cam"], tab:["Centre on selection","cam"], caps:["Centre on selection","cam"],
- "1":["Create camera 1","cam"],"2":["Create camera 2","cam"],"3":["Create camera 3","cam"],
- q:["Append to group 5 · alternate for Ctrl+W","group"], w:["Create camera 0 · rally","cam"],
+ "1":["Make cam 1","cam"],"2":["Make cam 2","cam"],"3":["Make cam 3","cam"],
+ q:["Append → 5 · use over Ctrl+W","group"], w:["Make cam 0 · rally","cam"],
  t:["Rotate camera left","ui"], g:["Rotate camera right","ui"],
- a:["Create camera 4","cam"], s:["Create camera 5","cam"], d:["Append to group 5 · legacy, ignore","group"],
- z:["Create camera 6","cam"], x:["Create camera 7","cam"],
+ a:["Make cam 4","cam"], s:["Make cam 5","cam"], d:["Append → 5 · legacy","group"],
+ z:["Make cam 6","cam"], x:["Make cam 7","cam"],
  shift:["Centre on selection","cam"], alt:["Show enemy life","mod"],
  g1:["Push to talk","ui"], g2:["Show FPS","ui"]
 };
 const shiftalt={
- "1":["Assign group 1 · no steal","group"],"2":["Assign group 2 · no steal","group"],"3":["Assign group 3 · no steal","group"],
+ "1":["Assign → 1 · no steal","group"],"2":["Assign → 2 · no steal","group"],"3":["Assign → 3 · no steal","group"],
  "4":["AI: build","ui"],"5":["AI: communication","ui"],
- q:["Assign group 4 · no steal","group"], w:["Assign group 5 · no steal","group"],
- e:["Town camera · cycles bases","cam"], r:["AI: army","ui"], t:["AI: scout","ui"],
- caps:["Assign group 6 · no steal","group"], a:["Assign group 7 · no steal","group"], s:["Assign group 8 · no steal","group"],
+ q:["Assign → 4 · no steal","group"], w:["Assign → 5 · no steal","group"],
+ e:["Town camera · cycle bases","cam"], r:["AI: army","ui"], t:["AI: scout","ui"],
+ caps:["Assign → 6 · no steal","group"], a:["Assign → 7 · no steal","group"], s:["Assign → 8 · no steal","group"],
  f:["AI: detect","ui"], g:["AI: clear all","ui"],
- z:["Assign group 9 · no steal","group"], x:["Assign group 0 · no steal","group"],
+ z:["Assign → 9 · no steal","group"], x:["Assign → 0 · no steal","group"],
  c:["AI: expand","ui"], v:["AI: delete","ui"],
  shift:["Show enemy life","mod"], alt:["Show enemy life","mod"]
 };
 const ctrl={
  "1":["Add + steal → 1","group"],"2":["Add + steal → 2","group"],"3":["Add + steal → 3","group"],
- tab:["Select all army","ui"], q:["Add + steal → 4","group"], w:["Add + steal → 5 · also toggles world panel, prefer Alt+Q","group"],
- e:["Jump camera 3","cam"], r:["Create camera 3","cam"],
+ tab:["Select all army","ui"], q:["Add + steal → 4","group"], w:["Add + steal → 5 · prefer Alt+Q","group"],
+ e:["Jump cam 3","cam"], r:["Make cam 3","cam"],
  caps:["Add + steal → 6","group"], a:["Add + steal → 7","group"], s:["Add + steal → 8","group"],
- d:["Jump camera 2","cam"], f:["Create camera 2","cam"],
+ d:["Jump cam 2","cam"], f:["Make cam 2","cam"],
  z:["Add + steal → 9","group"], x:["Add + steal → 0","group"],
- c:["Jump camera 1","cam"], v:["Create camera 1","cam"], ctrl:["Show enemy life","mod"]
+ c:["Jump cam 1","cam"], v:["Make cam 1","cam"], ctrl:["Show enemy life","mod"]
 };
 const ctrlshift={
  "1":["Create + steal → 1","group"],"2":["Create + steal → 2","group"],"3":["Create + steal → 3","group"],
@@ -767,10 +780,10 @@ const ctrlshift={
  z:["Create + steal → 9","group"], x:["Create + steal → 0","group"]
 };
 const ctrlalt={
- "1":["Append to group 1 · no steal","group"],"2":["Append to group 2 · no steal","group"],"3":["Append to group 3 · no steal","group"],
- q:["Append to group 4 · no steal","group"], w:["Append to group 5 · no steal","group"],
- caps:["Append to group 6 · no steal","group"], a:["Append to group 7 · no steal","group"], s:["Append to group 8 · no steal","group"],
- z:["Append to group 9 · no steal","group"], x:["Append to group 0 · no steal","group"],
+ "1":["Append → 1 · no steal","group"],"2":["Append → 2 · no steal","group"],"3":["Append → 3 · no steal","group"],
+ q:["Append → 4 · no steal","group"], w:["Append → 5 · no steal","group"],
+ caps:["Append → 6 · no steal","group"], a:["Append → 7 · no steal","group"], s:["Append → 8 · no steal","group"],
+ z:["Append → 9 · no steal","group"], x:["Append → 0 · no steal","group"],
  ctrl:["Show enemy life","mod"], alt:["Show enemy life","mod"]
 };
 const LAYERS={

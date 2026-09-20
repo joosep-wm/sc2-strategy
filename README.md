@@ -4,7 +4,7 @@ StarCraft II strategy guides with timings grounded in a verified, current-patch 
 
 ## Layout
 
-- **`data/`** — `sc2_data.json` ground-truth DB (patch 5.0.16) + `README.md` docs.
+- **`data/`** — `sc2_data.json` ground-truth DB (patch 5.0.16b) + `README.md` docs.
 - **`strategies/unverified/`** — drafts; timings not yet checked against the DB.
 - **`strategies/verified/`** — timings reproduced from the DB.
 - **`.claude/skills/sc2-timings/`** — skill + query tool for using the DB.

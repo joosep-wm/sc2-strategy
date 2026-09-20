@@ -1,6 +1,6 @@
 # SC2 Ground-Truth Timings DB
 
-`sc2_data.json` — costs, supply, build/research times, tech tree, and economy model for **StarCraft II patch 5.0.16** (22 Jun 2026, Blizzard economy rework). Built from Liquipedia stat pages + the official 5.0.16 notes, cross-checked and normalized. Use it to compute and validate build-order timings.
+`sc2_data.json` — costs, supply, build/research times, tech tree, and economy model for **StarCraft II patch 5.0.16b** (5.0.16 live 22 Jun 2026 with the economy rework; hotfixes 30 Jun and 16 Jul 2026). Built from Liquipedia stat pages + the official 5.0.16 and 5.0.16b notes, cross-checked and normalized. Use it to compute and validate build-order timings.
 
 ## The one thing that trips everyone up: time units
 
@@ -35,11 +35,18 @@ Example — proxy Barracks first Marine:
 
 Chrono Boost / Warp Gate: multiply the affected `bt_faster` (Chrono = ×2/3 while active; Warp Gate produces Gateway units ~40% faster).
 
-## 5.0.16 gotchas that change old guides
+## 5.0.16 / 5.0.16b gotchas that change old guides
 
 - **Starting workers 12 → 8.** Every economy/early timing from pre-2026 guides is now slower — the biggest reason to re-time old builds.
 - Town-hall supply cut: CC/Nexus 15→13, Hatchery 6→4. Start supply is 8/13 (T,P) and 8/12 (Z), so first Depot/Pylon/Overlord is needed sooner.
 - Warp Gate transform now costs 25/25 per gate (was free). Hatchery 275→300. Psi Storm 110→100 dmg. Zerg Carapace cheaper. Larva timer 10.7→9.5s (faster).
+
+### 5.0.16b hotfix (16 Jul 2026), applied 2026-09-20
+
+- Warp Gate research train-time reduction **40% -> 50%**. A researched Gateway now builds Zealot 13.5f, Stalker 13.5f, Sentry 11.5f, Adept 15f, HT/DT 21.5f. Third-party guides still quoting 16/16/14/18 are on the pre-hotfix numbers.
+- Gateway/Warp Gate transform duration **7s and 5s -> 4s** in both directions (cost still 25/25).
+- Command Center **400 -> 300** minerals; Planetary Fortress **150/150 -> 250/150**; Ghost supply **3 -> 2**.
+- Colossus damage **10(+5 vs Light) -> 12(+3 vs Light)**; Adept weapon-upgrade step **1(+1) -> 2(+2 vs Light)**; Disruptor phantom weapon range **11.35 -> 7**.
 
 ## Sources & audit
 

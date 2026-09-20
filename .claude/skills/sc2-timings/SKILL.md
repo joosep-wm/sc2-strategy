@@ -1,11 +1,11 @@
 ---
 name: sc2-timings
-description: Use when computing, validating, or revising StarCraft II build-order or strategy timings in this repo. Reads the ground-truth DB at data/sc2_data.json (patch 5.0.16) — unit/building/upgrade costs, supply, tech prerequisites, build times, and the economy model. Invoke for any question about SC2 timings, costs, tech trees, "when does X pop", whether a strategy's timestamps are realistic, or promoting a strategy from unverified to verified.
+description: Use when computing, validating, or revising StarCraft II build-order or strategy timings in this repo. Reads the ground-truth DB at data/sc2_data.json (patch 5.0.16b) — unit/building/upgrade costs, supply, tech prerequisites, build times, and the economy model. Invoke for any question about SC2 timings, costs, tech trees, "when does X pop", whether a strategy's timestamps are realistic, or promoting a strategy from unverified to verified.
 ---
 
 # SC2 timings skill
 
-Ground-truth data lives in `data/sc2_data.json` (patch **5.0.16**). Never answer SC2 timing/cost questions from memory — query the DB. If a number isn't in the DB, look it up on Liquipedia and consider adding it (keep the convention below).
+Ground-truth data lives in `data/sc2_data.json` (patch **5.0.16b**, 16 Jul 2026 hotfix). Never answer SC2 timing/cost questions from memory — query the DB. If a number isn't in the DB, look it up on Liquipedia and consider adding it (keep the convention below).
 
 ## The one rule you must never get wrong: time units
 
@@ -50,4 +50,4 @@ For anything the tool doesn't cover, read `data/sc2_data.json` directly (it's st
 
 ## When the patch changes
 
-The DB is patch **5.0.16**. If a newer patch is live, re-verify affected numbers against Liquipedia + the official notes, update `data/sc2_data.json` and its `meta.patch`, and keep the faster/normal normalization.
+The DB is patch **5.0.16b**. If a newer patch is live, re-verify affected numbers against Liquipedia + the official notes, update `data/sc2_data.json` and its `meta.patch`, and keep the faster/normal normalization.

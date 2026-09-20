@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A working macOS setup for TheCore Lite Nordic on the Redragon K585 DITI one-handed keypad: interactive key map, decision record, Karabiner config and hotkey file.">
+<title>TheCore Lite Nordic on the Redragon DITI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0f1118; --panel:#161a24; --panel2:#1d2230; --line:#2a3040;
+  --ink:#e8ebf3; --ink2:#99a1b8; --ink3:#6a7288;
+  --gold:#e0a838;
+  --r-group:#c9a227; --r-group-ink:#1a1405;
+  --r-cam:#3f7fc4; --r-cam-ink:#f2f7ff;
+  --r-rapid:#3d8f5e; --r-rapid-ink:#f0fff5;
+  --r-prec:#1c5f42; --r-prec-ink:#e6fff4;
+  --r-ui:#59617a; --r-ui-ink:#eef1f8;
+  --r-mod:#a8443f; --r-mod-ink:#fff0ef;
+  --r-none:#1a1f2c; --r-none-ink:#5d6580;
+  --r-off:#141822; --r-off-ink:#4a5168;
+  --r-add:#7a5cc4; --r-add-ink:#f4efff;
+  --ok:#3d8f5e; --warn:#c9a227; --risk:#a8443f;
+}
+@media (prefers-color-scheme:light){ :root:not([data-theme="dark"]){
+  --bg:#eeece6; --panel:#f8f7f3; --panel2:#ffffff; --line:#d7d4cb;
+  --ink:#191c24; --ink2:#5b6172; --ink3:#868c9e; --gold:#9a6b0c;
+  --r-group:#d8b73a; --r-group-ink:#241c02;
+  --r-cam:#3273bd; --r-cam-ink:#ffffff;
+  --r-rapid:#3f9463; --r-rapid-ink:#ffffff;
+  --r-prec:#1d6b4a; --r-prec-ink:#ffffff;
+  --r-ui:#8a90a2; --r-ui-ink:#ffffff;
+  --r-mod:#b24d47; --r-mod-ink:#ffffff;
+  --r-none:#e7e5de; --r-none-ink:#9299ab;
+  --r-off:#e2e0d8; --r-off-ink:#a8adbc;
+  --r-add:#6f52bb; --r-add-ink:#ffffff;
+  --ok:#2f7a4e; --warn:#8a6f10; --risk:#a53f39;
+}}
+:root[data-theme="dark"]{
+  --bg:#0f1118; --panel:#161a24; --panel2:#1d2230; --line:#2a3040;
+  --ink:#e8ebf3; --ink2:#99a1b8; --ink3:#6a7288; --gold:#e0a838;
+  --r-group:#c9a227; --r-group-ink:#1a1405;
+  --r-cam:#3f7fc4; --r-cam-ink:#f2f7ff;
+  --r-rapid:#3d8f5e; --r-rapid-ink:#f0fff5;
+  --r-prec:#1c5f42; --r-prec-ink:#e6fff4;
+  --r-ui:#59617a; --r-ui-ink:#eef1f8;
+  --r-mod:#a8443f; --r-mod-ink:#fff0ef;
+  --r-none:#1a1f2c; --r-none-ink:#5d6580;
+  --r-off:#141822; --r-off-ink:#4a5168;
+  --r-add:#7a5cc4; --r-add-ink:#f4efff;
+  --ok:#3d8f5e; --warn:#c9a227; --risk:#a8443f;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:24px 48px}
+h1{font-family:"Chakra Petch",system-ui,sans-serif;font-weight:700;font-size:clamp(1.4rem,4vw,2rem);margin:0;text-wrap:balance}
+.sub{color:var(--ink2);margin:.35rem 0 0;font-size:.92rem;max-width:64ch}
+.rule{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:16px 0 0;border-radius:2px}
+nav{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 22px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.nav-btn{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.92rem;padding:8px 15px;border-radius:6px;border:1px solid transparent;background:transparent;color:var(--ink2);cursor:pointer}
+.nav-btn:hover{color:var(--ink);background:var(--panel)}
+.nav-btn[aria-selected="true"]{background:var(--gold);color:#17120a}
+.nav-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+h2.sec{font-family:"Chakra Petch",sans-serif;font-size:1.15rem;margin:28px 0 12px;color:var(--ink)}
+h2.sec:first-of-type{margin-top:0}
+p,li{font-size:.9rem;line-height:1.58;color:var(--ink2)}
+.tabsets{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:16px}
+.tset{display:flex;flex-direction:column;gap:7px;min-width:0}
+.tlabel{font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tab{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:.8rem;padding:6px 11px;border-radius:5px;border:1px solid var(--line);background:var(--panel);color:var(--ink2);cursor:pointer}
+.tab:hover{border-color:var(--gold);color:var(--ink)}
+.tab[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#17120a}
+.tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.padwrap{overflow-x:auto;padding-bottom:6px}
+.pad{min-width:560px;display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.gcol{display:flex;flex-direction:column;gap:6px;padding-top:44px}
+.rcol{display:flex;flex-direction:column;gap:6px;padding-top:66px}
+.mid{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.mstrip{display:flex;gap:5px;margin-bottom:2px}
+.mbtn{font-family:"IBM Plex Mono",monospace;font-size:.6rem;padding:3px 8px;border-radius:4px;background:var(--r-off);color:var(--r-off-ink);border:1px solid var(--line)}
+.row{display:grid;grid-template-columns:repeat(14,1fr);gap:6px}
+.key{border:none;text-align:left;cursor:pointer;border-radius:7px;padding:6px 7px;min-height:52px;display:flex;flex-direction:column;justify-content:space-between;gap:3px;background:var(--r-none);color:var(--r-none-ink);font-family:inherit;transition:transform .08s ease,box-shadow .12s ease}
+.key:hover{transform:translateY(-2px);box-shadow:0 5px 14px rgba(0,0,0,.28)}
+.key:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.key[data-sel="1"]{box-shadow:0 0 0 2px var(--gold)}
+.cap{font-family:"IBM Plex Mono",monospace;font-size:.7rem;font-weight:600;opacity:.92}
+.act{font-family:"Chakra Petch",sans-serif;font-size:.73rem;font-weight:600;line-height:1.12;overflow-wrap:anywhere}
+.k-group{background:var(--r-group);color:var(--r-group-ink)}
+.k-cam{background:var(--r-cam);color:var(--r-cam-ink)}
+.k-rapid{background:var(--r-rapid);color:var(--r-rapid-ink)}
+.k-prec{background:var(--r-prec);color:var(--r-prec-ink)}
+.k-ui{background:var(--r-ui);color:var(--r-ui-ink)}
+.k-mod{background:var(--r-mod);color:var(--r-mod-ink)}
+.k-add{background:var(--r-add);color:var(--r-add-ink)}
+.k-off{background:var(--r-off);color:var(--r-off-ink);cursor:default}
+.k-off:hover{transform:none;box-shadow:none}
+.gkey{min-height:52px;width:60px}
+.rkey{width:78px}
+.rkey.space{min-height:88px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;font-size:.76rem;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:13px;height:13px;border-radius:3px;display:inline-block}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:14px;margin-top:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+.card h3{font-family:"Chakra Petch",sans-serif;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 9px}
+.card ol,.card ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:5px}
+kbd{font-family:"IBM Plex Mono",monospace;font-size:.78rem;background:var(--panel2);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:1px 5px;color:var(--ink);white-space:nowrap}
+#detail{margin-top:14px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-height:86px}
+#detail h3{font-family:"Chakra Petch",sans-serif;margin:0 0 8px;font-size:1rem;color:var(--ink);letter-spacing:0;text-transform:none}
+.dgrid{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:.84rem}
+.dgrid dt{font-family:"IBM Plex Mono",monospace;color:var(--ink3);font-size:.76rem;white-space:nowrap}
+.dgrid dd{margin:0;color:var(--ink2)}
+.tblwrap{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:.85rem;min-width:420px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+th{font-family:"Chakra Petch",sans-serif;color:var(--ink);font-size:.78rem;letter-spacing:.04em}
+td strong{color:var(--ink)}
+pre{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto;font-family:"IBM Plex Mono",monospace;font-size:.76rem;line-height:1.5;color:var(--ink2);margin:10px 0}
+code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
+.adr{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:15px 17px;margin-bottom:12px}
+.adr h3{font-family:"Chakra Petch",sans-serif;font-size:1rem;margin:0 0 4px;color:var(--ink)}
+.adr .meta{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:9px}
+.adr p{margin:0 0 7px}
+.adr p:last-child{margin-bottom:0}
+.adr b{color:var(--ink);font-weight:600}
+.pill{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:99px;border:1px solid currentColor}
+.p-ok{color:var(--ok)} .p-warn{color:var(--warn)} .p-risk{color:var(--risk)}
+.adr.open{border-left-color:var(--warn)}
+.note{font-size:.79rem;color:var(--ink3);margin-top:18px;line-height:1.5}
+.who{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+@media (max-width:520px){.gcol{padding-top:40px}.rcol{padding-top:60px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>TheCore Lite Nordic on the Redragon DITI</h1>
+  <p class="sub">A working macOS setup: the hotkey profile, the Karabiner layer that makes it reachable, and the decisions behind both. Built and verified on one rig in September 2026.</p>
+  <div class="rule"></div>
+
+  <nav role="tablist">
+    <button class="nav-btn" role="tab" id="nav-pad" aria-selected="true" data-p="p-pad">Pad map</button>
+    <button class="nav-btn" role="tab" id="nav-play" aria-selected="false" data-p="p-play">Playing it</button>
+    <button class="nav-btn" role="tab" id="nav-adr" aria-selected="false" data-p="p-adr">Decisions</button>
+    <button class="nav-btn" role="tab" id="nav-setup" aria-selected="false" data-p="p-setup">Setup &amp; code</button>
+  </nav>
+
+  <section id="p-pad">
+    <div class="tabsets">
+      <div class="tset"><div class="tlabel">Modifier layer</div><div class="tabs" id="tabs-mod"></div></div>
+      <div class="tset"><div class="tlabel">Selected building</div><div class="tabs" id="tabs-ctx"></div></div>
+    </div>
+    <div class="padwrap">
+      <div class="pad">
+        <div class="gcol" id="gcol"></div>
+        <div class="mid">
+          <div class="mstrip"><span class="mbtn">M1 &middot; F9</span><span class="mbtn">M2 &middot; F10</span><span class="mbtn">M3 &middot; F11</span><span class="mbtn">M4 &middot; F12</span><span class="mbtn">REC</span></div>
+          <div id="rows"></div>
+        </div>
+        <div class="rcol" id="rcol"></div>
+      </div>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div id="detail"></div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>What differs from the repo</h3>
+        <p style="margin:0 0 8px">Seven added alternates. Nothing removed, nothing moved.</p>
+        <ul>
+          <li><kbd>N</kbd> Move and <kbd>P</kbd> Gather &mdash; the pad has no H or Y</li>
+          <li><kbd>`</kbd> trash group, <kbd>Shift+`</kbd> last alert &mdash; no BackSlash key</li>
+          <li>Three landing points for Karabiner's rerouted chords, never pressed directly</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>The one dependency</h3>
+        <p>SC2 for macOS rewrites every <code>Control</code> in the file to <b style="color:var(--ink)">Command</b>, and this pad has no Command key. Karabiner supplies it and reroutes three chords macOS will not release.</p>
+        <p style="margin-top:8px;color:var(--risk)"><b>If Karabiner is not running, every add-to-group silently stops.</b> It looks like the profile broke. Check Karabiner first.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="p-play" hidden>
+    <h2 class="sec">Every game, before anything else</h2>
+    <p>Key bindings load with the profile. Control groups and cameras are empty at the start of every match, which is what this is for. It is TheCore's own documented start sequence.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Start sequence</h3>
+        <ol>
+          <li>Hold <kbd>Space</kbd> as the map loads, click the Nexus. Probes first.</li>
+          <li>Thumb parks on <kbd>Alt</kbd> and stays there.</li>
+          <li><kbd>Alt+Tab</kbd> centre &middot; <kbd>Alt+Q</kbd> add Nexus to W &middot; <kbd>Alt+A</kbd> main camera.</li>
+          <li>Pointer on the ramp, <kbd>Alt+W</kbd> rally camera.</li>
+          <li><kbd>Alt+S</kbd> <kbd>Alt+Z</kbd> <kbd>Alt+X</kbd> on future expansions.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Warp-in &mdash; Shift stays down</h3>
+        <ol>
+          <li><kbd>Shift+Q</kbd> grabs production. Warp Gates take selection priority, so the card shows warp-in units.</li>
+          <li><kbd>Shift+3</kbd> jumps to the forward pylon.</li>
+          <li>Hold <kbd>Shift+D</kbd> and sweep the mouse. One Zealot per gate, no clicking.</li>
+          <li><kbd>Shift+W</kbd> back to the rally camera.</li>
+        </ol>
+      </div>
+    </div>
+
+    <h2 class="sec">The two macro groups</h2>
+    <div class="tblwrap"><table>
+      <tr><th>Key</th><td>1</td><td>2</td><td>3</td><td><strong>Q</strong></td><td><strong>W</strong></td><td>Caps</td><td>A</td><td>S</td><td>Z</td><td>X</td></tr>
+      <tr><th>Group</th><td>1</td><td>2</td><td>3</td><td><strong>4</strong></td><td><strong>5</strong></td><td>6</td><td>7</td><td>8</td><td>9</td><td>0</td></tr>
+    </table></div>
+    <p><strong>Q</strong> holds every army production building: Gateways and Warp Gates, plus Robotics Facility and Stargate. <strong>W</strong> holds Nexuses plus every research building: Cybernetics Core, Forge, Twilight Council, Robotics Bay, Templar Archive, Fleet Beacon.</p>
+    <p>The split is what a building <em>does</em>, not where it sits in the tech tree. Robotics Facility makes units so it is Q; Robotics Bay only researches so it is W. Same for Stargate and Fleet Beacon.</p>
+    <p><kbd>Ctrl+key</kbd> adds to a group, <kbd>Ctrl+Shift+key</kbd> creates one. Both <em>steal</em>, meaning the units leave whatever group they were in. That is TheCore's deliberate default. One upstream quirk: <kbd>Ctrl+W</kbd> also fires <code>ToggleWorldPanel</code>, so prefer <kbd>Alt+Q</kbd> for the Nexus group, which is the same command and already in the start sequence.</p>
+
+    <h2 class="sec">Protoss keys</h2>
+    <p><strong>Production.</strong> Nexus: Probe Space, Mothership F. Gateway and Warp Gate: Zealot D, Stalker R, Sentry C, Adept F, High Templar Space, Dark Templar T. Robo: Observer Space, Immortal D, Prism F, Colossus C, Disruptor V. Stargate: Phoenix D, Oracle F, Void Ray R, Tempest V, Carrier G. Gateway to Warp Gate <kbd>E</kbd>, back <kbd>M</kbd> (the globe key).</p>
+    <p><strong>Research.</strong> Core: Warp Gate E, air weapons D, air armour Space. Forge: weapons D, armour Space, shields E. Twilight: Charge D, Blink R, Glaives F. Robo Bay: Thermal Lance C, Observer speed Space, Prism speed F. Templar Archive: Storm Space. Fleet Beacon: Anion D, Tempest range F, Void Ray speed R, Oracle stasis E.</p>
+    <p><strong>Abilities.</strong> E and C are the precision keys, so a spell that needs placing usually carries one of them as an alternate. Everything else lives on the pad map tab, which is the authoritative version.</p>
+    <p><strong>Commands.</strong> Attack D, Move N, Stop V, Hold G, Patrol T. Subgroup Tab, select all army Ctrl+Tab, town camera B, idle worker F1. Cameras: save Alt+key, jump Shift+key, where key 0 to 7 is W, 1, 2, 3, A, S, Z, X.</p>
+
+    <h2 class="sec">Drills</h2>
+    <div class="card" style="margin-bottom:14px">
+      <div class="who">Not from TheCore &mdash; derived from replay analysis</div>
+      <h3>Macro loop, every 20 s</h3>
+      <p style="margin:0"><kbd>W</kbd> &rarr; <kbd>Space</kbd><kbd>Space</kbd> per Nexus &rarr; <kbd>E</kbd> chrono &rarr; <kbd>Q</kbd> and a production round (<kbd>Tab</kbd> cycles Gateway &rarr; Robo &rarr; Stargate) &rarr; supply check. Pylon: probe, <kbd>C</kbd>, <kbd>D</kbd>, click.</p>
+    </div>
+    <div class="card">
+      <div class="who">Not from TheCore</div>
+      <h3>Two-week transition</h3>
+      <ol>
+        <li><b>Days 1-3, no ladder.</b> Custom vs AI, drilling only W, probes, chrono, Q, warp round.</li>
+        <li><b>Days 4-7</b>, the 7:00 build vs AI, cameras set every game.</li>
+        <li><b>Week 2</b>, 2v2 only, where the stakes are lower.</li>
+        <li><b>Day 14, re-measure</b> the two numbers you baselined before switching. Probe utilisation at minute 6 and unspent minerals at 7:00 are the ones that move first.</li>
+      </ol>
+      <p style="margin-top:9px">Expect to lose games in week one. Whatever you have most recently fixed in your macro is running on muscle memory that this layout invalidates, so baseline it before you switch and measure again at day 14 rather than panicking at day 3.</p>
+    </div>
+  </section>
+  <section id="p-adr" hidden>
+    <p>Every non-obvious choice, why it was made, and what it costs. Decisions marked <span class="pill p-warn">open</span> are unverified or deliberately deferred.</p>
+
+    <div class="adr">
+      <h3>1. Run TheCore Lite Nordic essentially unmodified</h3>
+      <div class="meta">2026-09-18 &middot; <span class="pill p-ok">settled</span></div>
+      <p><b>Context.</b> A one-handed pad invites heavy customisation, and the first pass drifted that way.</p>
+      <p><b>Decision.</b> The installed file is the upstream <code>Nordic/TheCore Lite.SC2Hotkeys</code> plus <b>seven added alternates and zero removals</b>. Every addition traces to a physical key the pad lacks.</p>
+      <p><b>Why.</b> Fidelity means the community docs, the PDF cheatsheet and Joosep's setup all still describe this keyboard. Convenience bindings would quietly fork it.</p>
+      <p><b>Cost.</b> Some upstream quirks are inherited rather than fixed, notably the <code>Ctrl+W</code> / <code>ToggleWorldPanel</code> conflict.</p>
+    </div>
+
+    <div class="adr">
+      <h3>2. Install to the per-account folder, not the documented one</h3>
+      <div class="meta">2026-09-18 &middot; <span class="pill p-ok">settled</span></div>
+      <p><b>Context.</b> The profile did not appear in SC2's dropdown at all.</p>
+      <p><b>Decision.</b> Profiles live in <code>.../StarCraft II/Accounts/&lt;id&gt;/Hotkeys/</code>.</p>
+      <p><b>Why.</b> TheCore's install doc names the top-level <code>StarCraft II/Hotkeys/</code>, and SC2 will happily create it, but this installation reads only the per-account folder. A profile in the wrong one fails silently, with no error and no list entry.</p>
+    </div>
+
+    <div class="adr">
+      <h3>3. Move to N, Gather to P</h3>
+      <div class="meta">2026-09-18 &middot; <span class="pill p-ok">settled</span></div>
+      <p><b>Context.</b> The pad has no <b>H</b> and no <b>Y</b>. Upstream puts Move on H with no alternate, and Gather on Y.</p>
+      <p><b>Decision.</b> Add N and P as alternates. N and P are the only letter keys on the pad that TheCore does not use in multiplayer.</p>
+      <p><b>Alternative rejected.</b> Leaving Move unbound. Right-click covers most of it, but not moving onto a unit without interacting.</p>
+    </div>
+
+    <div class="adr">
+      <h3>4. Tilde key carries the trash group</h3>
+      <div class="meta">2026-09-19 &middot; <span class="pill p-warn">open</span></div>
+      <p><b>Context.</b> The Nordic variant moves US TheCore's Grave bindings onto BackSlash, which this pad does not have. The pad's tilde key was therefore dead.</p>
+      <p><b>Decision.</b> Bind the trash group and alert recall to <code>OEM102</code> as well.</p>
+      <p><b>Why that name.</b> The pad is ANSI hardware under a Nordic software layout, so its tilde position reports as the ISO extra key. An earlier profile on the same machine used <code>ArmySelect=OEM102</code> for this physical key, so SC2 accepts the name here.</p>
+      <p><b>Still open.</b> Inferred, not confirmed in game. If the name is wrong the two lines do nothing and nothing breaks.</p>
+    </div>
+
+    <div class="adr">
+      <h3>5. Remap the pad's Ctrl to Command rather than abandon the layer</h3>
+      <div class="meta">2026-09-19 &middot; <span class="pill p-ok">settled</span></div>
+      <p><b>Context.</b> SC2 for macOS rewrites every <code>Control</code> in a hotkey file to <b>Command</b> and exposes no Control modifier at all. The pad has no Command key, so the entire add-to-group layer was unreachable.</p>
+      <p><b>Decision.</b> Remap the pad's Control to Command, scoped to that one keyboard.</p>
+      <p><b>Alternatives rejected.</b> Using Shift+Alt for group editing, which breaks the Ctrl-means-add association. Rebinding the file away from Control, which forks it.</p>
+      <p><b>Cost.</b> A hard dependency on Karabiner running. See decision 6 for why the built-in macOS remap was not enough.</p>
+    </div>
+
+    <div class="adr">
+      <h3>6. Karabiner, not the built-in modifier remap</h3>
+      <div class="meta">2026-09-20 &middot; <span class="pill p-ok">settled</span></div>
+      <p><b>Context.</b> Once Ctrl became Command, three chords were swallowed by macOS before SC2 saw them: <code>Cmd+Tab</code> (app switcher), <code>Cmd+Shift+3</code> (screenshot) and <code>Cmd+Shift+Q</code> (<b>Log Out</b>). All three were hit in real play.</p>
+      <p><b>Decision.</b> Karabiner-Elements does both jobs: Control to Command, and rerouting those three chords to <code>Cmd+Opt</code> variants macOS has no claim on. Three matching alternates were added to the hotkey file as landing points.</p>
+      <p><b>Alternatives rejected.</b> Disabling the macOS screenshot shortcut, which the author uses daily. Overriding the Apple menu's Log Out through App Shortcuts, which breaks if the account name changes. Avoiding Ctrl+Shift by habit, which fails exactly when you are under pressure.</p>
+      <p><b>Cost.</b> A third-party driver with a system-extension approval, and a silent failure mode if it stops running.</p>
+    </div>
+
+    <div class="adr open">
+      <h3>7. G2 to G5 left unbound</h3>
+      <div class="meta">2026-09-20 &middot; <span class="pill p-warn">deferred</span></div>
+      <p><b>Context.</b> The five G keys send F1 to F5. G1 lands on F1, which is idle worker, a useful accident. G2 to G5 are free.</p>
+      <p><b>Decision.</b> Leave them empty until the day-14 review.</p>
+      <p><b>Why.</b> The obvious candidates are single-key camera jumps, whose value depends on the Alt+A/S/Z/X habit being automatic. A key that jumps to a third base is worth nothing while the third base is not down inside ten minutes.</p>
+      <p><b>Note.</b> G2 briefly carried select-all-army, and was freed again once Karabiner could route Ctrl+Tab.</p>
+    </div>
+
+    <div class="adr">
+      <h3>8. Never test unsupported keys in SC2's hotkey editor</h3>
+      <div class="meta">2026-09-19 &middot; <span class="pill p-risk">hard-won</span></div>
+      <p><b>What happened.</b> Pressing Ctrl into a binding field, to see whether SC2 accepted Control, cleared that binding and cascaded: <code>ControlGroupAppendAndSteal4</code> was emptied and the <code>4</code> key was stripped from about twenty other commands, including <code>Forge/Probe=4</code>.</p>
+      <p><b>Rule.</b> Test key names in a throwaway duplicate profile, never the live one. Recovery is to reinstall from <code>~/SC2/hotkeys-src/</code> while SC2 is <b>closed</b>, since SC2 rewrites the file on exit.</p>
+    </div>
+
+    <div class="adr">
+      <h3>9. Conflict dialog on launch: always Ignore</h3>
+      <div class="meta">2026-09-19 &middot; <span class="pill p-ok">settled</span></div>
+      <p><b>Context.</b> SC2 reports "HOTKEY CONFLICTS DETECTED" every launch.</p>
+      <p><b>Decision.</b> Ignore, never Resolve. The duplicate-key list is byte-identical to the pristine upstream file, so these are TheCore's deliberate overlaps, which is why it ships <code>AllowSetConflicts=1</code>. Resolve opens the editor from decision 8.</p>
+    </div>
+
+    <div class="adr">
+      <h3>10. Provenance: what is TheCore's and what is not</h3>
+      <div class="meta">2026-09-20 &middot; <span class="pill p-ok">settled</span></div>
+      <p>Every key table here was machine-checked line by line against the upstream file, 118 of 118 exact matches. The role logic, the Q/W split, the start sequence, the warp-in sequence and the RapidFire semantics are TheCore's own documentation.</p>
+      <p>The <b>20-second macro loop and the two-week transition plan are not from TheCore.</b> The word "loop" does not appear in its README at all, and its only Protoss routine is a chrono variant. Those two came from replay analysis of one player and are marked as such throughout. Treat them as an example of method, not as part of the layout.</p>
+    </div>
+  </section>
+  <section id="p-setup" hidden>
+    <h2 class="sec">Order of operations</h2>
+    <p>Quit SC2 before touching the hotkey file. SC2 rewrites it on exit and will silently discard your edits.</p>
+    <ol style="padding-left:1.1rem;display:flex;flex-direction:column;gap:7px">
+      <li>Drop the <code>.SC2Hotkeys</code> file into <code>~/Library/Application&nbsp;Support/Blizzard/StarCraft&nbsp;II/Accounts/&lt;your-id&gt;/Hotkeys/</code>. Not the top-level Hotkeys folder.</li>
+      <li>Install Karabiner-Elements. Approve the system extension in Privacy &amp; Security and grant Input Monitoring.</li>
+      <li>Find your pad's IDs with <code>hidutil list</code> and put them in the config below.</li>
+      <li>Launch SC2, pick the profile in Options &rarr; Hotkeys, click <b>Ignore</b> on the conflict dialog.</li>
+    </ol>
+
+    <h2 class="sec">The hotkey file: all seven changes</h2>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Command</th><th>Upstream</th><th>Installed</th><th>Reason</th></tr></thead>
+      <tbody>
+        <tr><td><code>Move</code></td><td>H</td><td>H,<strong>N</strong></td><td>no H key</td></tr>
+        <tr><td><code>GatherProt</code></td><td>Y</td><td>Y,<strong>P</strong></td><td>no Y key</td></tr>
+        <tr><td><code>AlertRecall</code></td><td>Shift+BackSlash</td><td>+<strong>Shift+OEM102</strong></td><td>no BackSlash</td></tr>
+        <tr><td><code>ControlGroupAssignAndSteal6</code></td><td>Ctrl+Shift+CapsLock,BackSlash</td><td>+<strong>OEM102</strong></td><td>trash group on tilde</td></tr>
+        <tr><td><code>ArmySelect</code></td><td>Ctrl+Tab,Ctrl+Shift+Tab</td><td>+<strong>Ctrl+Alt+Tab</strong></td><td>Karabiner landing point</td></tr>
+        <tr><td><code>ControlGroupAssignAndSteal3</code></td><td>Ctrl+Shift+3</td><td>+<strong>Ctrl+Alt+Shift+3</strong></td><td>Karabiner landing point</td></tr>
+        <tr><td><code>ControlGroupAssignAndSteal4</code></td><td>Ctrl+Shift+Q</td><td>+<strong>Ctrl+Alt+Shift+Q</strong></td><td>Karabiner landing point</td></tr>
+      </tbody>
+    </table></div>
+    <p>SC2 translates these on load: every <code>Control</code> becomes <code>Command</code> and every <code>Alt</code> becomes <code>Option</code>. So <code>Ctrl+Alt+Shift+Q</code> in the file is what Karabiner emits as <code>Cmd+Opt+Shift+Q</code>.</p>
+
+    <h2 class="sec">Karabiner rules</h2>
+    <p>Goes in <code>~/.config/karabiner/karabiner.json</code> under the selected profile's <code>complex_modifications.rules</code>. Seven manipulators, all scoped by <code>device_if</code> so no other keyboard is touched. Vendor <code>12815</code> is 0x320f and product <code>20480</code> is 0x5000, which is how the DITI identifies itself.</p>
+    <p><b>Each chord rule appears twice</b>, once matching <code>left_control</code> and once <code>left_command</code>. That is not redundancy. Karabiner matches <code>from.modifiers</code> against the <em>physical</em> modifier, not the remapped one. The first version of this config only matched <code>left_command</code>, the chords fell straight through, and Ctrl+Shift+Q quit the front application.</p>
+    <p>Complete and paste-ready. Seven manipulators: the three chords matched twice each, then the catch-all that makes Control behave as Command.</p>
+<pre>{
+  "description": "DITI pad TheCore Lite routing",
+  "manipulators": [
+    {"type":"basic",
+     "from":{"key_code":"3","modifiers":{"mandatory":["left_control","shift"]}},
+     "to":[{"key_code":"3","modifiers":["left_command","left_option","left_shift"]}],
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
+    {"type":"basic",
+     "from":{"key_code":"q","modifiers":{"mandatory":["left_control","shift"]}},
+     "to":[{"key_code":"q","modifiers":["left_command","left_option","left_shift"]}],
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
+    {"type":"basic",
+     "from":{"key_code":"3","modifiers":{"mandatory":["left_command","shift"]}},
+     "to":[{"key_code":"3","modifiers":["left_command","left_option","left_shift"]}],
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
+    {"type":"basic",
+     "from":{"key_code":"q","modifiers":{"mandatory":["left_command","shift"]}},
+     "to":[{"key_code":"q","modifiers":["left_command","left_option","left_shift"]}],
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
+    {"type":"basic",
+     "from":{"key_code":"tab","modifiers":{"mandatory":["left_control"]}},
+     "to":[{"key_code":"tab","modifiers":["left_command","left_option"]}],
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
+    {"type":"basic",
+     "from":{"key_code":"tab","modifiers":{"mandatory":["left_command"]}},
+     "to":[{"key_code":"tab","modifiers":["left_command","left_option"]}],
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
+    {"type":"basic",
+     "from":{"key_code":"left_control","modifiers":{"optional":["any"]}},
+     "to":[{"key_code":"left_command"}],
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]}
+  ]
+}</pre>
+    <h2 class="sec">Verifying</h2>
+<pre># which device is the pad
+hidutil list --matching '{"PrimaryUsagePage":1,"PrimaryUsage":6}'
+
+# is the driver actually live
+systemextensionsctl list | grep -i karabiner
+# want: [activated enabled], not [activated waiting for user]
+
+# does the installed file still match upstream plus the seven
+diff upstream.SC2Hotkeys "$HOME/Library/Application Support/Blizzard/\
+StarCraft II/Accounts/&lt;id&gt;/Hotkeys/TheCore Lite Nordic DITI.SC2Hotkeys"</pre>
+    <p>To check what a key really sends, open any page with a console and log <code>keydown</code> events. That is how the G keys were found to be F1 to F5, the globe key to be M, and the chord routing to be working. It is non-destructive, unlike SC2's own hotkey editor.</p>
+
+    <h2 class="sec">Failure modes</h2>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr><td>Every add-to-group stops, silently</td><td>Karabiner not running</td><td>Check Karabiner before touching the hotkey file</td></tr>
+        <tr><td>Profile missing from the dropdown</td><td>Installed to the top-level Hotkeys folder</td><td>Move it to the per-account folder</td></tr>
+        <tr><td>Bindings vanish, Forge stops working</td><td>Unsupported key pressed in SC2's hotkey editor</td><td>Reinstall the file with SC2 closed</td></tr>
+        <tr><td>Edits to the file revert</td><td>SC2 was running and rewrote it on exit</td><td>Quit SC2 first, always</td></tr>
+        <tr><td>Ctrl+W toggles a UI panel</td><td>Upstream conflict with <code>ToggleWorldPanel</code></td><td>Use Alt+Q for the Nexus group</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2 class="sec">The pad's real key map</h2>
+    <p>Measured with a key logger, because the keycap legends mislead.</p>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Pressed</th><th>macOS receives</th></tr></thead>
+      <tbody>
+        <tr><td>G1, G2, G3, G4, G5</td><td><strong>F1, F2, F3, F4, F5</strong></td></tr>
+        <tr><td>M1, M2, M3, M4</td><td>F9, F10, F11, F12 (F11 never arrives, macOS eats it)</td></tr>
+        <tr><td>globe key, top row</td><td><strong>M</strong>, which is why morph-back works</td></tr>
+        <tr><td>` ~ key</td><td>Backquote position, prints <code>&lt;</code> under a Nordic layout</td></tr>
+        <tr><td>Space, N, P, top-row F1</td><td>as labelled</td></tr>
+        <tr><td>Fn, REC</td><td>nothing, firmware only</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">42 mechanical keys. Rows: Esc F1-F4 globe &middot; ` 1-6 &middot; Tab QWERT &middot; CapsLk ASDFG &middot; Shift ZXCVB &middot; Ctrl Fn Alt N P, plus G1 and Space on the right, G2-G5 down the left. M1-M4 and REC are separate non-mechanical buttons.</p>
+  </section>
+
+  <p class="note">Built with Claude over 18-20 September 2026. Key tables machine-checked against <a href="https://github.com/bobo38/TheCoreLite" style="color:var(--gold)">bobo38/TheCoreLite</a>, Nordic variant.</p>
+</div>
+<script>
+const R={group:"k-group",cam:"k-cam",rapid:"k-rapid",prec:"k-prec",ui:"k-ui",mod:"k-mod",add:"k-add",off:"k-off"};
+const LEGEND=[["k-group","Control group"],["k-cam","Camera"],["k-rapid","Command (RapidFire)"],["k-prec","Precision key"],["k-ui","Interface"],["k-mod","Modifier"],["k-add","Added for this pad"],["k-off","No binding / not a key"]];
+
+const ROWS=[
+ [["esc","Esc",2],["f1","F1",2],["f2","F2",2],["f3","F3",2],["f4","F4",2],["m","globe",2]],
+ [["grave","` ~",2],["1","1",2],["2","2",2],["3","3",2],["4","4",2],["5","5",2],["6","6",2]],
+ [["tab","Tab",3],["q","Q",2],["w","W",2],["e","E",2],["r","R",2],["t","T",3]],
+ [["caps","CapsLk",3],["a","A",2],["s","S",2],["d","D",2],["f","F",2],["g","G",3]],
+ [["shift","Shift",4],["z","Z",2],["x","X",2],["c","C",2],["v","V",2],["b","B",2]],
+ [["ctrl","Ctrl",3],["fn","Fn",2],["alt","Alt",3],["n","N",2],["p","P",2]]
+];
+const GCOL=[["g2","G2 · F2"],["g3","G3 · F3"],["g4","G4 · F4"],["g5","G5 · F5"]];
+const RCOL=[["g1","G1 · F1"],["space","Space"]];
+
+const base={
+ esc:["Cancel","ui"], f1:["Idle worker","ui"], f2:["Minimap colours","ui"], f3:["free","off"], f4:["free","off"],
+ m:["Morph Warp Gate → Gateway","rapid"], grave:["Trash group (steal into 6)","group"],
+ "1":["Group 1","group"],"2":["Group 2","group"],"3":["Group 3","group"],
+ "4":["Command key","rapid"],"5":["Command key","rapid"],"6":["Command key","rapid"],
+ tab:["Subgroup next","ui"], q:["Group 4 · production","group"], w:["Group 5 · bases + tech","group"],
+ e:["Precision key 1","prec"], r:["Command key","rapid"], t:["Patrol","rapid"],
+ caps:["Group 6","group"], a:["Group 7","group"], s:["Group 8","group"],
+ d:["Attack","rapid"], f:["Command key","rapid"], g:["Hold","rapid"],
+ shift:["Modifier","mod"], z:["Group 9","group"], x:["Group 0","group"],
+ c:["Precision key 2","prec"], v:["Stop / cancel target","rapid"], b:["Base camera","cam"],
+ ctrl:["Modifier","mod"], fn:["Firmware only","off"], alt:["Modifier","mod"],
+ n:["Move","add"], p:["Gather","add"], space:["Primary ability / train","rapid"],
+ g1:["Idle worker","ui"], g2:["Minimap colours","ui"], g3:["free","off"], g4:["free","off"], g5:["free","off"]
+};
+const shift={
+ esc:["Cancel","ui"], f1:["Terrain minimap","ui"], f2:["Team resources","ui"],
+ grave:["Jump to last alert","cam"],
+ "1":["Jump camera 1","cam"],"2":["Jump camera 2","cam"],"3":["Jump camera 3","cam"],
+ tab:["Subgroup previous","ui"], q:["Select production","group"], w:["Jump camera 0 · rally","cam"],
+ e:["Precision key 1, queued","prec"], t:["Patrol, queued","rapid"],
+ a:["Jump camera 4","cam"], s:["Jump camera 5","cam"], d:["Attack, queued","rapid"], g:["Hold, queued","rapid"],
+ z:["Jump camera 6","cam"], x:["Jump camera 7","cam"], c:["Precision key 2","prec"],
+ v:["Select group 1 · utility","group"], b:["Base camera","cam"],
+ n:["Move, queued","add"], space:["Ability, queued","rapid"], shift:["Modifier","mod"],
+ g1:["Terrain minimap","ui"]
+};
+const alt={
+ f1:["Push to talk","ui"], f2:["Show FPS","ui"],
+ grave:["Centre on selection","cam"], tab:["Centre on selection","cam"], caps:["Centre on selection","cam"],
+ "1":["Create camera 1","cam"],"2":["Create camera 2","cam"],"3":["Create camera 3","cam"],
+ q:["Append to group 5 · alternate for Ctrl+W","group"], w:["Create camera 0 · rally","cam"],
+ t:["Rotate camera left","ui"], g:["Rotate camera right","ui"],
+ a:["Create camera 4","cam"], s:["Create camera 5","cam"], d:["Append to group 5 · legacy, ignore","group"],
+ z:["Create camera 6","cam"], x:["Create camera 7","cam"],
+ shift:["Centre on selection","cam"], alt:["Show enemy life","mod"],
+ g1:["Push to talk","ui"], g2:["Show FPS","ui"]
+};
+const ctrl={
+ "1":["Add + steal → 1","group"],"2":["Add + steal → 2","group"],"3":["Add + steal → 3","group"],
+ tab:["Select all army","ui"], q:["Add + steal → 4","group"], w:["Add + steal → 5 · also toggles world panel, prefer Alt+Q","group"],
+ e:["Jump camera 3","cam"], r:["Create camera 3","cam"],
+ caps:["Add + steal → 6","group"], a:["Add + steal → 7","group"], s:["Add + steal → 8","group"],
+ d:["Jump camera 2","cam"], f:["Create camera 2","cam"],
+ z:["Add + steal → 9","group"], x:["Add + steal → 0","group"],
+ c:["Jump camera 1","cam"], v:["Create camera 1","cam"], ctrl:["Show enemy life","mod"]
+};
+const ctrlshift={
+ "1":["Create + steal → 1","group"],"2":["Create + steal → 2","group"],"3":["Create + steal → 3","group"],
+ tab:["Select all army","ui"], q:["Create + steal → 4","group"], w:["Create + steal → 5","group"],
+ caps:["Create + steal → 6","group"], a:["Create + steal → 7","group"], s:["Create + steal → 8","group"],
+ z:["Create + steal → 9","group"], x:["Create + steal → 0","group"]
+};
+const CTX={
+ nexus:{label:"Nexus",keys:{space:["Probe","rapid"],e:["Chrono Boost","prec"],c:["Energy Recharge","prec"],r:["Mass Recall","rapid"],f:["Mothership","rapid"]}},
+ gate:{label:"Gateway / Warp Gate",keys:{d:["Zealot","rapid"],r:["Stalker","rapid"],c:["Sentry","prec"],f:["Adept","rapid"],space:["High Templar","rapid"],t:["Dark Templar","rapid"],e:["Morph to Warp Gate","prec"],m:["Morph back to Gateway","rapid"]}},
+ robo:{label:"Robotics",keys:{space:["Observer","rapid"],d:["Immortal","rapid"],f:["Warp Prism","rapid"],c:["Colossus","prec"],v:["Disruptor","rapid"]}},
+ star:{label:"Stargate",keys:{d:["Phoenix","rapid"],f:["Oracle","rapid"],r:["Void Ray","rapid"],v:["Tempest","rapid"],g:["Carrier","rapid"]}},
+ build:{label:"Probe · basic (C)",keys:{e:["Nexus","prec"],d:["Pylon","rapid"],f:["Assimilator","rapid"],c:["Gateway","prec"],r:["Cybernetics Core","rapid"],"4":["Forge","rapid"],space:["Photon Cannon","rapid"],t:["Shield Battery","rapid"]}},
+ adv:{label:"Probe · advanced (E)",keys:{f:["Twilight Council","rapid"],d:["Robotics Facility","rapid"],r:["Stargate","rapid"],c:["Robotics Bay","prec"],space:["Templar Archive","rapid"],t:["Dark Shrine","rapid"],g:["Fleet Beacon","rapid"]}},
+ hall:{label:"Sentry hallucination (F)",keys:{d:["Phoenix","rapid"],f:["Archon","rapid"],t:["Zealot","rapid"],g:["Stalker","rapid"],e:["Warp Prism","prec"],c:["Colossus","prec"],v:["Disruptor","rapid"],space:["High Templar","rapid"],"4":["Probe","rapid"],"5":["Oracle","rapid"]}}
+};
+const LAYERS={base:{label:"None",map:base},shift:{label:"Shift",map:shift},alt:{label:"Alt",map:alt},ctrl:{label:"Ctrl",map:ctrl},ctrlshift:{label:"Ctrl+Shift",map:ctrlshift}};
+const CAPS={};
+ROWS.flat().forEach(k=>CAPS[k[0]]=k[1]); GCOL.forEach(k=>CAPS[k[0]]=k[1]); RCOL.forEach(k=>CAPS[k[0]]=k[1]);
+
+let mode={type:"layer",id:"base"}, selected=null;
+
+function entry(id){
+  if(mode.type==="layer") return LAYERS[mode.id].map[id]||null;
+  return CTX[mode.id].keys[id]||null;
+}
+function keyEl(id,cap,span,extra){
+  const e=entry(id), b=document.createElement("button");
+  b.type="button"; b.className="key "+(e?R[e[1]]:R.off)+(extra?" "+extra:"");
+  if(span) b.style.gridColumn="span "+span;
+  b.dataset.id=id; if(selected===id) b.dataset.sel="1";
+  const c=document.createElement("span"); c.className="cap"; c.textContent=cap;
+  const a=document.createElement("span"); a.className="act"; a.textContent=e?e[0]:"";
+  b.append(c,a);
+  b.addEventListener("click",()=>{selected=id;render();});
+  return b;
+}
+function render(){
+  const rows=document.getElementById("rows"); rows.innerHTML="";
+  ROWS.forEach(r=>{const d=document.createElement("div"); d.className="row";
+    r.forEach(([id,cap,span])=>d.appendChild(keyEl(id,cap,span))); rows.appendChild(d);});
+  const gc=document.getElementById("gcol"); gc.innerHTML="";
+  GCOL.forEach(([id,cap])=>gc.appendChild(keyEl(id,cap,0,"gkey")));
+  const rc=document.getElementById("rcol"); rc.innerHTML="";
+  RCOL.forEach(([id,cap])=>rc.appendChild(keyEl(id,cap,0,"rkey"+(id==="space"?" space":""))));
+  document.querySelectorAll("#tabs-mod .tab").forEach(t=>t.setAttribute("aria-pressed",String(mode.type==="layer"&&mode.id===t.dataset.id)));
+  document.querySelectorAll("#tabs-ctx .tab").forEach(t=>t.setAttribute("aria-pressed",String(mode.type==="ctx"&&mode.id===t.dataset.id)));
+  detail();
+}
+function detail(){
+  const d=document.getElementById("detail");
+  if(!selected){d.innerHTML='<h3>Click any key</h3><p style="margin:0;color:var(--ink2);font-size:.86rem">Its meaning on every layer, and on every command card it appears in, shows here.</p>';return;}
+  const rowsHtml=[];
+  Object.entries(LAYERS).forEach(([k,v])=>{const e=v.map[selected]; if(e) rowsHtml.push("<dt>"+(k==="base"?"no modifier":v.label)+"</dt><dd>"+e[0]+"</dd>");});
+  Object.entries(CTX).forEach(([k,v])=>{const e=v.keys[selected]; if(e) rowsHtml.push("<dt>"+v.label+"</dt><dd>"+e[0]+"</dd>");});
+  d.innerHTML="<h3>"+CAPS[selected]+"</h3>"+(rowsHtml.length?'<dl class="dgrid">'+rowsHtml.join("")+"</dl>":'<p style="margin:0;color:var(--ink2);font-size:.86rem">No binding anywhere in this file.</p>');
+}
+const tm=document.getElementById("tabs-mod");
+Object.entries(LAYERS).forEach(([k,v])=>{const b=document.createElement("button");b.type="button";b.className="tab";b.dataset.id=k;b.textContent=v.label;b.addEventListener("click",()=>{mode={type:"layer",id:k};render();});tm.appendChild(b);});
+const tc=document.getElementById("tabs-ctx");
+Object.entries(CTX).forEach(([k,v])=>{const b=document.createElement("button");b.type="button";b.className="tab";b.dataset.id=k;b.textContent=v.label;b.addEventListener("click",()=>{mode={type:"ctx",id:k};render();});tc.appendChild(b);});
+const lg=document.getElementById("legend");
+LEGEND.forEach(([cls,txt])=>{const s=document.createElement("span");const sw=document.createElement("i");sw.className="sw "+cls;s.append(sw,document.createTextNode(txt));lg.appendChild(s);});
+render();
+</script>
+<script>
+const PANELS=["p-pad","p-play","p-adr","p-setup"];
+document.querySelectorAll(".nav-btn").forEach(b=>{
+  b.addEventListener("click",()=>{
+    PANELS.forEach(id=>{document.getElementById(id).hidden = (id!==b.dataset.p);});
+    document.querySelectorAll(".nav-btn").forEach(o=>o.setAttribute("aria-selected",String(o===b)));
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+});
+</script>
+
+</body>
+</html>

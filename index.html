@@ -1,365 +1,143 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SC2 Strategies — DB-verified build timings</title>
-  <meta name="description" content="StarCraft II strategy guides with timings grounded in a verified patch 5.0.16 data set." />
-  <style>
-    :root {
-      --bg: #0b1020;
-      --panel: #121a33;
-      --text: #e8eefc;
-      --muted: #a9b7d6;
-      --line: #344369;
-      --terran: #69a7ff;
-      --protoss: #ffd66b;
-      --zerg: #c58bff;
-      --ok: #77e0c6;
-      --warn: #ffd166;
-      --shadow: 0 16px 40px rgba(0,0,0,.35);
-      --radius: 18px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="StarCraft II hotkey setup and build orders whose timings are reproduced from a verified patch 5.0.16 data set.">
+<title>SC2 Strategies</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#0f1118; --panel:#161a24; --panel2:#1d2230; --line:#2a3040;
+  --ink:#eef1f8; --ink2:#aeb6ca; --ink3:#7b8299;
+  --gold:#e5ae42; --ok:#3d8f5e; --protoss:#7a5cc4; --terran:#3f7fc4;
+  --shadow:0 14px 34px rgba(0,0,0,.34);
+}
+@media (prefers-color-scheme:light){ :root:not([data-theme="dark"]){
+  --bg:#eeece6; --panel:#f8f7f3; --panel2:#ffffff; --line:#d7d4cb;
+  --ink:#14171e; --ink2:#4d5464; --ink3:#767d8e;
+  --gold:#8c5f08; --ok:#2f7a4e; --protoss:#6f52bb; --terran:#3273bd;
+  --shadow:0 12px 28px rgba(0,0,0,.10);
+}}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;margin:0;font-size:17px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.wrap{max-width:1000px;margin:0 auto;padding-inline:20px;padding-block:44px 72px}
 
-    * { box-sizing: border-box; }
+h1{font-family:"Chakra Petch",system-ui,sans-serif;font-weight:700;font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.1;margin:0;letter-spacing:-.01em}
+.sub{color:var(--ink2);margin:.6rem 0 0;font-size:1.05rem;line-height:1.55;max-width:56ch;text-wrap:pretty}
+.rule{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:18px 0 0;border-radius:2px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.meta span{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
 
-    body {
-      margin: 0;
-      background:
-        radial-gradient(circle at top left, rgba(105,167,255,.18), transparent 35%),
-        radial-gradient(circle at top right, rgba(255,214,107,.14), transparent 30%),
-        var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      line-height: 1.45;
-      min-height: 100vh;
-    }
+h2.sec{font-family:"Chakra Petch",sans-serif;font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:46px 0 16px;font-weight:600}
 
-    main {
-      width: min(980px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 44px 0 72px;
-    }
+.card{display:block;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px 26px;box-shadow:var(--shadow);transition:border-color .12s ease,transform .12s ease}
+.card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.card + .card{margin-top:14px}
+.card.hero{background:var(--panel2);padding:32px 30px}
 
-    header {
-      background: linear-gradient(135deg, rgba(18,26,51,.96), rgba(24,34,65,.9));
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow: var(--shadow);
-      margin-bottom: 28px;
-    }
+.head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.rank{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:.95rem;color:var(--gold);letter-spacing:.08em}
+.card h3{font-family:"Chakra Petch",sans-serif;font-weight:700;margin:0;font-size:1.35rem;line-height:1.2;letter-spacing:-.01em;flex:1 1 auto}
+.card.hero h3{font-size:1.7rem}
+.badge{font-family:"IBM Plex Mono",monospace;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px;white-space:nowrap;border:1px solid var(--line);color:var(--ink3)}
+.badge.now{background:var(--gold);color:#17120a;border-color:transparent}
+.badge.ok{color:var(--ok);border-color:var(--ok)}
 
-    h1 {
-      margin: 0 0 12px;
-      font-size: clamp(30px, 5vw, 50px);
-      line-height: 1.03;
-      letter-spacing: -0.04em;
-    }
+.card p{margin:12px 0 0;color:var(--ink2);font-size:1rem;line-height:1.55;max-width:70ch}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.tag{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.04em;border-radius:6px;padding:4px 9px;border:1px solid var(--line);color:var(--ink3)}
+.tag.p{color:var(--protoss)} .tag.t{color:var(--terran)}
 
-    .subtitle {
-      color: var(--muted);
-      font-size: 17px;
-      max-width: 680px;
-      margin: 0 0 20px;
-    }
+.aside{margin-top:12px;color:var(--ink3);font-size:.92rem;padding-left:26px}
+.aside a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--line)}
+.aside a:hover{color:var(--gold);border-color:var(--gold)}
 
-    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
-
-    .chip {
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .chip.ok { color: var(--ok); }
-    .chip.mono { font-family: var(--mono); color: var(--muted); }
-
-    h2 {
-      margin: 32px 0 14px;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--muted);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    a.card {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      background: rgba(18,26,51,.9);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-      transition: transform .12s ease, border-color .12s ease;
-    }
-    a.card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(119,224,198,.4);
-    }
-
-    .card-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-
-    .card h3 { margin: 0; font-size: 21px; letter-spacing: -0.01em; }
-
-    .badge {
-      font-size: 12px;
-      font-weight: 900;
-      font-family: var(--mono);
-      border-radius: 999px;
-      padding: 4px 10px;
-      white-space: nowrap;
-    }
-    .badge.verified { color: var(--ok); background: rgba(119,224,198,.12); }
-    .badge.draft { color: var(--warn); background: rgba(255,209,102,.12); }
-
-    .card p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
-
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .tag {
-      font-size: 12px;
-      font-weight: 700;
-      border-radius: 8px;
-      padding: 4px 9px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-    .tag.terran { color: var(--terran); }
-    .tag.protoss { color: var(--protoss); }
-    .tag.zerg { color: var(--zerg); }
-
-    .empty {
-      color: var(--muted);
-      font-size: 15px;
-      border: 1px dashed rgba(255,255,255,.14);
-      border-radius: var(--radius);
-      padding: 22px;
-    }
-
-    .footer-note {
-      margin-top: 40px;
-      color: var(--muted);
-      font-size: 13px;
-      text-align: center;
-    }
-    .footer-note a { color: var(--ok); text-decoration: none; }
-  </style>
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink3);font-size:.9rem;display:flex;flex-wrap:wrap;gap:6px 18px}
+footer a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--line)}
+footer a:hover{color:var(--gold);border-color:var(--gold)}
+</style>
 </head>
 <body>
-  <main>
-    <header>
-      <h1>SC2 Strategies</h1>
-      <p class="subtitle">
-        StarCraft II build-order guides whose every timing is reproduced from a verified,
-        current-patch data set — not vibes.
-      </p>
-      <div class="chips">
-        <span class="chip ok">DB-verified timings</span>
-        <span class="chip mono">Patch 5.0.16</span>
-        <span class="chip mono">Faster clock</span>
-      </div>
-    </header>
+<div class="wrap">
 
-    <h2>Verified strategies</h2>
-    <section class="grid">
-      <a class="card" href="strategies/verified/sc2_protoss_stargate_opening.html">
-        <div class="card-head">
-          <h3>Protoss Stargate Opening: Double-Gate Adept into Oracle</h3>
-          <span class="badge verified">VERIFIED</span>
-        </div>
-        <p>
-          Two-gate Adept pressure, expand behind it, Oracle follow-up. Harass pays twice: eco
-          damage and a full scout. Every timestamp observed in a ladder replay and reproduced
-          from the DB.
-        </p>
-        <div class="tags">
-          <span class="tag">1v1</span>
-          <span class="tag protoss">Protoss</span>
-          <span class="tag">Replay-verified</span>
-        </div>
-      </a>
-      <a class="card" href="strategies/verified/sc2_2v2_proxy_timing_build.html">
-        <div class="card-head">
-          <h3>2v2 Proxy Rax + Gateway → 2-Base Timing</h3>
-          <span class="badge verified">VERIFIED</span>
-        </div>
-        <p>
-          Terran + Protoss synced opening. The proxy scouts, punishes greed, and forces panic
-          spending; the real punch is the coordinated 2-base timing.
-        </p>
-        <div class="tags">
-          <span class="tag">2v2</span>
-          <span class="tag terran">Terran</span>
-          <span class="tag protoss">Protoss</span>
-        </div>
-      </a>
-    </section>
+  <h1>SC2 Strategies</h1>
+  <p class="sub">A hotkey setup and two build orders, kept deliberately short. Every timing is either
+  reproduced from a patch 5.0.16 data set or read frame by frame off a VOD clock.</p>
+  <div class="rule"></div>
+  <div class="meta"><span>Patch 5.0.16</span><span>Faster clock</span><span>Protoss</span></div>
 
-    <h2>Unverified drafts</h2>
-    <section class="grid">
-      <a class="card" href="strategies/unverified/sc2_protoss_chargelot_five.html">
-        <div class="card-head">
-          <h3>Chargelot Seven: the 7:00 Chargelot + Oracle Attack</h3>
-          <span class="badge draft">DRAFT</span>
-        </div>
-        <p>
-          PiG's 5.0.16 PvZ. Three Gateways on three bases. Warp Gate research is cancelled once to
-          pay for the Stargate and requeued at 3:07, landing just before 5:00; from there a Gateway
-          pops a Zealot every 13.5s. Natural 1:38, third 4:28, Twilight 4:40, Charge done 6:33.
-          Ten Chargelots and three Oracles walk in at 6:37 and the Queens die at 7:10.
-        </p>
-        <div class="tags">
-          <span class="tag">1v1</span>
-          <span class="tag">2v2</span>
-          <span class="tag protoss">Protoss</span>
-          <span class="tag zerg">vs Zerg</span>
-          <span class="tag">VOD-timed</span>
-        </div>
-      </a>
-      <a class="card" href="strategies/unverified/sc2_protoss_3gate_robo_pvp.html">
-        <div class="card-head">
-          <h3>3-Gate Robo: Stalker-Prism Punch (PvP / PvT)</h3>
-          <span class="badge draft">DRAFT</span>
-        </div>
-        <p>
-          Coach Dns's build, observed in 12 games (PvP 6-0, PvT 2-4). Robo 2:46, Prism born
-          3:59, warp round down by 5:00. PvT: tanks measured at 5:19-5:45, so the punch lands
-          by 5:10 or not at all, and the pull-back-and-expand branch now has hard rules
-          (Nexus by 6:00, or it converts to a loss).
-        </p>
-        <div class="tags">
-          <span class="tag">1v1</span>
-          <span class="tag protoss">Protoss</span>
-          <span class="tag">Replay-observed</span>
-        </div>
-      </a>
-      <a class="card" href="strategies/unverified/sc2_protoss_double_adept_pressure.html">
-        <div class="card-head">
-          <h3>Two Zealots, Two Adepts: the pressure opening</h3>
-          <span class="badge draft">DRAFT</span>
-        </div>
-        <p>
-          The opening branch of Chargelot Seven, for the games where Zerg opens pool first or walls
-          you in. Two Gateways make Zealot, Zealot, Adept, Adept; all four leave together at 3:11
-          and the Nexus goes down behind them. From 3:50 the build is identical and the 7:00 attack
-          still lands.
-        </p>
-        <div class="tags">
-          <span class="tag">1v1</span>
-          <span class="tag protoss">Protoss</span>
-          <span class="tag zerg">vs Zerg</span>
-          <span class="tag">VOD-timed</span>
-        </div>
-      </a>
-      <a class="card" href="strategies/unverified/sc2_protoss_low_apm_stalker_opening.html">
-        <div class="card-head">
-          <h3>Protoss Low-APM Opening: Continuous Stalker + Natural Battery</h3>
-          <span class="badge draft">DRAFT</span>
-        </div>
-        <p>
-          One gate never idles, one Battery covers the natural, zero shade micro. Stalker #1
-          at 2:45, before the earliest harass observed in 60 replays (2:49); six Stalkers and
-          a Battery by 5:00. Includes the 3:30 no-natural scout rule.
-        </p>
-        <div class="tags">
-          <span class="tag">1v1</span>
-          <span class="tag">2v2</span>
-          <span class="tag protoss">Protoss</span>
-          <span class="tag">Low-micro</span>
-        </div>
-      </a>
-      <a class="card" href="strategies/unverified/sc2_protoss_double_robo_colossus.html">
-        <div class="card-head">
-          <h3>Protoss Double-Robo into Colossus</h3>
-          <span class="badge draft">DRAFT</span>
-        </div>
-        <p>
-          Low-micro 2-base timing: two gates at 1:00 and 1:35, a quick expand, double robo into
-          a wall of Colossi. Replays show one flaw — the robo starts late, so the Observer pops
-          5:20, after the DT window. Fix the robo start and the build lands.
-        </p>
-        <div class="tags">
-          <span class="tag">2v2</span>
-          <span class="tag protoss">Protoss</span>
-          <span class="tag">Low-micro</span>
-        </div>
-      </a>
-      <a class="card" href="strategies/unverified/sc2_protoss_oracle_expand.html">
-        <div class="card-head">
-          <h3>Protoss Stargate Oracle Expand</h3>
-          <span class="badge draft">DRAFT</span>
-        </div>
-        <p>
-          Two-base macro into Stargate: two gates, a quick expand, Stargate on top. The Oracle
-          is a mid-game detection and defense tool (arriving ~6:32 in the replays), not a fast
-          4:50 harasser. Both games with this build were wins.
-        </p>
-        <div class="tags">
-          <span class="tag">2v2</span>
-          <span class="tag protoss">Protoss</span>
-          <span class="tag">Low-micro</span>
-        </div>
-      </a>
-      <a class="card" href="strategies/unverified/sc2_2v2_two_base_timing.html">
-        <div class="card-head">
-          <h3>2v2 Two-Base Timing (Protoss + Terran)</h3>
-          <span class="badge draft">DRAFT</span>
-        </div>
-        <p>
-          Synced low-micro plan: shared wall and Battery through the rush window, one
-          coordinated Colossus/Chargelot + stim-bio punch at 8:30-9:00.
-        </p>
-        <div class="tags">
-          <span class="tag">2v2</span>
-          <span class="tag terran">Terran</span>
-          <span class="tag protoss">Protoss</span>
-        </div>
-      </a>
-    </section>
+  <h2 class="sec">Start here</h2>
 
-    <h2>Hardware &amp; hotkeys</h2>
-    <section class="grid">
-      <a class="card" href="hotkeys/">
-        <div class="card-head">
-          <h3>TheCore Lite Nordic on the Redragon DITI</h3>
-          <span class="badge verified">SETUP</span>
-        </div>
-        <p>
-          Running TheCore Lite on a 42-key one-handed pad under macOS: an interactive key
-          map of the actual pad, the decision record behind every deviation, and the
-          Karabiner layer that makes the Ctrl bindings reachable at all.
-        </p>
-        <div class="tags">
-          <span class="tag protoss">Protoss</span>
-          <span class="tag">macOS</span>
-          <span class="tag">Hotkeys</span>
-        </div>
-      </a>
-    </section>
+  <a class="card hero" href="hotkeys/">
+    <div class="head">
+      <span class="rank">01</span>
+      <h3>TheCore Lite Nordic on the Redragon DITI</h3>
+      <span class="badge now">Setup</span>
+    </div>
+    <p>The hands come before the build. An interactive key map of the actual 42-key pad for all three
+    races, the decision record behind every deviation from stock, and the Karabiner layer that makes the
+    Ctrl bindings reachable at all.</p>
+    <div class="tags"><span class="tag p">Protoss</span><span class="tag">macOS</span><span class="tag">Hotkeys</span></div>
+  </a>
 
-    <p class="footer-note">
-      Timings validated against
-      <a href="data/sc2_data.json">data/sc2_data.json</a>
-      · <a href="https://github.com/joosep-wm/sc2-strategy">source on GitHub</a>
-    </p>
-  </main>
+  <h2 class="sec">Builds</h2>
+
+  <a class="card" href="strategies/unverified/sc2_protoss_three_nexus_chargelot.html">
+    <div class="head">
+      <span class="rank">02</span>
+      <h3>Three Nexus Double Oracle Chargelot</h3>
+      <span class="badge now">Default PvZ</span>
+    </div>
+    <p>Three bases, three Gateways, two to three Oracles. Nexus #2 at 1:38, Stargate 3:00, Nexus #3 at
+    4:28, Twilight 4:40. Warp Gate research lands 4:48 and the Zealot drops from 27s to 13.5s, so the army
+    goes from five units at 5:19 to fifteen at 6:32. Charge done 6:33, move out 6:37, Queens dead 7:10.</p>
+    <div class="tags"><span class="tag">1v1</span><span class="tag">2v2</span><span class="tag p">Protoss</span><span class="tag">vs Zerg</span><span class="tag">VOD-timed</span></div>
+  </a>
+  <p class="aside">Zerg opens pool first or walls you in?
+    <a href="strategies/unverified/sc2_protoss_double_adept_pressure.html">Two Zealots, Two Adepts</a>
+    is the same build with a different first three minutes.</p>
+
+  <a class="card" href="strategies/unverified/sc2_protoss_3gate_robo_pvp.html">
+    <div class="head">
+      <span class="rank">03</span>
+      <h3>3-Gate Robo: Stalker-Prism Punch</h3>
+      <span class="badge">PvP / PvT</span>
+    </div>
+    <p>One base, Robo 2:46, Prism born 3:59, warp round down by 5:00, punch at 5:10. Observed over twelve
+    games: 6-0 in PvP, 2-4 in PvT. Tanks measured at 5:19-5:45, so in PvT it lands by 5:10 or not at all,
+    and the pull-back branch has a hard Nexus-by-6:00 rule.</p>
+    <div class="tags"><span class="tag">1v1</span><span class="tag p">Protoss</span><span class="tag">Replay-observed</span></div>
+  </a>
+
+  <h2 class="sec">Joosep's builds</h2>
+
+  <a class="card" href="strategies/verified/sc2_2v2_proxy_timing_build.html">
+    <div class="head">
+      <h3>2v2 Proxy Rax + Gateway into a 2-Base Timing</h3>
+      <span class="badge ok">Verified</span>
+    </div>
+    <p>Terran and Protoss synced from the first minute. The proxy scouts, punishes greed and forces panic
+    spending; the real punch is the coordinated two-base timing behind it. Every timestamp reproduced from
+    the DB.</p>
+    <div class="tags"><span class="tag">2v2</span><span class="tag t">Terran</span><span class="tag p">Protoss</span></div>
+  </a>
+
+  <a class="card" href="strategies/unverified/sc2_terran_marine_cyclone_500.html">
+    <div class="head">
+      <h3>Terran Marine-Cyclone 1-Base 5:00 Hit</h3>
+      <span class="badge">Draft</span>
+    </div>
+    <p>Eleven to thirteen Marines and two Cyclones, move out 4:25, Stim finishing exactly as the push
+    arrives at 5:00, natural Command Center behind it. Two Refineries are mandatory; the second at 1:50.</p>
+    <div class="tags"><span class="tag">2v2</span><span class="tag t">Terran</span></div>
+  </a>
+
+  <footer>
+    <span>Timings validated against <a href="data/sc2_data.json">data/sc2_data.json</a></span>
+    <span><a href="https://github.com/joosep-wm/sc2-strategy">Source on GitHub</a></span>
+  </footer>
+
+</div>
 </body>
 </html>

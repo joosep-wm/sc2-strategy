@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1c1c1a" />
+  <title>Three Nexus Double Oracle Chargelot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&family=Hanken+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Plepic design system tokens */
+    :root{
+      --green-vivid:#00c638; --green-brand:#137b30; --green-dark:#0d5822;
+      --green-light:#c5f6d3; --green-surface:#edfcf1; --accent:#e26c45;
+      --bg:#faf7f2; --bg-alt:#f3efe7; --surface:#ffffff;
+      --dark:#1c1c1a; --dark-surface:#262624;
+      --text:#1c1c1a; --text-2:#4a4a45; --text-3:#6b6b60;
+      --text-on-dark:#e5e2dc; --text-on-dark-2:#a3a39a;
+      --border:#e5e2dc; --border-dark:#3a3a38;
+      --font-display:'Bitter','Bitter Fallback',Georgia,serif;
+      --font-body:'Hanken Grotesk','Hanken Fallback',-apple-system,sans-serif;
+      --font-mono:'JetBrains Mono','Mono Fallback',monospace;
+      --space-sm:.5rem; --space-md:1rem; --space-lg:1.5rem; --space-xl:2rem; --space-2xl:3rem; --space-3xl:4rem;
+      --rounded-sm:8px; --rounded-lg:12px; --rounded-2xl:16px;
+      --rounded-badge:20px 4px 16px; --rounded-pill:99px;
+    }
+    /* Dark mode: semantic layer mapped onto the Plepic dark tokens.
+       Swap this block for the light equivalents to invert the doc. */
+    :root{
+      --page:var(--dark);            /* #1c1c1a */
+      --card:var(--dark-surface);    /* #262624 */
+      --card-raised:#2e2e2b;
+      --ink:var(--text-on-dark);     /* #e5e2dc */
+      --ink-2:var(--text-on-dark-2); /* #a3a39a */
+      --line:var(--border-dark);     /* #3a3a38 */
+      --brand:var(--green-vivid);    /* #00c638, legible on dark */
+      --brand-soft:var(--green-light);
+      --brand-tint:rgba(0,198,56,.10);
+      --alarm:var(--accent);         /* #e26c45 */
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font-body);font-size:32px;line-height:1.66;-webkit-font-smoothing:antialiased}
+    main{width:min(1200px,calc(100% - var(--space-xl)));margin:0 auto;padding:var(--space-3xl) 0 6rem}
+
+    header{background:var(--card);border:1px solid var(--line);border-radius:var(--rounded-2xl);padding:var(--space-2xl);margin-bottom:var(--space-2xl)}
+    h1{font-family:var(--font-display);font-weight:700;margin:0 0 var(--space-md);font-size:clamp(56px,8vw,80px);line-height:1.05;letter-spacing:-.02em;color:#fff}
+    .subtitle{color:var(--ink-2);font-size:30px;margin:0 0 var(--space-lg);max-width:34ch}
+    .chips{display:flex;flex-wrap:wrap;gap:var(--space-sm)}
+    .chip{font-family:var(--font-mono);font-size:20px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 18px;border-radius:var(--rounded-badge);background:var(--card-raised);color:var(--ink-2)}
+    .chip.draft{background:var(--alarm);color:#1c1c1a}
+    .chip.default{background:var(--brand);color:var(--green-dark)}
+    .chip.race{background:var(--brand);color:var(--green-dark)}
+
+    h2{font-family:var(--font-mono);font-weight:600;font-size:22px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin:var(--space-2xl) 0 var(--space-md)}
+
+    table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:var(--rounded-2xl);overflow:hidden}
+    td{padding:14px 24px;border-bottom:1px solid var(--line);font-size:28px;color:var(--ink-2)}
+    tr:last-child td{border-bottom:0}
+    tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+    td strong{color:var(--ink);font-weight:700}
+    td.t{font-family:var(--font-mono);font-weight:600;font-size:25px;color:var(--brand);white-space:nowrap;width:190px}
+    td.s{font-family:var(--font-mono);font-weight:600;font-size:23px;color:var(--ink-2);width:90px;text-align:right}
+    td.n{font-family:var(--font-mono);font-weight:600;color:var(--ink);white-space:nowrap;text-align:right;width:200px}
+
+    .rule{background:var(--card);border:1px solid var(--line);border-left:8px solid var(--brand);border-radius:0 var(--rounded-lg) var(--rounded-lg) 0;padding:18px 26px;margin:var(--space-md) 0;font-size:28px;color:var(--ink-2)}
+    .rule strong{color:var(--ink);font-weight:700}
+    .rule.alarm{border-left-color:var(--alarm);background:rgba(226,108,69,.07)}
+    .rule.warn{border-left-color:var(--ink-2)}
+    .rule a{color:var(--brand);text-decoration:none;border-bottom:1px solid rgba(0,198,56,.4)}
+
+    .lede{font-size:27px;color:var(--ink-2);max-width:62ch;margin:0 0 var(--space-lg)}
+    .lede a{color:var(--brand);text-decoration:none;border-bottom:1px solid rgba(0,198,56,.4)}
+    .foot{margin-top:var(--space-2xl);color:var(--ink-2);font-size:24px;line-height:1.55;text-align:center;max-width:70ch;margin-left:auto;margin-right:auto}
+    .foot a{color:var(--brand);text-decoration:none;border-bottom:1px solid rgba(0,198,56,.4)}
+    code{font-family:var(--font-mono);font-size:.86em;color:var(--brand-soft);background:var(--brand-tint);padding:2px 8px;border-radius:var(--rounded-sm)}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Three Nexus<br>Double Oracle<br>Chargelot</h1>
+    <p class="subtitle">Three bases, three Gateways, two to three Oracles.
+    Charge lands 6:33, the army walks at 6:37, the Queens are dead by 7:10.</p>
+    <div class="chips">
+      <span class="chip default">Default PvZ</span>
+      <span class="chip">Patch 5.0.16</span>
+      <span class="chip">rev 5 &middot; 2026-09-20</span>
+      <span class="chip">PiG VOD</span>
+    </div>
+  </header>
+
+  <p class="lede">The engine is the 5.0.16 Gateway. Once Warp Gate research is done a Gateway pops a
+  Zealot every 13.5 seconds with no transform and no warp-in, so two Gateways take the army from five
+  units at 5:19 to fifteen at 6:32 while three Nexuses keep mining.</p>
+
+  <h2>Build</h2>
+  <table>
+    <tr><td class="t">0:38</td><td><strong>Pylon</strong> at 12. That Probe then sits on the Zerg natural.</td></tr>
+    <tr><td class="t">1:01</td><td>Gateway at 14</td></tr>
+    <tr><td class="t">1:10</td><td>Assimilator, one Probe on it</td></tr>
+    <tr><td class="t">1:38</td><td><strong>Nexus #2.</strong> Probes stop at 19; the 18th walks down to build it.</td></tr>
+    <tr><td class="t">1:50</td><td>Cybernetics Core</td></tr>
+    <tr><td class="t">2:05</td><td>Pylon at 20, second Assimilator behind it</td></tr>
+    <tr><td class="t">2:26</td><td><strong>Adept</strong>, chrono</td></tr>
+    <tr><td class="t">2:30</td><td>Warp Gate research, <strong>cancelled at 2:34.</strong> That gas is the Stargate's.</td></tr>
+    <tr><td class="t">2:45</td><td>Gateway #2</td></tr>
+    <tr><td class="t">3:00</td><td><strong>Stargate</strong></td></tr>
+    <tr><td class="t">3:08</td><td><strong>Warp Gate research, for real.</strong> Done 4:48.</td></tr>
+    <tr><td class="t">3:10</td><td>Adept #2. Both poke, shoot Drones, leave before speed.</td></tr>
+    <tr><td class="t">3:50</td><td><strong>Oracle #1</strong> (born 4:27), then #2 and #3 off the same Stargate</td></tr>
+    <tr><td class="t">3:55</td><td>Pylons two at a time. Wall the natural.</td></tr>
+    <tr><td class="t">4:28</td><td><strong>Nexus #3</strong></td></tr>
+    <tr><td class="t">4:40</td><td><strong>Twilight Council</strong></td></tr>
+    <tr><td class="t">4:48</td><td>Warp Gate lands. Zealot 27s becomes 13.5s. Queue Zealots and never stop.</td></tr>
+    <tr><td class="t">5:16</td><td><strong>Charge</strong>, chronoed. Done 6:33.</td></tr>
+    <tr><td class="t">5:24</td><td>Gateway #3 in the natural, one Stalker at 5:30</td></tr>
+    <tr><td class="t">6:37</td><td><strong>Move out.</strong> 10 Chargelots, 3 Oracles, 1 Stalker, 1 Adept.</td></tr>
+    <tr><td class="t">7:10</td><td>Queens dead. Six Gateways and the extra gases are already building at home.</td></tr>
+  </table>
+
+  <h2>Rules</h2>
+  <div class="rule alarm"><strong>The cancel is deliberate, and it is the whole trick.</strong> Warp Gate
+    research goes down at 2:30, comes back off at 2:34, and the refunded 50/50 pays for the Stargate at
+    3:00. Research restarts at 3:08 and lands 4:48. Start it once and keep it, and the Stargate is late;
+    skip it entirely and there is no army at 7:00.</div>
+  <div class="rule"><strong>Research it, never transform.</strong> A researched Gateway builds a Zealot in
+    13.5s against a Warp Gate's 22s cooldown plus 4s warp-in. Rally, do not warp in. Transforming is a
+    late-game positioning tool.</div>
+  <div class="rule"><strong>The Oracles are for the 7:00 fight, not for harass.</strong> Pulsar Beam goes on
+    the Queens before the Zealots arrive: 175 HP and not Light, so Zealots grind on them. Between 4:30 and
+    6:30 the Oracles scout and take a stray Drone, nothing more.</div>
+  <div class="rule"><strong>One Stalker, one Adept, no Sentry, no Forge.</strong> Every other Gateway cycle
+    in the game is a Zealot.</div>
+  <div class="rule warn"><strong>Pressure, not an all-in.</strong> If the third is walled, walk home, take
+    the fourth and go Colossus. You are three bases ahead either way. Roach or Hydra means double Robo into
+    Colossus; Ling or Bane means Templar Archives into Storm. One tech path, never two.</div>
+
+  <h2>Checkpoints</h2>
+  <table>
+    <tr><td class="t">2:47</td><td>25/29 supply, Nexus #2 still building</td><td class="n">232m / 115g</td></tr>
+    <tr><td class="t">3:54</td><td>39/42 supply, two Nexuses</td><td class="n">198m / 79g</td></tr>
+    <tr><td class="t">5:26</td><td>58/66 supply, 5 army</td><td class="n">348m / 79g</td></tr>
+    <tr><td class="t">6:32</td><td>85/111 supply, 15 army, ~52 Probes</td><td class="n">771m / 389g</td></tr>
+    <tr><td class="t">6:58</td><td>99/119 supply, 17 army, mid-fight</td><td class="n">160m / 125g</td></tr>
+  </table>
+
+  <h2>If Zerg opens pool first</h2>
+  <div class="rule">Same build from 3:50 on, different first three minutes:
+    <a href="sc2_protoss_double_adept_pressure.html">Two Zealots, Two Adepts</a>. Four units leave
+    together at 3:11 and the Nexus goes down behind them.</div>
+
+  <p class="foot">Timings read frame by frame off the in-game clock in
+  <a href="https://www.youtube.com/watch?v=cIzUthFQ8WM">PiG's "RIDICULOUS! How to abuse the new Protoss
+  Gateway Production"</a> (2026-07-24), games 2 and 4, which ended 7:40 and 7:18. The 2:34 cancel is a
+  50 mineral and 50 gas refund landing inside one second. Base counts come from the supply cap:
+  111 = three Nexuses at 13 plus nine Pylons at 8. The 13.5s Zealot is measured, not assumed: from 5:43
+  two Gateways deliver a pair of units every 13.3s. Costs from
+  <a href="../../data/sc2_data.json">sc2_data.json</a> (5.0.16), which still understates the Warp Gate
+  speedup as ~40% where the VOD measures 50%. Unverified until you play it.</p>
+</main>
+</body>
+</html>

@@ -221,12 +221,13 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
     <div class="grid2">
       <div class="card">
         <h3>What differs from the repo</h3>
-        <p style="margin:0 0 8px">Fourteen added alternates. Nothing removed, nothing moved.</p>
+        <p style="margin:0 0 8px">Fifteen added alternates. Nothing removed, nothing moved.</p>
         <ul>
           <li><kbd>N</kbd> Move and <kbd>P</kbd> Gather &mdash; the pad has no H or Y</li>
           <li><kbd>`</kbd> trash group, <kbd>Shift+`</kbd> last alert &mdash; no BackSlash key</li>
           <li><kbd>O</kbd> on all six group-6 commands, because the pad's Caps Lock now sends O</li>
           <li>Four landing points for Karabiner's rerouted chords, never pressed directly</li>
+          <li><kbd>G5</kbd> as a single-key select all army, with no Command modifier to be intercepted</li>
         </ul>
       </div>
       <div class="card">
@@ -512,6 +513,7 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
       <p><b>Decision.</b> Leave them empty until the day-14 review.</p>
       <p><b>Why.</b> The obvious candidates are single-key camera jumps, whose value depends on the Alt+A/S/Z/X habit being automatic. A key that jumps to a third base is worth nothing while the third base is not down inside ten minutes.</p>
       <p><b>Note.</b> G2 briefly carried select-all-army, and was freed again once Karabiner could route Ctrl+Tab.</p>
+      <p><b>Resolved for G5, 20 September.</b> The G keys are not distinct keys: G1 to G4 send F1 to F4, which the top row also sends, so G2 could never mean anything other than its twin. Only <b>G5 sends F5, which has no twin on this pad and no binding in the file</b>. Select all army now carries <code>F5</code> as a fifth alternate, so it has a single-key form with no Command modifier for macOS to intercept. G3 and G4 stay free.</p>
     </div>
 
     <div class="adr">
@@ -573,7 +575,7 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
       <li>Launch SC2, pick the profile in Options &rarr; Hotkeys, click <b>Ignore</b> on the conflict dialog.</li>
     </ol>
 
-    <h2 class="sec">The hotkey file: all fourteen changes</h2>
+    <h2 class="sec">The hotkey file: all fifteen changes</h2>
     <div class="tblwrap"><table>
       <thead><tr><th>Command</th><th>Upstream</th><th>Installed</th><th>Reason</th></tr></thead>
       <tbody>
@@ -591,6 +593,7 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
         <tr><td><code>ControlGroupAssign6</code></td><td>Shift+Alt+CapsLock</td><td>+<strong>Shift+Alt+O</strong></td><td>Caps Lock now sends O</td></tr>
         <tr><td><code>ControlGroupAssignAndSteal6</code></td><td>Ctrl+Shift+CapsLock</td><td>+<strong>Ctrl+Shift+O</strong></td><td>Caps Lock now sends O</td></tr>
         <tr><td><code>CameraCenter</code></td><td>Alt+CapsLock</td><td>+<strong>Alt+O</strong></td><td>Caps Lock now sends O</td></tr>
+        <tr><td><code>ArmySelect</code></td><td>Ctrl+Tab,Ctrl+Shift+Tab</td><td>+<strong>F5</strong></td><td>G5, no modifier to intercept</td></tr>
       </tbody>
     </table></div>
     <p>SC2 translates these on load: every <code>Control</code> becomes <code>Command</code> and every <code>Alt</code> becomes <code>Option</code>. So <code>Ctrl+Alt+Shift+Q</code> in the file is what Karabiner emits as <code>Cmd+Opt+Shift+Q</code>.</p>
@@ -712,7 +715,7 @@ const base={
  c:["Precision key 2","prec"], v:["Stop / cancel target","rapid"], b:["Base camera","cam"],
  ctrl:["Modifier","mod"], fn:["Firmware only","off"], alt:["Modifier","mod"],
  n:["Move","add"], p:["Gather","add"], space:["Primary ability / train","rapid"],
- g1:["Idle worker","ui"], g2:["Minimap colours","ui"], g3:["free","off"], g4:["free","off"], g5:["free","off"]
+ g1:["Idle worker","ui"], g2:["Minimap colours","ui"], g3:["free","off"], g4:["free","off"], g5:["Select all army","add"]
 };
 const shift={
  esc:["Cancel","ui"], f1:["Terrain minimap","ui"], f2:["Team resources","ui"],

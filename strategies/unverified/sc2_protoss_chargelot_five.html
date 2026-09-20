@@ -3,64 +3,163 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chargelot Five: 5:00-5:30 Punch</title>
+  <meta name="theme-color" content="#1c1c1a" />
+  <title>Chargelot Seven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&family=Hanken+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#0b1020; --panel:#121a33; --text:#e8eefc; --muted:#a9b7d6; --protoss:#ffd66b; --ok:#77e0c6; --warn:#ffd166; --bad:#ff8b8b; --radius:16px; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; --sans:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif; }
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55}
-    main{width:min(860px,calc(100% - 32px));margin:0 auto;padding:40px 0 72px}
-    header{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:28px;margin-bottom:26px}
-    h1{margin:0 0 10px;font-size:clamp(26px,4.4vw,40px);letter-spacing:-.03em;line-height:1.06}
-    .subtitle{color:var(--muted);font-size:16px;margin:0 0 16px}
-    .chips{display:flex;flex-wrap:wrap;gap:8px}
-    .chip{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:700;color:var(--muted);font-family:var(--mono)}
-    .chip.draft{color:var(--warn)} .chip.race{color:var(--protoss)}
-    h2{margin:32px 0 12px;font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
-    table{width:100%;border-collapse:collapse;background:var(--panel);border-radius:var(--radius);overflow:hidden}
-    td{padding:8px 13px;border-bottom:1px solid rgba(255,255,255,.07);font-size:14.5px}
-    td.t{font-family:var(--mono);color:var(--ok);white-space:nowrap;width:70px}
-    .rule{background:var(--panel);border-left:3px solid var(--ok);border-radius:0 var(--radius) var(--radius) 0;padding:11px 16px;margin:10px 0;font-size:14.5px;color:var(--muted)}
-    .rule strong{color:var(--text)} .rule.alarm{border-left-color:var(--bad)}
-    .footer-note{margin-top:36px;color:var(--muted);font-size:13px;text-align:center}
-    .footer-note a{color:var(--ok);text-decoration:none}
+    /* Plepic design system tokens */
+    :root{
+      --green-vivid:#00c638; --green-brand:#137b30; --green-dark:#0d5822;
+      --green-light:#c5f6d3; --green-surface:#edfcf1; --accent:#e26c45;
+      --bg:#faf7f2; --bg-alt:#f3efe7; --surface:#ffffff;
+      --dark:#1c1c1a; --dark-surface:#262624;
+      --text:#1c1c1a; --text-2:#4a4a45; --text-3:#6b6b60;
+      --text-on-dark:#e5e2dc; --text-on-dark-2:#a3a39a;
+      --border:#e5e2dc; --border-dark:#3a3a38;
+      --font-display:'Bitter','Bitter Fallback',Georgia,serif;
+      --font-body:'Hanken Grotesk','Hanken Fallback',-apple-system,sans-serif;
+      --font-mono:'JetBrains Mono','Mono Fallback',monospace;
+      --space-sm:.5rem; --space-md:1rem; --space-lg:1.5rem; --space-xl:2rem; --space-2xl:3rem; --space-3xl:4rem;
+      --rounded-sm:8px; --rounded-lg:12px; --rounded-2xl:16px;
+      --rounded-badge:20px 4px 16px; --rounded-pill:99px;
+    }
+    /* Dark mode: semantic layer mapped onto the Plepic dark tokens.
+       Swap this block for the light equivalents to invert the doc. */
+    :root{
+      --page:var(--dark);            /* #1c1c1a */
+      --card:var(--dark-surface);    /* #262624 */
+      --card-raised:#2e2e2b;
+      --ink:var(--text-on-dark);     /* #e5e2dc */
+      --ink-2:var(--text-on-dark-2); /* #a3a39a */
+      --line:var(--border-dark);     /* #3a3a38 */
+      --brand:var(--green-vivid);    /* #00c638, legible on dark */
+      --brand-soft:var(--green-light);
+      --brand-tint:rgba(0,198,56,.10);
+      --alarm:var(--accent);         /* #e26c45 */
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font-body);font-size:32px;line-height:1.66;-webkit-font-smoothing:antialiased}
+    main{width:min(1200px,calc(100% - var(--space-xl)));margin:0 auto;padding:var(--space-3xl) 0 6rem}
+
+    header{background:var(--card);border:1px solid var(--line);border-radius:var(--rounded-2xl);padding:var(--space-2xl);margin-bottom:var(--space-2xl)}
+    h1{font-family:var(--font-display);font-weight:700;margin:0 0 var(--space-md);font-size:clamp(56px,8vw,80px);line-height:1.05;letter-spacing:-.02em;color:#fff}
+    .subtitle{color:var(--ink-2);font-size:30px;margin:0 0 var(--space-lg);max-width:34ch}
+    .chips{display:flex;flex-wrap:wrap;gap:var(--space-sm)}
+    .chip{font-family:var(--font-mono);font-size:20px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 18px;border-radius:var(--rounded-badge);background:var(--card-raised);color:var(--ink-2)}
+    .chip.draft{background:var(--alarm);color:#1c1c1a}
+    .chip.race{background:var(--brand);color:var(--green-dark)}
+
+    h2{font-family:var(--font-mono);font-weight:600;font-size:22px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin:var(--space-2xl) 0 var(--space-md)}
+
+    table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:var(--rounded-2xl);overflow:hidden}
+    td{padding:14px 24px;border-bottom:1px solid var(--line);font-size:28px;color:var(--ink-2)}
+    tr:last-child td{border-bottom:0}
+    tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+    td strong{color:var(--ink);font-weight:700}
+    td.t{font-family:var(--font-mono);font-weight:600;font-size:25px;color:var(--brand);white-space:nowrap;width:190px}
+    td.s{font-family:var(--font-mono);font-weight:600;font-size:23px;color:var(--ink-2);width:90px;text-align:right}
+    td.n{font-family:var(--font-mono);font-weight:600;color:var(--ink);white-space:nowrap;text-align:right;width:200px}
+
+    .rule{background:var(--card);border:1px solid var(--line);border-left:8px solid var(--brand);border-radius:0 var(--rounded-lg) var(--rounded-lg) 0;padding:18px 26px;margin:var(--space-md) 0;font-size:28px;color:var(--ink-2)}
+    .rule strong{color:var(--ink);font-weight:700}
+    .rule.alarm{border-left-color:var(--alarm);background:rgba(226,108,69,.07)}
+    .rule.warn{border-left-color:var(--ink-2)}
+
+    .lede{font-size:28px;color:var(--ink-2);max-width:60ch;margin:0 0 var(--space-lg)}
+    .lede a{color:var(--brand);text-decoration:none;border-bottom:1px solid rgba(0,198,56,.4)}
+    .foot{margin-top:var(--space-2xl);color:var(--ink-2);font-size:24px;line-height:1.55;text-align:center;max-width:70ch;margin-left:auto;margin-right:auto}
+    .foot a{color:var(--brand);text-decoration:none;border-bottom:1px solid rgba(0,198,56,.4)}
+    code{font-family:var(--font-mono);font-size:.86em;color:var(--brand-soft);background:var(--brand-tint);padding:2px 8px;border-radius:var(--rounded-sm)}
   </style>
 </head>
 <body>
 <main>
   <header>
-    <h1>Chargelot Five: 5:00-5:30 Punch</h1>
-    <p class="subtitle">Coached 3-gate skeleton, Twilight instead of Robo. 10-12 Chargelots hit
-    before 5:30, before Mutas can exist. DB-computed from Kaido's own anchors; unplayed.</p>
+    <h1>Chargelot Seven</h1>
+    <p class="subtitle">Three Gateways, no Warp Gate research, all the gas into a Stargate and Charge.
+    Twelve Chargelots and two to three Oracles walk in at 6:35 and the Queens die at 7:10.</p>
     <div class="chips">
-      <span class="chip draft">DRAFT</span><span class="chip race">Protoss</span>
-      <span class="chip">1v1 + 2v2</span><span class="chip">PvZ-first</span>
-      <span class="chip">Patch 5.0.16b</span><span class="chip">Low-micro</span>
+      <span class="chip draft">Draft</span><span class="chip race">PvZ</span>
+      <span class="chip">Patch 5.0.16</span><span class="chip">rev 3 &middot; 2026-09-20</span>
+      <span class="chip">Source: PiG VOD</span>
     </div>
   </header>
 
-  <h2>Build order</h2>
+  <p class="lede">The old Chargelot Five was a one base all-in off a 4:30 scout gate. This is not that.
+  This is a three base macro build that happens to kill Zerg on the way past. You take a natural at 1:38
+  and a third at 4:28, you never stop making Probes, and the punch is paid for out of income rather than
+  out of your economy.</p>
+
+  <h2>Build</h2>
   <table>
-    <tr><td class="t">0:54</td><td>Gateway; two Assimilators by 1:30</td></tr>
-    <tr><td class="t">1:48</td><td>Gateway #2</td></tr>
-    <tr><td class="t">1:53</td><td>Cybernetics Core (done 2:29)</td></tr>
-    <tr><td class="t">2:30</td><td>Twilight Council + Warp Gate research together</td></tr>
-    <tr><td class="t">2:32</td><td>Gateway #3; Zealots nonstop from every gate</td></tr>
-    <tr><td class="t">3:06</td><td>Charge, chrono it: done ~4:20</td></tr>
-    <tr><td class="t">4:30</td><td>Scout probe plants a hidden Pylon outside the enemy natural</td></tr>
-    <tr><td class="t">4:45</td><td>One warp round there; hit 5:00-5:30 with 10-12 Chargelots + 2 Stalkers</td></tr>
+    <tr><td class="t">0:06</td><td>Chrono the Nexus. Probes only, never stop.</td></tr>
+    <tr><td class="t">0:38</td><td><strong>Pylon</strong> at 12. That Probe then goes and stands on the Zerg natural.</td></tr>
+    <tr><td class="t">1:01</td><td>Gateway at 14 (done 1:47)</td></tr>
+    <tr><td class="t">1:10</td><td>Assimilator, one Probe on it</td></tr>
+    <tr><td class="t">1:38</td><td><strong>Nexus</strong> at the natural. Stop Probes at 19, rally the 18th down to build it.</td></tr>
+    <tr><td class="t">1:50</td><td>Cybernetics Core (done 2:26)</td></tr>
+    <tr><td class="t">2:05</td><td>Pylon at 20, second Assimilator right behind it</td></tr>
+    <tr><td class="t">2:26</td><td><strong>Adept</strong>, chrono. Out 2:46.</td></tr>
+    <tr><td class="t">2:30</td><td><strong>Cancel Warp Gate research.</strong> Three Probes per geyser, the rest back to minerals in the main.</td></tr>
+    <tr><td class="t">2:45</td><td>Gateway #2 (done 3:31)</td></tr>
+    <tr><td class="t">3:00</td><td><strong>Stargate.</strong> PiG calls 2:55; gas is the gate, so 2:55 to 3:05 is the real window.</td></tr>
+    <tr><td class="t">3:10</td><td>Adept #2. Both Adepts poke, shoot Drones, leave before speed.</td></tr>
+    <tr><td class="t">3:50</td><td>Oracle #1 the moment gas allows. Born 4:27.</td></tr>
+    <tr><td class="t">3:55</td><td>Two Pylons. Wall the natural.</td></tr>
+    <tr><td class="t">4:28</td><td><strong>Third Nexus.</strong></td></tr>
+    <tr><td class="t">4:40</td><td><strong>Twilight Council</strong> (done 5:16). Immediately, the moment the third is placed.</td></tr>
+    <tr><td class="t">5:16</td><td><strong>Charge.</strong> Every chrono from here goes on it. Done 6:33 (6:56 if you forget).</td></tr>
+    <tr><td class="t">5:20</td><td>Gateway #3 in the natural. Zealots queued forever from here.</td></tr>
+    <tr><td class="t">5:35</td><td>Oracle #2 (born 6:12). Stalker if you want one.</td></tr>
+    <tr><td class="t">6:10</td><td>Oracle #3 (born 6:47). Forge optional.</td></tr>
+    <tr><td class="t">6:33</td><td>Charge lands. About 12 Chargelots.</td></tr>
+    <tr><td class="t">6:37</td><td><strong>Move out.</strong> Oracles join the ball on the way.</td></tr>
+    <tr><td class="t">7:00-7:10</td><td>Hit the third, then the natural. Pulsar Beam on the Queens first.</td></tr>
   </table>
 
-  <h2>Rules</h2>
-  <div class="rule"><strong>Probes stop at 22.</strong> Bank under 200 at 5:00 or the build broke.</div>
-  <div class="rule"><strong>2v2 sync:</strong> Joosep's Liberator born median 5:01 (measured, 15 games).
-    Chargelots absorb, Liberator kills Queens above them.</div>
-  <div class="rule alarm"><strong>Go/no-go at 4:30.</strong> Enemy expanded, light defense: go.
-    No natural or mass units: warp at home, Battery, hold. Defensive record in those games is strong.</div>
-  <div class="rule alarm"><strong>Banelings:</strong> spread Zealots, never one clump on creep.</div>
-  <div class="rule"><strong>Failsafe:</strong> damages but does not kill: Archives next (CIA follow-up), Nexus behind.</div>
-  <div class="rule alarm"><strong>Known weakness:</strong> zero detection. DTs or burrow beat you blind. Accepted at Gold.</div>
+  <h2>Behind the punch</h2>
+  <div class="rule"><strong>Six Gateways and the extra gases go down as the army leaves</strong>, not after
+    the fight resolves. PiG queues them at 6:37 while the Zealots are still walking.</div>
+  <div class="rule"><strong>Then one tech path, never two.</strong> Roach or Hydra means double Robo into
+    Colossus. Ling or Bane means Templar Archives into Storm. Fourth base instead if the map is open.</div>
 
-  <p class="footer-note">Timings from <a href="../../data/sc2_data.json">data/sc2_data.json</a> +
-  observed anchors (coached games, 2026-08-08). Verify per repo rules before promotion.</p>
+  <h2>Rules</h2>
+  <div class="rule alarm"><strong>No Warp Gate research, and no transforming.</strong> A researched Gateway
+    builds a Zealot in 14s on PiG's screen, but the 50/50 delays the Stargate past 3:00 and the whole build is gas starved
+    until 4:00. Three plain Gateways with chrono is enough: PiG banked 771 minerals at 6:32 with production
+    running.</div>
+  <div class="rule"><strong>Oracles are not a harass detour.</strong> They exist to delete Queens in the
+    fight at 7:00. Send them in with the Zealots, not ahead of them. Between 4:30 and 6:30 they scout and
+    pick off a stray Drone, nothing more.</div>
+  <div class="rule"><strong>Pulsar Beam before the Zealots arrive.</strong> Queens are 175 HP and not Light,
+    so Zealots grind on them. Beam kills the Queens, Zealots kill everything else.</div>
+  <div class="rule"><strong>Pylons constantly.</strong> The failure mode is supply block at 5:30 with three
+    Gateways queued. Two at a time from 3:55 onward.</div>
+  <div class="rule warn"><strong>This is a pressure, not an all-in.</strong> If the third is defended,
+    pull back, take the fourth, and go Colossus. The build is three bases ahead either way.</div>
+  <div class="rule"><strong>2v2:</strong> same skeleton, but the third Nexus waits and the Oracles go to
+    whichever ally is being hit. The 6:37 move-out is close enough to your 7:00 call with Joosep that the
+    two land together. Pair it with his Liberator by 4:30.</div>
+
+  <h2>PiG's numbers, read off the VOD clock</h2>
+  <table>
+    <tr><td class="t">2:47</td><td>25/29 supply</td><td class="n">232m / 115g</td></tr>
+    <tr><td class="t">3:54</td><td>39/42 supply</td><td class="n">198m / 79g</td></tr>
+    <tr><td class="t">5:26</td><td>58/66 supply, 5 army</td><td class="n">348m / 79g</td></tr>
+    <tr><td class="t">6:32</td><td>85/111 supply, 15 army</td><td class="n">771m / 389g</td></tr>
+    <tr><td class="t">6:58</td><td>99/119 supply, 17 army</td><td class="n">160m / 125g</td></tr>
+  </table>
+  <p class="foot">Two PvZ games in the same VOD, and both ended the same way: Charge done 6:33 and 6:58,
+  attack in at 6:37 and 7:01, Queens dead and GG at 7:40 and 7:18. The 771 minerals at 6:32 is the slack
+  in the build, not a target: your own checkpoint of a bank under 400 still applies and would buy roughly
+  four more Zealots.
+  Source: <a href="https://www.youtube.com/watch?v=cIzUthFQ8WM">PiG, "RIDICULOUS! How to abuse the new
+  Protoss Gateway Production", 2026-07-24</a>, games 2 and 4. Times are read frame by frame off the
+  in-game clock. Costs and build times from <a href="../../data/sc2_data.json">sc2_data.json</a> (5.0.16);
+  every producer-to-unit gap above is reproducible from it. Resource gating is PiG's, not modelled. One DB disagreement worth fixing: our <code>sc2_data.json</code> still says Warp Gate research makes Gateway units ~40% faster (Zealot 19s), while PiG's screen shows 14s, which is a 50% cut. The build does not use the research, so nothing above depends on it.
+  Unverified until you play it.</p>
 </main>
 </body>
 </html>

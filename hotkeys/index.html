@@ -221,11 +221,12 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
     <div class="grid2">
       <div class="card">
         <h3>What differs from the repo</h3>
-        <p style="margin:0 0 8px">Seven added alternates. Nothing removed, nothing moved.</p>
+        <p style="margin:0 0 8px">Fourteen added alternates. Nothing removed, nothing moved.</p>
         <ul>
           <li><kbd>N</kbd> Move and <kbd>P</kbd> Gather &mdash; the pad has no H or Y</li>
           <li><kbd>`</kbd> trash group, <kbd>Shift+`</kbd> last alert &mdash; no BackSlash key</li>
-          <li>Three landing points for Karabiner's rerouted chords, never pressed directly</li>
+          <li><kbd>O</kbd> on all six group-6 commands, because the pad's Caps Lock now sends O</li>
+          <li>Four landing points for Karabiner's rerouted chords, never pressed directly</li>
         </ul>
       </div>
       <div class="card">
@@ -534,6 +535,25 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
       <p>The <b>20-second macro loop and the two-week transition plan are not from TheCore.</b> The word "loop" does not appear in its README at all, and its only Protoss routine is a chrono variant. Those two came from replay analysis of one player and are marked as such throughout. Treat them as an example of method, not as part of the layout.</p>
     </div>
 
+    <div class="adr">
+      <h3>12. Chord rules must carry <code>optional: any</code></h3>
+      <div class="meta">2026-09-20 &middot; <span class="pill p-risk">hard-won</span></div>
+      <p><b>What happened.</b> Select all army stopped working in real games, and sometimes the macOS app switcher appeared instead. The binding was intact in the file and Karabiner was running, which is what made it hard to see.</p>
+      <p><b>Cause.</b> A Karabiner <code>from.modifiers.mandatory</code> list with no <code>optional</code> entry matches only when those modifiers are the <em>exact</em> set held. The three chord rules named one or two modifiers each. TheCore parks the thumb on Alt and keeps Shift down through warp-in and inject, so a third modifier is usually present, no chord rule matched, and the catch-all passed <code>Cmd+Shift+Tab</code> straight to macOS.</p>
+      <p><b>Decision.</b> Every chord manipulator now carries <code>"optional":["any"]</code>, and <code>ArmySelect</code> gained a fourth alternate, <code>Control+Alt+Shift+Tab</code>, because an optional Shift is passed through to the output.</p>
+      <p><b>Rule to keep.</b> A modifier list without <code>optional</code> is a bug on a layout whose whole method is holding modifiers down.</p>
+    </div>
+
+    <div class="adr">
+      <h3>13. The pad's Caps Lock sends O</h3>
+      <div class="meta">2026-09-20 &middot; <span class="pill p-ok">settled</span></div>
+      <p><b>Context.</b> TheCore puts six commands on Caps Lock: recall, append, assign, both steal variants, and centre-on-selection. On macOS Caps Lock is a locking key. It registers only after a hold delay, toggles the lock state and the LED, and does not deliver a clean press and release. Group 6 felt unreliable and chat came out in capitals.</p>
+      <p><b>Decision.</b> Karabiner remaps the pad's <code>caps_lock</code> to <code>o</code>, scoped to the pad as every other rule is, and the six commands gained an O alternate. Nothing was removed.</p>
+      <p><b>Why O.</b> The pad has no O key, so there is nothing to collide with physically, and TheCore binds O to nothing in multiplayer. The one global use is <code>ObserveCommentator=O</code>, which only matters in observer mode.</p>
+      <p><b>Cost.</b> The pad can no longer type a capital letter, which is irrelevant on a gaming-only keypad, and the printed cheatsheet's Caps Lock column now needs reading as O.</p>
+    </div>
+
+
     <div class="adr open">
       <h3>11. Terran and Zerg documented from the file, not from play</h3>
       <div class="meta">2026-09-20 &middot; <span class="pill p-warn">open</span></div>
@@ -553,7 +573,7 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
       <li>Launch SC2, pick the profile in Options &rarr; Hotkeys, click <b>Ignore</b> on the conflict dialog.</li>
     </ol>
 
-    <h2 class="sec">The hotkey file: all seven changes</h2>
+    <h2 class="sec">The hotkey file: all fourteen changes</h2>
     <div class="tblwrap"><table>
       <thead><tr><th>Command</th><th>Upstream</th><th>Installed</th><th>Reason</th></tr></thead>
       <tbody>
@@ -564,40 +584,53 @@ code{font-family:"IBM Plex Mono",monospace;font-size:.82em;color:var(--ink)}
         <tr><td><code>ArmySelect</code></td><td>Ctrl+Tab,Ctrl+Shift+Tab</td><td>+<strong>Ctrl+Alt+Tab</strong></td><td>Karabiner landing point</td></tr>
         <tr><td><code>ControlGroupAssignAndSteal3</code></td><td>Ctrl+Shift+3</td><td>+<strong>Ctrl+Alt+Shift+3</strong></td><td>Karabiner landing point</td></tr>
         <tr><td><code>ControlGroupAssignAndSteal4</code></td><td>Ctrl+Shift+Q</td><td>+<strong>Ctrl+Alt+Shift+Q</strong></td><td>Karabiner landing point</td></tr>
+        <tr><td><code>ArmySelect</code></td><td>Ctrl+Tab,Ctrl+Shift+Tab</td><td>+<strong>Ctrl+Alt+Shift+Tab</strong></td><td>Shift-held landing point</td></tr>
+        <tr><td><code>ControlGroupRecall6</code></td><td>CapsLock</td><td>+<strong>O</strong></td><td>Caps Lock now sends O</td></tr>
+        <tr><td><code>ControlGroupAppendAndSteal6</code></td><td>Ctrl+CapsLock</td><td>+<strong>Ctrl+O</strong></td><td>Caps Lock now sends O</td></tr>
+        <tr><td><code>ControlGroupAppend6</code></td><td>Ctrl+Alt+CapsLock</td><td>+<strong>Ctrl+Alt+O</strong></td><td>Caps Lock now sends O</td></tr>
+        <tr><td><code>ControlGroupAssign6</code></td><td>Shift+Alt+CapsLock</td><td>+<strong>Shift+Alt+O</strong></td><td>Caps Lock now sends O</td></tr>
+        <tr><td><code>ControlGroupAssignAndSteal6</code></td><td>Ctrl+Shift+CapsLock</td><td>+<strong>Ctrl+Shift+O</strong></td><td>Caps Lock now sends O</td></tr>
+        <tr><td><code>CameraCenter</code></td><td>Alt+CapsLock</td><td>+<strong>Alt+O</strong></td><td>Caps Lock now sends O</td></tr>
       </tbody>
     </table></div>
     <p>SC2 translates these on load: every <code>Control</code> becomes <code>Command</code> and every <code>Alt</code> becomes <code>Option</code>. So <code>Ctrl+Alt+Shift+Q</code> in the file is what Karabiner emits as <code>Cmd+Opt+Shift+Q</code>.</p>
 
     <h2 class="sec">Karabiner rules</h2>
-    <p>Goes in <code>~/.config/karabiner/karabiner.json</code> under the selected profile's <code>complex_modifications.rules</code>. Seven manipulators, all scoped by <code>device_if</code> so no other keyboard is touched. Vendor <code>12815</code> is 0x320f and product <code>20480</code> is 0x5000, which is how the DITI identifies itself.</p>
+    <p>Goes in <code>~/.config/karabiner/karabiner.json</code> under the selected profile's <code>complex_modifications.rules</code>. Eight manipulators, all scoped by <code>device_if</code> so no other keyboard is touched. Vendor <code>12815</code> is 0x320f and product <code>20480</code> is 0x5000, which is how the DITI identifies itself.</p>
     <p><b>Each chord rule appears twice</b>, once matching <code>left_control</code> and once <code>left_command</code>. That is not redundancy. Karabiner matches <code>from.modifiers</code> against the <em>physical</em> modifier, not the remapped one. The first version of this config only matched <code>left_command</code>, the chords fell straight through, and Ctrl+Shift+Q quit the front application.</p>
-    <p>Complete and paste-ready. Seven manipulators: the three chords matched twice each, then the catch-all that makes Control behave as Command.</p>
+    <p><b>Every chord rule carries <code>"optional":["any"]</code>.</b> Without it, a rule matches only when its named modifiers are the exact set held. TheCore parks the thumb on Alt and keeps Shift down through warp-in and inject, so in real play a third modifier is almost always present, the reroute silently stopped matching, and the catch-all handed macOS a raw <code>Cmd+Shift+Tab</code> or <code>Cmd+Shift+Q</code>. That is a game losing focus mid-fight, not a missing hotkey.</p>
+    <p><b>The pad's Caps Lock is remapped to <code>O</code>.</b> Caps Lock is a locking key: macOS holds it for a moment before it registers, toggles the lock and the LED, and does not deliver a clean press and release. TheCore puts six commands on it. O is the fix because the pad has no O key and TheCore uses O nowhere in multiplayer, so the six group-6 lines simply gained an O alternate.</p>
+    <p>Complete and paste-ready. Eight manipulators: the three chords matched twice each, the Caps Lock remap, then the catch-all that makes Control behave as Command.</p>
 <pre>{
   "description": "DITI pad TheCore Lite routing",
   "manipulators": [
     {"type":"basic",
-     "from":{"key_code":"3","modifiers":{"mandatory":["left_control","shift"]}},
+     "from":{"key_code":"3","modifiers":{"mandatory":["left_control","shift"],"optional":["any"]}},
      "to":[{"key_code":"3","modifiers":["left_command","left_option","left_shift"]}],
      "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
     {"type":"basic",
-     "from":{"key_code":"q","modifiers":{"mandatory":["left_control","shift"]}},
+     "from":{"key_code":"q","modifiers":{"mandatory":["left_control","shift"],"optional":["any"]}},
      "to":[{"key_code":"q","modifiers":["left_command","left_option","left_shift"]}],
      "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
     {"type":"basic",
-     "from":{"key_code":"3","modifiers":{"mandatory":["left_command","shift"]}},
+     "from":{"key_code":"3","modifiers":{"mandatory":["left_command","shift"],"optional":["any"]}},
      "to":[{"key_code":"3","modifiers":["left_command","left_option","left_shift"]}],
      "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
     {"type":"basic",
-     "from":{"key_code":"q","modifiers":{"mandatory":["left_command","shift"]}},
+     "from":{"key_code":"q","modifiers":{"mandatory":["left_command","shift"],"optional":["any"]}},
      "to":[{"key_code":"q","modifiers":["left_command","left_option","left_shift"]}],
      "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
     {"type":"basic",
-     "from":{"key_code":"tab","modifiers":{"mandatory":["left_control"]}},
+     "from":{"key_code":"tab","modifiers":{"mandatory":["left_control"],"optional":["any"]}},
      "to":[{"key_code":"tab","modifiers":["left_command","left_option"]}],
      "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
     {"type":"basic",
-     "from":{"key_code":"tab","modifiers":{"mandatory":["left_command"]}},
+     "from":{"key_code":"tab","modifiers":{"mandatory":["left_command"],"optional":["any"]}},
      "to":[{"key_code":"tab","modifiers":["left_command","left_option"]}],
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
+    {"type":"basic",
+     "from":{"key_code":"caps_lock","modifiers":{"optional":["any"]}},
+     "to":[{"key_code":"o"}],
      "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
     {"type":"basic",
      "from":{"key_code":"left_control","modifiers":{"optional":["any"]}},
@@ -626,6 +659,8 @@ StarCraft II/Accounts/&lt;id&gt;/Hotkeys/TheCore Lite Nordic DITI.SC2Hotkeys"</p
         <tr><td>Profile missing from the dropdown</td><td>Installed to the top-level Hotkeys folder</td><td>Move it to the per-account folder</td></tr>
         <tr><td>Bindings vanish, Forge stops working</td><td>Unsupported key pressed in SC2's hotkey editor</td><td>Reinstall the file with SC2 closed</td></tr>
         <tr><td>Edits to the file revert</td><td>SC2 was running and rewrote it on exit</td><td>Quit SC2 first, always</td></tr>
+        <tr><td>Caps Lock turns on, chat SHOUTS, group 6 feels laggy</td><td>Caps Lock is a locking key with an OS hold delay</td><td>Karabiner sends O from the pad instead; group 6 rides the O alternates</td></tr>
+        <tr><td>Select all army does nothing, or the app switcher appears</td><td>A chord rule missing <code>optional: any</code>, so it stopped matching with Alt or Shift also held</td><td>Every chord rule now carries <code>"optional":["any"]</code></td></tr>
         <tr><td>Ctrl+W toggles a UI panel</td><td>Upstream conflict with <code>ToggleWorldPanel</code></td><td>Use Alt+Q for the Nexus group</td></tr>
       </tbody>
     </table></div>
@@ -671,7 +706,7 @@ const base={
  "4":["Command key","rapid"],"5":["Command key","rapid"],"6":["Command key","rapid"],
  tab:["Subgroup next","ui"], q:["Group 4 · production","group"], w:["Group 5 · bases + tech","group"],
  e:["Precision key 1","prec"], r:["Command key","rapid"], t:["Patrol","rapid"],
- caps:["Group 6","group"], a:["Group 7","group"], s:["Group 8","group"],
+ caps:["Group 6 · pad sends O","group"], a:["Group 7","group"], s:["Group 8","group"],
  d:["Attack","rapid"], f:["Command key","rapid"], g:["Hold","rapid"],
  shift:["Modifier","mod"], z:["Group 9","group"], x:["Group 0","group"],
  c:["Precision key 2","prec"], v:["Stop / cancel target","rapid"], b:["Base camera","cam"],
@@ -728,9 +763,21 @@ const ctrlshift={
  caps:["Create + steal → 6","group"], a:["Create + steal → 7","group"], s:["Create + steal → 8","group"],
  z:["Create + steal → 9","group"], x:["Create + steal → 0","group"]
 };
+const ctrlalt={
+ "1":["Append to group 1 · no steal","group"],"2":["Append to group 2 · no steal","group"],"3":["Append to group 3 · no steal","group"],
+ q:["Append to group 4 · no steal","group"], w:["Append to group 5 · no steal","group"],
+ caps:["Append to group 6 · no steal","group"], a:["Append to group 7 · no steal","group"], s:["Append to group 8 · no steal","group"],
+ z:["Append to group 9 · no steal","group"], x:["Append to group 0 · no steal","group"],
+ ctrl:["Show enemy life","mod"], alt:["Show enemy life","mod"]
+};
 const LAYERS={
- base:{label:"None",map:base}, shift:{label:"Shift",map:shift}, alt:{label:"Alt",map:alt},
- shiftalt:{label:"Shift+Alt",map:shiftalt}, ctrl:{label:"Ctrl",map:ctrl}, ctrlshift:{label:"Ctrl+Shift",map:ctrlshift}
+ base:{label:"None",map:base},
+ shift:{label:"Shift",map:shift},
+ alt:{label:"Alt",map:alt},
+ ctrl:{label:"Ctrl",map:ctrl},
+ ctrlshift:{label:"Ctrl+Shift",map:ctrlshift},
+ ctrlalt:{label:"Ctrl+Alt",map:ctrlalt},
+ shiftalt:{label:"Shift+Alt",map:shiftalt}
 };
 
 const RACES={

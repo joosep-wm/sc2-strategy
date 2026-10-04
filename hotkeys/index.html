@@ -823,8 +823,8 @@ const LAYERS={
  shiftalt:{label:"Shift+Alt",map:shiftalt}
 };
 
-/* Pad remaps since 27 Sep: Caps Lock is a second Shift and P a second Ctrl, on every layer */
-Object.entries(LAYERS).forEach(([k,v])=>{if(k==="base")return; const m=v.map; if(!m.caps) m.caps=m.shift||["Modifier","mod"]; if(!m.p) m.p=m.ctrl||["Modifier","mod"];});
+/* Pad remaps since 27 Sep: Caps Lock mirrors Shift and P mirrors Ctrl on every layer, so each twin looks identical */
+Object.entries(LAYERS).forEach(([k,v])=>{if(k==="base")return; const m=v.map; delete m.caps; delete m.p; if(m.shift) m.caps=m.shift; if(m.ctrl) m.p=m.ctrl;});
 const RACES={
  prot:{label:"Protoss",ctx:{
   nexus:{label:"Nexus",keys:{space:["Probe","rapid"],e:["Chrono Boost","prec"],c:["Energy Recharge","prec"],r:["Mass Recall","rapid"],f:["Mothership","rapid"]}},

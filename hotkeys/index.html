@@ -265,26 +265,27 @@ kbd code{background:none;padding:0}
 
   <section id="p-prot" hidden>
     <h2 class="sec">Every game, before anything else</h2>
-    <p>Key bindings load with the profile. Control groups and cameras are empty at the start of every match, which is what this is for. It is TheCore's own documented start sequence.</p>
+    <p>Key bindings load with the profile. Control groups and cameras are empty at the start of every match, which is what this is for. It is TheCore's own documented start sequence, trimmed to three cameras: <b>A main, S natural, Z third</b>. Alt saves a camera, Shift jumps to it; on this pad Shift is Caps Lock or the Shift key.</p>
     <div class="grid2">
       <div class="card">
-        <h3>Start sequence</h3>
+        <h3>Start sequence, about ten seconds</h3>
         <ol>
           <li>Hold <kbd>Space</kbd> as the map loads, click the Nexus. Probes first.</li>
           <li>Thumb parks on <kbd>Alt</kbd> and stays there.</li>
           <li><kbd>Alt+Tab</kbd> centre &middot; <kbd>Alt+Q</kbd> add Nexus to W &middot; <kbd>Alt+A</kbd> main camera.</li>
-          <li>Pointer on the ramp, <kbd>Alt+W</kbd> rally camera.</li>
-          <li><kbd>Alt+S</kbd> <kbd>Alt+Z</kbd> <kbd>Alt+X</kbd> on future expansions.</li>
+          <li>Hold left click on the minimap and drag to the natural, <kbd>Alt+S</kbd>. Drag to the third, <kbd>Alt+Z</kbd>.</li>
+          <li><kbd>Shift+A</kbd> back home. Done before the first Pylon.</li>
         </ol>
       </div>
       <div class="card">
-        <h3>Warp-in &mdash; Shift stays down</h3>
+        <h3>Using the three cameras</h3>
         <ol>
-          <li><kbd>Shift+Q</kbd> grabs production. Warp Gates take selection priority, so the card shows warp-in units.</li>
-          <li><kbd>Shift+3</kbd> jumps to the forward pylon.</li>
-          <li>Hold <kbd>Shift+D</kbd> and sweep the mouse. One Zealot per gate, no clicking.</li>
-          <li><kbd>Shift+W</kbd> back to the rally camera.</li>
+          <li><kbd>Shift+A</kbd> main, <kbd>Shift+S</kbd> natural, <kbd>Shift+Z</kbd> third. Use them instead of clicking the minimap.</li>
+          <li>New Nexus: select it, <kbd>Alt+Tab</kbd> centre, <kbd>Alt+Q</kbd> add to W, <kbd>Alt+S</kbd> or <kbd>Alt+Z</kbd> to re-save the camera right on it.</li>
+          <li>Probe back to work: hold Shift, place the buildings, <kbd>Shift+A</kbd>, Shift+right-click the minerals.</li>
+          <li>Moving Probes: select them, <kbd>Shift+S</kbd>, right-click the natural's minerals.</li>
         </ol>
+        <p class="note" style="margin-top:8px">Later, once these feel automatic: <kbd>Alt+W</kbd> rally camera on the ramp, and the Shift-held warp-in (<kbd>Shift+Q</kbd>, <kbd>Shift+W</kbd>, hold <kbd>D</kbd> and sweep).</p>
       </div>
     </div>
 
@@ -780,8 +781,8 @@ const shift={
  "1":["Jump cam 1","cam"],"2":["Jump cam 2","cam"],"3":["Jump cam 3","cam"],
  tab:["Subgroup previous","ui"], q:["Select production","group"], w:["Jump cam 0 · rally","cam"],
  e:["Precision key 1, queued","prec"], t:["Patrol, queued","rapid"],
- a:["Jump cam 4","cam"], s:["Jump cam 5","cam"], d:["Attack, queued","rapid"], g:["Hold, queued","rapid"],
- z:["Jump cam 6","cam"], x:["Jump cam 7","cam"], c:["Precision key 2","prec"],
+ a:["Jump cam 4 · main","cam"], s:["Jump cam 5 · natural","cam"], d:["Attack, queued","rapid"], g:["Hold, queued","rapid"],
+ z:["Jump cam 6 · third","cam"], x:["Jump cam 7","cam"], c:["Precision key 2","prec"],
  v:["Group 1 · utility","group"], b:["Base camera","cam"],
  space:["Ability, queued","rapid"], shift:["Modifier","mod"],
  g1:["Terrain minimap","ui"]
@@ -792,8 +793,8 @@ const alt={
  "1":["Make cam 1","cam"],"2":["Make cam 2","cam"],"3":["Make cam 3","cam"],
  q:["Append → 5 · use over Ctrl+W","group"], w:["Make cam 0 · rally","cam"],
  t:["Rotate camera left","ui"], g:["Rotate camera right","ui"],
- a:["Make cam 4","cam"], s:["Make cam 5","cam"], d:["Append → 5 · legacy","group"],
- z:["Make cam 6","cam"], x:["Make cam 7","cam"],
+ a:["Make cam 4 · main","cam"], s:["Make cam 5 · natural","cam"], d:["Append → 5 · legacy","group"],
+ z:["Make cam 6 · third","cam"], x:["Make cam 7","cam"],
  shift:["Centre on selection","cam"], alt:["Show enemy life","mod"],
  g1:["Push to talk","ui"], g2:["Show FPS","ui"]
 };

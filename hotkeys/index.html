@@ -238,7 +238,7 @@ kbd code{background:none;padding:0}
         <p style="margin:0 0 8px">Added alternates, one mouse button moved, and Karabiner remaps on the pad. Nothing else.</p>
         <ul>
           <li><kbd>N</kbd> Move, because the pad has no H key</li>
-          <li><kbd>`</kbd> trash group, <kbd>Shift+`</kbd> last alert, <kbd>Alt+`</kbd> centre camera, because the pad has no BackSlash key</li>
+          <li><kbd>`</kbd> tap selects group 6, hold 0.3 s makes it from the selection (trash); <kbd>Shift+`</kbd> last alert, <kbd>Alt+`</kbd> centre camera</li>
           <li>Karabiner, pad only: <kbd>Caps Lock</kbd> is a second Shift and <kbd>P</kbd> a second Ctrl, so the small finger never stretches</li>
           <li>Four landing points for Karabiner's rerouted chords, never pressed directly</li>
           <li><kbd>G5</kbd> as a single-key select all army, with no Command modifier to be intercepted</li>
@@ -295,7 +295,7 @@ kbd code{background:none;padding:0}
     </table></div>
     <p><strong>Q</strong> holds every army production building: Gateways and Warp Gates, plus Robotics Facility and Stargate. <strong>W</strong> holds Nexuses plus every research building: Cybernetics Core, Forge, Twilight Council, Robotics Bay, Templar Archive, Fleet Beacon.</p>
     <p>The split is what a building <em>does</em>, not where it sits in the tech tree. Robotics Facility makes units so it is Q; Robotics Bay only researches so it is W. Same for Stargate and Fleet Beacon.</p>
-    <p>On this pad <b>P is a second Ctrl</b> and <b>Caps Lock a second Shift</b>, so <kbd>P+key</kbd> adds and <kbd>P+Caps+key</kbd> creates without a stretch. Group 6 has no select key any more; the tilde trash key still fills it. Watch <kbd>Shift+Alt+key</kbd>: it also creates a group but does <em>not</em> steal (decision 16).</p>
+    <p>On this pad <b>P is a second Ctrl</b> and <b>Caps Lock a second Shift</b>, so <kbd>P+key</kbd> adds and <kbd>P+Caps+key</kbd> creates without a stretch. Group 6 lives on tilde: a tap selects it, a 0.3 s hold makes it from the selection (trash). Watch <kbd>Shift+Alt+key</kbd>: it also creates a group but does <em>not</em> steal (decision 16).</p>
     <p><kbd>Ctrl+key</kbd> adds to a group, <kbd>Ctrl+Shift+key</kbd> creates one. Both <em>steal</em>, meaning the units leave whatever group they were in. That is TheCore's deliberate default. One upstream quirk: <kbd>Ctrl+W</kbd> also fires <code>ToggleWorldPanel</code>, so prefer <kbd>Alt+Q</kbd> for the Nexus group, which is the same command and already in the start sequence.</p>
 
     <h2 class="sec">Protoss keys</h2>
@@ -499,13 +499,16 @@ kbd code{background:none;padding:0}
     </div>
 
     <div class="adr">
-      <h3>4. Tilde key carries the trash group</h3>
+      <h3>4. Tilde: tap selects group 6, hold makes it</h3>
       <div class="meta">2026-09-19, revised 2026-10-04 &middot; <span class="pill p-warn">open</span></div>
       <p><b>Context.</b> The Nordic variant moves US TheCore's Grave bindings onto BackSlash, which this pad does not have. The pad's tilde key was therefore dead.</p>
       <p><b>Decision.</b> Bind the trash group and alert recall to <code>OEM102</code> as well.</p>
       <p><b>Why that name.</b> The pad is ANSI hardware under a Nordic software layout, so its tilde position reports as the ISO extra key. An earlier profile on the same machine used <code>ArmySelect=OEM102</code> for this physical key, so SC2 accepts the name here.</p>
       <p><b>Revised 4 October.</b> Replays show the trash key fired once, on 19 September, and never again. The next day Karabiner went in, and its virtual keyboard is ANSI, so the key most likely arrives as <code>Grave</code>, upstream US TheCore's own name for it. <code>Grave</code>, <code>Shift+Grave</code> and <code>Alt+Grave</code> were added beside the OEM102 lines, which stay.</p>
-      <p><b>Still open.</b> Not yet confirmed in a game. A wrong name does nothing and breaks nothing.</p>
+      <p><b>Revised again, 4 October.</b> With Caps Lock a Shift, nothing selected group 6, so the trash key filled a group that could not be recalled. TheCore pairs the two keys: tilde makes group 6, Caps Lock selects it. Both now live on tilde, through Karabiner: a <b>tap</b> under 0.3 s selects group 6, a <b>hold</b> of 0.3 s makes group 6 from the selection, with steal.</p>
+      <p><b>Why tap selects.</b> Selecting is the frequent action in a fight and harmless if mistimed. Making the group overwrites it, so it gets the deliberate press. The swap is one line if play says otherwise.</p>
+      <p><b>How.</b> The rule sends <code>O</code> and <code>Ctrl+Shift+O</code>, group-6 alternates already in the file, so it does not depend on the unconfirmed <code>Grave</code> name. It applies only to tilde pressed alone and only while SC2 is the front app, so Shift+tilde and Alt+tilde are unchanged. A tap acts on release, a fraction later than a plain key.</p>
+      <p><b>Still open.</b> Not yet confirmed in a game.</p>
     </div>
 
     <div class="adr">
@@ -575,7 +578,7 @@ kbd code{background:none;padding:0}
       <p><b>Why O.</b> The pad has no O key, so there is nothing to collide with physically, and TheCore binds O to nothing in multiplayer. The one global use is <code>ObserveCommentator=O</code>, which only matters in observer mode.</p>
       <p><b>Cost.</b> The pad can no longer type a capital letter, which is irrelevant on a gaming-only keypad, and the printed cheatsheet's Caps Lock column now needs reading as O.</p>
       <p><b>Superseded 27 September.</b> The small finger does not reach the pad's own Ctrl and Shift comfortably, and both are pressed constantly: every group edit, every queued command. Karabiner now makes the pad's <b>Caps Lock a second Shift</b> and <b>P a second Ctrl</b> (Command, as in decision 5). The O alternates stay in the file, unused.</p>
-      <p><b>Cost now.</b> No pad key selects group 6; the tilde trash key still fills it. Gather loses P (decision 3). The PDF cheatsheet's Caps Lock column no longer applies to this pad.</p>
+      <p><b>Cost now.</b> Caps Lock no longer selects group 6; since 4 October a tap on tilde does (decision 4). Gather loses P (decision 3). The PDF cheatsheet's Caps Lock column no longer applies to this pad.</p>
     </div>
 
 
@@ -649,7 +652,8 @@ kbd code{background:none;padding:0}
     <p><b>Simple Modifications on the pad's device entry</b> do the plain remaps: Ctrl to Command, P to Command, Caps Lock to Shift. Karabiner applies simple modifications before complex ones, so the rules below see the remapped modifiers (decision 14).</p>
     <p><b>Every chord rule carries <code>"optional":["any"]</code>.</b> Without it, a rule matches only when its named modifiers are the exact set held. TheCore parks the thumb on Alt and keeps Shift down through warp-in and inject, so in real play a third modifier is almost always present, the reroute silently stopped matching, and the catch-all handed macOS a raw <code>Cmd+Shift+Tab</code> or <code>Cmd+Shift+Q</code>. That is a game losing focus mid-fight, not a missing hotkey.</p>
     <p><b>Chat macros.</b> G3 and G4 send F3 and F4. Two rules turn them into Shift+Enter, the text, Enter, and only while SC2 is the front app.</p>
-    <p>Complete and paste-ready, copied from the live config: the device entry goes in the selected profile, the rule under its <code>complex_modifications.rules</code>. Three chord reroutes, then the two chat macros.</p>
+    <p><b>Tilde tap and hold.</b> <code>to_if_alone</code> sends O on a tap, <code>to_if_held_down</code> sends Cmd+Shift+O once the key has been down 0.3 s. Both thresholds are 300 ms, so exactly one of them fires, and a tap only counts if no other key, click or scroll happens while tilde is down.</p>
+    <p>Complete and paste-ready, copied from the live config: the device entry goes in the selected profile, the rule under its <code>complex_modifications.rules</code>. Three chord reroutes, the two chat macros, then the tilde rule, once for each key code the pad might report.</p>
 <pre>"devices": [
   {"identifiers":{"is_keyboard":true,"vendor_id":12815,"product_id":20480},"simple_modifications":[{"from":{"key_code":"left_control"},"to":[{"key_code":"left_command"}]},{"from":{"key_code":"p"},"to":[{"key_code":"left_command"}]},{"from":{"key_code":"caps_lock"},"to":[{"key_code":"left_shift"}]}]}
 ]
@@ -676,6 +680,18 @@ kbd code{background:none;padding:0}
     {"type":"basic","description":"G4: all-chat gg wp",
      "from":{"key_code":"f4"},
      "to":[{"key_code":"return_or_enter","modifiers":["left_shift"],"hold_down_milliseconds":60},{"key_code":"g"},{"key_code":"g"},{"key_code":"spacebar"},{"key_code":"w"},{"key_code":"p"},{"key_code":"return_or_enter"}],
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]},{"type":"frontmost_application_if","bundle_identifiers":["^com\\.blizzard\\.starcraft2$"]}]},
+    {"type":"basic","description":"Tilde: tap selects group 6, hold 0.3 s makes group 6 from selection (trash)",
+     "from":{"key_code":"grave_accent_and_tilde"},
+     "to_if_alone":[{"key_code":"o"}],
+     "to_if_held_down":[{"key_code":"o","modifiers":["left_command","left_shift"],"repeat":false,"halt":true}],
+     "parameters":{"basic.to_if_alone_timeout_milliseconds":300,"basic.to_if_held_down_threshold_milliseconds":300},
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]},{"type":"frontmost_application_if","bundle_identifiers":["^com\\.blizzard\\.starcraft2$"]}]},
+    {"type":"basic","description":"Tilde: tap selects group 6, hold 0.3 s makes group 6 from selection (trash)",
+     "from":{"key_code":"non_us_backslash"},
+     "to_if_alone":[{"key_code":"o"}],
+     "to_if_held_down":[{"key_code":"o","modifiers":["left_command","left_shift"],"repeat":false,"halt":true}],
+     "parameters":{"basic.to_if_alone_timeout_milliseconds":300,"basic.to_if_held_down_threshold_milliseconds":300},
      "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]},{"type":"frontmost_application_if","bundle_identifiers":["^com\\.blizzard\\.starcraft2$"]}]}
   ]
 }</pre>
@@ -702,6 +718,7 @@ StarCraft II/Accounts/&lt;id&gt;/Hotkeys/TheCore Lite Nordic DITI.SC2Hotkeys"</p
         <tr><td>Edits to the file revert</td><td>SC2 was running and rewrote it on exit</td><td>Quit SC2 first, always</td></tr>
         <tr><td>Caps Lock turns on, chat SHOUTS, group 6 feels laggy</td><td>Caps Lock is a locking key with an OS hold delay</td><td>Karabiner makes the pad's Caps Lock a plain Shift (it sent O from 20 to 27 Sep)</td></tr>
         <tr><td>G3 or G4 drops the first letter, or types outside the game</td><td>The chat box opened late, or SC2 was not the front app</td><td>Lengthen the Shift+Enter hold in the chat rule; check its frontmost-app condition</td></tr>
+        <tr><td>Tilde made group 6 when you meant to select it</td><td>Held for 0.3 s or longer</td><td>Tap shorter, or raise both 300 ms values in the tilde rule</td></tr>
         <tr><td>Units stay in their old group after regrouping</td><td>Alt was down: Shift+Alt+key creates without steal, by TheCore design</td><td>Create with P+Caps+key (decision 16)</td></tr>
         <tr><td>Select all army does nothing, or the app switcher appears</td><td>A chord rule missing <code>optional: any</code>, so it stopped matching with Alt or Shift also held</td><td>Every chord rule now carries <code>"optional":["any"]</code></td></tr>
         <tr><td>Ctrl+W toggles a UI panel</td><td>Upstream conflict with <code>ToggleWorldPanel</code></td><td>Use Alt+Q for the Nexus group</td></tr>
@@ -744,7 +761,7 @@ const RCOL=[["g1","G1 · F1"],["space","Space"]];
 
 const base={
  esc:["Cancel","ui"], f1:["Idle worker","ui"], f2:["Minimap colours","ui"], f3:["Chat: gl hf","add"], f4:["Chat: gg wp","add"],
- m:["Warp Gate → Gateway","rapid"], grave:["Trash group → 6","group"],
+ m:["Warp Gate → Gateway","rapid"], grave:["Tap: select 6 · hold: trash → 6","group"],
  "1":["Group 1","group"],"2":["Group 2","group"],"3":["Group 3","group"],
  "4":["Command","rapid"],"5":["Command","rapid"],"6":["Command","rapid"],
  tab:["Subgroup next","ui"], q:["Group 4 · army","group"], w:["Group 5 · bases","group"],

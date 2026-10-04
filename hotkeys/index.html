@@ -235,18 +235,20 @@ kbd code{background:none;padding:0}
     <div class="grid2">
       <div class="card">
         <h3>What differs from the repo</h3>
-        <p style="margin:0 0 8px">Fourteen added alternates. Nothing else removed, nothing moved.</p>
+        <p style="margin:0 0 8px">Added alternates, one mouse button moved, and Karabiner remaps on the pad. Nothing else.</p>
         <ul>
-          <li><kbd>P</kbd> Gather &mdash; the pad has no Y key</li>
-          <li><kbd>`</kbd> trash group, <kbd>Shift+`</kbd> last alert &mdash; no BackSlash key</li>
-          <li><kbd>O</kbd> on all six group-6 commands, because the pad's Caps Lock now sends O</li>
+          <li><kbd>N</kbd> Move, because the pad has no H key</li>
+          <li><kbd>`</kbd> trash group, <kbd>Shift+`</kbd> last alert, <kbd>Alt+`</kbd> centre camera, because the pad has no BackSlash key</li>
+          <li>Karabiner, pad only: <kbd>Caps Lock</kbd> is a second Shift and <kbd>P</kbd> a second Ctrl, so the small finger never stretches</li>
           <li>Four landing points for Karabiner's rerouted chords, never pressed directly</li>
           <li><kbd>G5</kbd> as a single-key select all army, with no Command modifier to be intercepted</li>
+          <li><kbd>G3</kbd> types <i>gl hf</i> and <kbd>G4</kbd> <i>gg wp</i> in all-chat, only while SC2 is in front</li>
+          <li>Mouse forward button is camera push</li>
         </ul>
       </div>
       <div class="card">
         <h3>The one dependency</h3>
-        <p>SC2 for macOS rewrites every <code>Control</code> in the file to <b style="color:var(--ink)">Command</b>, and this pad has no Command key. Karabiner supplies it and reroutes three chords macOS will not release.</p>
+        <p>SC2 for macOS rewrites every <code>Control</code> in the file to <b style="color:var(--ink)">Command</b>, and this pad has no Command key. Karabiner supplies it, turns Caps Lock and P into Shift and Ctrl, and reroutes three chords macOS will not release.</p>
         <p style="margin-top:8px;color:var(--risk)"><b>If Karabiner is not running, every add-to-group silently stops.</b> It looks like the profile broke. Check Karabiner first.</p>
       </div>
       <div class="card">
@@ -293,13 +295,14 @@ kbd code{background:none;padding:0}
     </table></div>
     <p><strong>Q</strong> holds every army production building: Gateways and Warp Gates, plus Robotics Facility and Stargate. <strong>W</strong> holds Nexuses plus every research building: Cybernetics Core, Forge, Twilight Council, Robotics Bay, Templar Archive, Fleet Beacon.</p>
     <p>The split is what a building <em>does</em>, not where it sits in the tech tree. Robotics Facility makes units so it is Q; Robotics Bay only researches so it is W. Same for Stargate and Fleet Beacon.</p>
+    <p>On this pad <b>P is a second Ctrl</b> and <b>Caps Lock a second Shift</b>, so <kbd>P+key</kbd> adds and <kbd>P+Caps+key</kbd> creates without a stretch. Group 6 has no select key any more; the tilde trash key still fills it. Watch <kbd>Shift+Alt+key</kbd>: it also creates a group but does <em>not</em> steal (decision 16).</p>
     <p><kbd>Ctrl+key</kbd> adds to a group, <kbd>Ctrl+Shift+key</kbd> creates one. Both <em>steal</em>, meaning the units leave whatever group they were in. That is TheCore's deliberate default. One upstream quirk: <kbd>Ctrl+W</kbd> also fires <code>ToggleWorldPanel</code>, so prefer <kbd>Alt+Q</kbd> for the Nexus group, which is the same command and already in the start sequence.</p>
 
     <h2 class="sec">Protoss keys</h2>
     <p class="kb"><strong>Production</strong> Nexus: Probe Space, Mothership F. Gateway and Warp Gate: Zealot D, Stalker R, Sentry C, Adept F, High Templar Space, Dark Templar T. Robo: Observer Space, Immortal D, Prism F, Colossus C, Disruptor V. Stargate: Phoenix D, Oracle F, Void Ray R, Tempest V, Carrier G. Gateway to Warp Gate <kbd>E</kbd>, back <kbd>M</kbd> (the globe key).</p>
     <p class="kb"><strong>Research</strong> Core: Warp Gate E, air weapons D, air armour Space. Forge: weapons D, armour Space, shields E. Twilight: Charge D, Blink R, Glaives F. Robo Bay: Thermal Lance C, Observer speed Space, Prism speed F. Templar Archive: Storm Space. Fleet Beacon: Anion D, Tempest range F, Void Ray speed R, Oracle stasis E.</p>
     <p class="kb"><strong>Abilities</strong> E and C are the precision keys, so a spell that needs placing usually carries one of them as an alternate. Everything else lives on the pad map tab, which is the authoritative version.</p>
-    <p class="kb"><strong>Commands</strong> Attack D, Stop V, Hold G, Patrol T. Move has no key: right click does it. Subgroup Tab, select all army Ctrl+Tab, town camera B, idle worker F1. Cameras: save Alt+key, jump Shift+key, where key 0 to 7 is W, 1, 2, 3, A, S, Z, X.</p>
+    <p class="kb"><strong>Commands</strong> Attack D, Stop V, Hold G, Patrol T. Move N, or right click. Subgroup Tab, select all army Ctrl+Tab, town camera B, idle worker F1. Cameras: save Alt+key, jump Shift+key, where key 0 to 7 is W, 1, 2, 3, A, S, Z, X.</p>
 
     <h2 class="sec">Drills</h2>
     <div class="card" style="margin-bottom:14px">
@@ -368,7 +371,7 @@ kbd code{background:none;padding:0}
     <p class="kb"><strong>Building</strong> SCV basic menu <kbd>C</kbd>: Command Center E, Supply Depot D, Refinery F, Barracks C, Engineering Bay 4, Bunker R, Missile Turret Space, Sensor Tower T. Advanced menu <kbd>E</kbd>: Factory D, Starport R, Armory F, Fusion Core G, Ghost Academy Space. The basic menu is deliberately the same shape as Protoss and Zerg: E is always the town hall, F the gas, D the supply, C the first tier-one production building, 4 the upgrade building, Space the anti-air static defence.</p>
     <p class="kb"><strong>Research</strong> Barracks Tech Lab: Stimpack Space, Combat Shield D, Concussive Shells R. Factory Tech Lab: Siege Tech Space, Infernal Pre-igniter D, Drilling Claws F, Cyclone lock-on damage C. Starport Tech Lab: Banshee cloak 4, Hyperflight Rotors V, Advanced Ballistics R, Rapid Reignition F, Interference Matrix Space. Engineering Bay: infantry weapons D, infantry armour Space, Hi-Sec Auto Tracking E, Neosteel Frame R, building armour C. Armory: ship weapons D, ship plating Space, vehicle weapons E, vehicle plating C. Ghost Academy: Personal Cloaking F, Enhanced Shockwaves Space, arm nuke D.</p>
     <p class="kb"><strong>Abilities</strong> The transform pair is always Space out and R back: Siege Mode Space, Unsiege R; Viking fighter Space, assault R; Hellion to Hellbat Space, back R; Widow Mine burrow Space, unburrow R. Cloak is Space on, F off, for both Banshee and Ghost. Stim Space. Medivac heal F, boost Space. Ghost EMP E, Snipe R. Raven auto-turret Space, Anti-armor Missile C, Interference Matrix E. Battlecruiser Yamato E then Space, Tactical Jump R. Repair R, Salvage F, halt 5.</p>
-    <p class="kb"><strong>Commands</strong> Identical to the other races: Attack D, Stop V, Hold G, Patrol T, return cargo F, gather P. Move has no key, right click does it. Subgroup Tab, select all army Ctrl+Tab, town camera B or Shift+Alt+E, idle worker F1.</p>
+    <p class="kb"><strong>Commands</strong> Identical to the other races: Attack D, Stop V, Hold G, Patrol T, return cargo F, gather by right click (P is a Ctrl key on this pad). Move N, or right click. Subgroup Tab, select all army Ctrl+Tab, town camera B or Shift+Alt+E, idle worker F1.</p>
 
     <h2 class="sec">Left open</h2>
     <div class="card flag">
@@ -453,7 +456,7 @@ kbd code{background:none;padding:0}
     <p class="kb"><strong>Building</strong> Drone basic menu <kbd>C</kbd>: Hatchery E, Extractor F, Spawning Pool D, Evolution Chamber 4, Spine Crawler C, Spore Crawler Space. Advanced menu <kbd>E</kbd>: Roach Warren R, Baneling Nest T, Hydralisk Den C, Lurker Den Space, Infestation Pit F, Nydus Network D, Spire R, Ultralisk Cavern G.</p>
     <p class="kb"><strong>Research</strong> <kbd>E</kbd> is the speed key wherever a research makes something faster. Spawning Pool: Metabolic Boost E, Adrenal Glands D. Evolution Chamber: melee D, missile F, ground carapace Space. Roach Warren: Glial Reconstitution E, Tunneling Claws 4. Baneling Nest: Centrifugal Hooks E. Hydralisk Den: Muscular Augments E, Grooved Spines D. Lurker Den: Adaptive Talons E, Seismic Spines Space. Infestation Pit: Neural Parasite Space. Spire: flyer attack D, flyer carapace Space. Ultralisk Cavern: Anabolic Synthesis E, Chitinous Plating Space.</p>
     <p class="kb"><strong>Abilities</strong> Burrow R, unburrow 4, across every unit that has it. Queen: creep tumour C, Transfusion E. Overseer: changeling E, Oversight Space, Contaminate C. Infestor: Fungal Growth E, Neural Parasite Space, Infested Terrans F. Viper: Blinding Cloud C, Parasitic Bomb 4, Consume Space. Ravager: Corrosive Bile E or Space. Baneling: Explode E, structure attack toggle Space and F. Corruptor: Caustic Spray E or Space. Overlord: generate creep 4.</p>
-    <p class="kb"><strong>Commands</strong> As everywhere else: Attack D, Stop V, Hold G, Patrol T, return cargo F, gather P. Move has no key, right click does it.</p>
+    <p class="kb"><strong>Commands</strong> As everywhere else: Attack D, Stop V, Hold G, Patrol T, return cargo F, gather by right click (P is a Ctrl key on this pad). Move N, or right click.</p>
 
     <h2 class="sec">Left open</h2>
     <div class="card flag">
@@ -472,7 +475,7 @@ kbd code{background:none;padding:0}
       <h3>1. Run TheCore Lite Nordic essentially unmodified</h3>
       <div class="meta">2026-09-18 &middot; <span class="pill p-ok">settled</span></div>
       <p><b>Context.</b> A one-handed pad invites heavy customisation, and the first pass drifted that way.</p>
-      <p><b>Decision.</b> The installed file is the upstream <code>Nordic/TheCore Lite.SC2Hotkeys</code> plus <b>seven added alternates and zero removals</b>. Every addition traces to a physical key the pad lacks.</p>
+      <p><b>Decision.</b> The installed file is the upstream <code>Nordic/TheCore Lite.SC2Hotkeys</code> plus <b>added alternates and one removal</b>, the mouse forward button (decision 15). Every addition traces to a key the pad lacks or a remap it needs.</p>
       <p><b>Why.</b> Fidelity means the community docs, the PDF cheatsheet and Joosep's setup all still describe this keyboard. Convenience bindings would quietly fork it.</p>
       <p><b>Cost.</b> Some upstream quirks are inherited rather than fixed, notably the <code>Ctrl+W</code> / <code>ToggleWorldPanel</code> conflict.</p>
     </div>
@@ -486,21 +489,23 @@ kbd code{background:none;padding:0}
     </div>
 
     <div class="adr">
-      <h3>3. Gather to P. Move stays unbound</h3>
-      <div class="meta">2026-09-18, revised 2026-09-20 &middot; <span class="pill p-ok">settled</span></div>
+      <h3>3. Move on N. Gather has no pad key</h3>
+      <div class="meta">2026-09-18, revised 2026-09-20 and 2026-10-04 &middot; <span class="pill p-ok">settled</span></div>
       <p><b>Context.</b> The pad has no <b>H</b> and no <b>Y</b>. Upstream puts Move on H with no alternate, and Gather on Y.</p>
       <p><b>Decision.</b> Gather gets <b>P</b> as an alternate. <b>Move gets nothing.</b> Right click issues a move and costs no key at all, so a Move key is a binding to remember for a case the mouse already covers.</p>
       <p><b>Revised.</b> N was added as a Move alternate on 18 September and removed on 20 September. The original reasoning was that right click will not move onto a unit without interacting with it. True, and judged not worth a key. Fewer bindings beat completeness on a pad this small.</p>
-      <p><b>Consequence.</b> <code>Move=H</code> is now byte-identical to upstream, and N is a dead key on this pad.</p>
+      <p><b>Revised again, 4 October.</b> N is back as a Move alternate, at the player's request: moving onto a unit without interacting with it came up often enough to earn the key. Gather's P alternate went dead on 27 September, when P became a Ctrl key (decision 13); right click mines.</p>
+      <p><b>Consequence.</b> <code>Move=H,N</code>. <code>GatherProt=Y,P</code> stays in the file, but no pad key reaches it.</p>
     </div>
 
     <div class="adr">
       <h3>4. Tilde key carries the trash group</h3>
-      <div class="meta">2026-09-19 &middot; <span class="pill p-warn">open</span></div>
+      <div class="meta">2026-09-19, revised 2026-10-04 &middot; <span class="pill p-warn">open</span></div>
       <p><b>Context.</b> The Nordic variant moves US TheCore's Grave bindings onto BackSlash, which this pad does not have. The pad's tilde key was therefore dead.</p>
       <p><b>Decision.</b> Bind the trash group and alert recall to <code>OEM102</code> as well.</p>
       <p><b>Why that name.</b> The pad is ANSI hardware under a Nordic software layout, so its tilde position reports as the ISO extra key. An earlier profile on the same machine used <code>ArmySelect=OEM102</code> for this physical key, so SC2 accepts the name here.</p>
-      <p><b>Still open.</b> Inferred, not confirmed in game. If the name is wrong the two lines do nothing and nothing breaks.</p>
+      <p><b>Revised 4 October.</b> Replays show the trash key fired once, on 19 September, and never again. The next day Karabiner went in, and its virtual keyboard is ANSI, so the key most likely arrives as <code>Grave</code>, upstream US TheCore's own name for it. <code>Grave</code>, <code>Shift+Grave</code> and <code>Alt+Grave</code> were added beside the OEM102 lines, which stay.</p>
+      <p><b>Still open.</b> Not yet confirmed in a game. A wrong name does nothing and breaks nothing.</p>
     </div>
 
     <div class="adr">
@@ -521,14 +526,15 @@ kbd code{background:none;padding:0}
       <p><b>Cost.</b> A third-party driver with a system-extension approval, and a silent failure mode if it stops running.</p>
     </div>
 
-    <div class="adr open">
-      <h3>7. G2 to G5 left unbound</h3>
-      <div class="meta">2026-09-20 &middot; <span class="pill p-warn">deferred</span></div>
+    <div class="adr">
+      <h3>7. G keys: army on G5, chat on G3 and G4</h3>
+      <div class="meta">2026-09-20, revised 2026-10-04 &middot; <span class="pill p-ok">settled</span></div>
       <p><b>Context.</b> The five G keys send F1 to F5. G1 lands on F1, which is idle worker, a useful accident. G2 to G5 are free.</p>
       <p><b>Decision.</b> Leave them empty until the day-14 review.</p>
       <p><b>Why.</b> The obvious candidates are single-key camera jumps, whose value depends on the Alt+A/S/Z/X habit being automatic. A key that jumps to a third base is worth nothing while the third base is not down inside ten minutes.</p>
       <p><b>Note.</b> G2 briefly carried select-all-army, and was freed again once Karabiner could route Ctrl+Tab.</p>
       <p><b>Resolved for G5, 20 September.</b> The G keys are not distinct keys: G1 to G4 send F1 to F4, which the top row also sends, so G2 could never mean anything other than its twin. Only <b>G5 sends F5, which has no twin on this pad and no binding in the file</b>. Select all army now carries <code>F5</code> as a fifth alternate, so it has a single-key form with no Command modifier for macOS to intercept. G3 and G4 stay free.</p>
+      <p><b>Resolved for G3 and G4, 4 October.</b> Karabiner types <i>gl hf</i> on G3 and <i>gg wp</i> on G4: Shift+Enter for all-chat, the text, Enter. It fires only while SC2 is the front app, so nothing is typed anywhere else. The top-row F3 and F4 send the same codes, so they type it too. G2 stays on minimap colours.</p>
     </div>
 
     <div class="adr">
@@ -562,12 +568,14 @@ kbd code{background:none;padding:0}
     </div>
 
     <div class="adr">
-      <h3>13. The pad's Caps Lock sends O</h3>
-      <div class="meta">2026-09-20 &middot; <span class="pill p-ok">settled</span></div>
+      <h3>13. Caps Lock is Shift, P is Ctrl</h3>
+      <div class="meta">2026-09-20, superseded 2026-09-27 &middot; <span class="pill p-ok">settled</span></div>
       <p><b>Context.</b> TheCore puts six commands on Caps Lock: recall, append, assign, both steal variants, and centre-on-selection. On macOS Caps Lock is a locking key. It registers only after a hold delay, toggles the lock state and the LED, and does not deliver a clean press and release. Group 6 felt unreliable and chat came out in capitals.</p>
       <p><b>Decision.</b> Karabiner remaps the pad's <code>caps_lock</code> to <code>o</code>, scoped to the pad as every other rule is, and the six commands gained an O alternate. Nothing was removed.</p>
       <p><b>Why O.</b> The pad has no O key, so there is nothing to collide with physically, and TheCore binds O to nothing in multiplayer. The one global use is <code>ObserveCommentator=O</code>, which only matters in observer mode.</p>
       <p><b>Cost.</b> The pad can no longer type a capital letter, which is irrelevant on a gaming-only keypad, and the printed cheatsheet's Caps Lock column now needs reading as O.</p>
+      <p><b>Superseded 27 September.</b> The small finger does not reach the pad's own Ctrl and Shift comfortably, and both are pressed constantly: every group edit, every queued command. Karabiner now makes the pad's <b>Caps Lock a second Shift</b> and <b>P a second Ctrl</b> (Command, as in decision 5). The O alternates stay in the file, unused.</p>
+      <p><b>Cost now.</b> No pad key selects group 6; the tilde trash key still fills it. Gather loses P (decision 3). The PDF cheatsheet's Caps Lock column no longer applies to this pad.</p>
     </div>
 
 
@@ -578,6 +586,27 @@ kbd code{background:none;padding:0}
       <p><b>Decision.</b> Add Terran and Zerg tabs built the same way the Protoss one was, by reading the installed <code>.SC2Hotkeys</code> file and TheCore Lite's README, and add nothing from memory or from general SC2 knowledge.</p>
       <p><b>Cost.</b> Neither tab has been played on this pad. There are no drills on them, and two upstream key collisions are flagged rather than resolved: <code>ResearchSiegeTech</code> against <code>ResearchSmartServos</code> on the Factory Tech Lab, and Roach Warren against Spire in the Drone advanced menu. The empty <code>InjectLarva/Queen</code> line is flagged the same way.</p>
       <p><b>Why keep it open.</b> A tab that claims to be verified when nobody has played the race is worse than one that says plainly which parts are inferred.</p>
+    </div>
+    <div class="adr">
+      <h3>14. Plain remaps live in Simple Modifications</h3>
+      <div class="meta">2026-10-04 &middot; <span class="pill p-ok">settled</span></div>
+      <p><b>Context.</b> Ctrl to Command, P to Command and Caps Lock to Shift were complex rules in the same list as the chord reroutes, so whether a reroute saw P or Caps Lock as a modifier depended on rule order inside Karabiner.</p>
+      <p><b>Decision.</b> The three plain remaps moved to the pad's device-level <b>Simple Modifications</b>. Karabiner documents its order as simple modifications first, then complex ones, so the reroutes see the remapped modifier by definition and no longer need a <code>left_control</code> twin.</p>
+      <p><b>Honest note.</b> The 27 September version probably worked too. This makes it certain rather than likely.</p>
+    </div>
+    <div class="adr">
+      <h3>15. Mouse forward button is camera push</h3>
+      <div class="meta">2026-09-29 &middot; <span class="pill p-ok">settled</span></div>
+      <p><b>Context.</b> The mouse's forward side button sent F12 for camera drag through Logi Options+, and the mapping kept dropping after Bluetooth reconnects and an Options+ update.</p>
+      <p><b>Decision.</b> Bind <code>ForwardMouseButton</code> to <code>CameraPush</code> in the hotkey file and reset the button to plain Forward in Options+, so only one system owns it.</p>
+      <p><b>Cost.</b> The one removal from upstream: <code>SubgroupNext</code> loses the forward button and keeps Tab.</p>
+    </div>
+    <div class="adr">
+      <h3>16. Control groups stay exactly TheCore</h3>
+      <div class="meta">2026-10-04 &middot; <span class="pill p-ok">settled</span></div>
+      <p><b>Context.</b> Units seemed to stay in their old group after regrouping. Replays from 18 September to 4 October: add with steal 395 times, create with steal once (the tilde), create <em>without</em> steal 63 times, 42 of those on group 1. A replay records the command, not the key, and in this file create-without-steal lives only on <code>Shift+Alt+key</code>.</p>
+      <p><b>Decision.</b> Keep TheCore's four group layers as the PDF shows them: Ctrl adds with steal, Ctrl+Shift creates with steal, Shift+Alt creates without steal (for cloning), Ctrl+Alt adds without steal. A version where every Alt variant also stole was built and reverted the same day, for fidelity.</p>
+      <p><b>Rule to keep.</b> Make a group with <kbd>P+Caps+key</kbd>. If units linger in an old group, Alt was most likely down.</p>
     </div>
   </section>
   <section id="p-setup" hidden>
@@ -590,45 +619,44 @@ kbd code{background:none;padding:0}
       <li>Launch SC2, pick the profile in Options &rarr; Hotkeys, click <b>Ignore</b> on the conflict dialog.</li>
     </ol>
 
-    <h2 class="sec">The hotkey file: all fourteen changes</h2>
+    <h2 class="sec">The hotkey file: every change from upstream</h2>
     <div class="tblwrap"><table>
       <thead><tr><th>Command</th><th>Upstream</th><th>Installed</th><th>Reason</th></tr></thead>
       <tbody>
-        <tr><td><code>GatherProt</code></td><td>Y</td><td>Y,<strong>P</strong></td><td>no Y key</td></tr>
-        <tr><td><code>AlertRecall</code></td><td>Shift+BackSlash</td><td>+<strong>Shift+OEM102</strong></td><td>no BackSlash</td></tr>
-        <tr><td><code>ControlGroupAssignAndSteal6</code></td><td>Ctrl+Shift+CapsLock,BackSlash</td><td>+<strong>OEM102</strong></td><td>trash group on tilde</td></tr>
+        <tr><td><code>GatherProt</code></td><td>Y</td><td>Y,<strong>P</strong></td><td>no Y key; unreachable since P became Ctrl</td></tr>
+        <tr><td><code>Move</code></td><td>H</td><td>H,<strong>N</strong></td><td>no H key</td></tr>
+        <tr><td><code>AlertRecall</code></td><td>Shift+BackSlash</td><td>+<strong>Shift+OEM102, Shift+Grave</strong></td><td>no BackSlash; tilde</td></tr>
+        <tr><td><code>ControlGroupAssignAndSteal6</code></td><td>Ctrl+Shift+CapsLock,BackSlash</td><td>+<strong>OEM102, Grave</strong></td><td>trash group on tilde</td></tr>
         <tr><td><code>ArmySelect</code></td><td>Ctrl+Tab,Ctrl+Shift+Tab</td><td>+<strong>Ctrl+Alt+Tab</strong></td><td>Karabiner landing point</td></tr>
         <tr><td><code>ControlGroupAssignAndSteal3</code></td><td>Ctrl+Shift+3</td><td>+<strong>Ctrl+Alt+Shift+3</strong></td><td>Karabiner landing point</td></tr>
         <tr><td><code>ControlGroupAssignAndSteal4</code></td><td>Ctrl+Shift+Q</td><td>+<strong>Ctrl+Alt+Shift+Q</strong></td><td>Karabiner landing point</td></tr>
         <tr><td><code>ArmySelect</code></td><td>Ctrl+Tab,Ctrl+Shift+Tab</td><td>+<strong>Ctrl+Alt+Shift+Tab</strong></td><td>Shift-held landing point</td></tr>
-        <tr><td><code>ControlGroupRecall6</code></td><td>CapsLock</td><td>+<strong>O</strong></td><td>Caps Lock now sends O</td></tr>
-        <tr><td><code>ControlGroupAppendAndSteal6</code></td><td>Ctrl+CapsLock</td><td>+<strong>Ctrl+O</strong></td><td>Caps Lock now sends O</td></tr>
-        <tr><td><code>ControlGroupAppend6</code></td><td>Ctrl+Alt+CapsLock</td><td>+<strong>Ctrl+Alt+O</strong></td><td>Caps Lock now sends O</td></tr>
-        <tr><td><code>ControlGroupAssign6</code></td><td>Shift+Alt+CapsLock</td><td>+<strong>Shift+Alt+O</strong></td><td>Caps Lock now sends O</td></tr>
-        <tr><td><code>ControlGroupAssignAndSteal6</code></td><td>Ctrl+Shift+CapsLock</td><td>+<strong>Ctrl+Shift+O</strong></td><td>Caps Lock now sends O</td></tr>
-        <tr><td><code>CameraCenter</code></td><td>Alt+CapsLock</td><td>+<strong>Alt+O</strong></td><td>Caps Lock now sends O</td></tr>
+        <tr><td><code>ControlGroupRecall6</code></td><td>CapsLock</td><td>+<strong>O</strong></td><td>Caps Lock sent O 20-27 Sep; unused now</td></tr>
+        <tr><td><code>ControlGroupAppendAndSteal6</code></td><td>Ctrl+CapsLock</td><td>+<strong>Ctrl+O</strong></td><td>Caps Lock sent O 20-27 Sep; unused now</td></tr>
+        <tr><td><code>ControlGroupAppend6</code></td><td>Ctrl+Alt+CapsLock</td><td>+<strong>Ctrl+Alt+O</strong></td><td>Caps Lock sent O 20-27 Sep; unused now</td></tr>
+        <tr><td><code>ControlGroupAssign6</code></td><td>Shift+Alt+CapsLock</td><td>+<strong>Shift+Alt+O</strong></td><td>Caps Lock sent O 20-27 Sep; unused now</td></tr>
+        <tr><td><code>ControlGroupAssignAndSteal6</code></td><td>Ctrl+Shift+CapsLock</td><td>+<strong>Ctrl+Shift+O</strong></td><td>Caps Lock sent O 20-27 Sep; unused now</td></tr>
+        <tr><td><code>CameraCenter</code></td><td>Alt+CapsLock</td><td>+<strong>Alt+O, Alt+Grave</strong></td><td>O unused since 27 Sep; Grave is tilde</td></tr>
         <tr><td><code>ArmySelect</code></td><td>Ctrl+Tab,Ctrl+Shift+Tab</td><td>+<strong>F5</strong></td><td>G5, no modifier to intercept</td></tr>
+        <tr><td><code>CameraPush</code></td><td>MiddleMouseButton</td><td>+<strong>F12, ForwardMouseButton</strong></td><td>mouse side button</td></tr>
+        <tr><td><code>SubgroupNext</code></td><td>Tab,ForwardMouseButton</td><td>Tab</td><td>the one removal: button moved to camera push</td></tr>
       </tbody>
     </table></div>
     <p>SC2 translates these on load: every <code>Control</code> becomes <code>Command</code> and every <code>Alt</code> becomes <code>Option</code>. So <code>Ctrl+Alt+Shift+Q</code> in the file is what Karabiner emits as <code>Cmd+Opt+Shift+Q</code>.</p>
 
     <h2 class="sec">Karabiner rules</h2>
-    <p>Goes in <code>~/.config/karabiner/karabiner.json</code> under the selected profile's <code>complex_modifications.rules</code>. Eight manipulators, all scoped by <code>device_if</code> so no other keyboard is touched. Vendor <code>12815</code> is 0x320f and product <code>20480</code> is 0x5000, which is how the DITI identifies itself.</p>
-    <p><b>Each chord rule appears twice</b>, once matching <code>left_control</code> and once <code>left_command</code>. That is not redundancy. Karabiner matches <code>from.modifiers</code> against the <em>physical</em> modifier, not the remapped one. The first version of this config only matched <code>left_command</code>, the chords fell straight through, and Ctrl+Shift+Q quit the front application.</p>
+    <p>Two parts in <code>~/.config/karabiner/karabiner.json</code>, both scoped to the pad, so no other keyboard is touched. Vendor <code>12815</code> is 0x320f and product <code>20480</code> is 0x5000, which is how the DITI identifies itself.</p>
+    <p><b>Simple Modifications on the pad's device entry</b> do the plain remaps: Ctrl to Command, P to Command, Caps Lock to Shift. Karabiner applies simple modifications before complex ones, so the rules below see the remapped modifiers (decision 14).</p>
     <p><b>Every chord rule carries <code>"optional":["any"]</code>.</b> Without it, a rule matches only when its named modifiers are the exact set held. TheCore parks the thumb on Alt and keeps Shift down through warp-in and inject, so in real play a third modifier is almost always present, the reroute silently stopped matching, and the catch-all handed macOS a raw <code>Cmd+Shift+Tab</code> or <code>Cmd+Shift+Q</code>. That is a game losing focus mid-fight, not a missing hotkey.</p>
-    <p><b>The pad's Caps Lock is remapped to <code>O</code>.</b> Caps Lock is a locking key: macOS holds it for a moment before it registers, toggles the lock and the LED, and does not deliver a clean press and release. TheCore puts six commands on it. O is the fix because the pad has no O key and TheCore uses O nowhere in multiplayer, so the six group-6 lines simply gained an O alternate.</p>
-    <p>Complete and paste-ready. Eight manipulators: the three chords matched twice each, the Caps Lock remap, then the catch-all that makes Control behave as Command.</p>
-<pre>{
+    <p><b>Chat macros.</b> G3 and G4 send F3 and F4. Two rules turn them into Shift+Enter, the text, Enter, and only while SC2 is the front app.</p>
+    <p>Complete and paste-ready, copied from the live config: the device entry goes in the selected profile, the rule under its <code>complex_modifications.rules</code>. Three chord reroutes, then the two chat macros.</p>
+<pre>"devices": [
+  {"identifiers":{"is_keyboard":true,"vendor_id":12815,"product_id":20480},"simple_modifications":[{"from":{"key_code":"left_control"},"to":[{"key_code":"left_command"}]},{"from":{"key_code":"p"},"to":[{"key_code":"left_command"}]},{"from":{"key_code":"caps_lock"},"to":[{"key_code":"left_shift"}]}]}
+]
+
+{
   "description": "DITI pad TheCore Lite routing",
   "manipulators": [
-    {"type":"basic",
-     "from":{"key_code":"3","modifiers":{"mandatory":["left_control","shift"],"optional":["any"]}},
-     "to":[{"key_code":"3","modifiers":["left_command","left_option","left_shift"]}],
-     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
-    {"type":"basic",
-     "from":{"key_code":"q","modifiers":{"mandatory":["left_control","shift"],"optional":["any"]}},
-     "to":[{"key_code":"q","modifiers":["left_command","left_option","left_shift"]}],
-     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
     {"type":"basic",
      "from":{"key_code":"3","modifiers":{"mandatory":["left_command","shift"],"optional":["any"]}},
      "to":[{"key_code":"3","modifiers":["left_command","left_option","left_shift"]}],
@@ -638,21 +666,17 @@ kbd code{background:none;padding:0}
      "to":[{"key_code":"q","modifiers":["left_command","left_option","left_shift"]}],
      "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
     {"type":"basic",
-     "from":{"key_code":"tab","modifiers":{"mandatory":["left_control"],"optional":["any"]}},
-     "to":[{"key_code":"tab","modifiers":["left_command","left_option"]}],
-     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
-    {"type":"basic",
      "from":{"key_code":"tab","modifiers":{"mandatory":["left_command"],"optional":["any"]}},
      "to":[{"key_code":"tab","modifiers":["left_command","left_option"]}],
      "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
-    {"type":"basic",
-     "from":{"key_code":"caps_lock","modifiers":{"optional":["any"]}},
-     "to":[{"key_code":"o"}],
-     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]},
-    {"type":"basic",
-     "from":{"key_code":"left_control","modifiers":{"optional":["any"]}},
-     "to":[{"key_code":"left_command"}],
-     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]}]}
+    {"type":"basic","description":"G3: all-chat gl hf",
+     "from":{"key_code":"f3"},
+     "to":[{"key_code":"return_or_enter","modifiers":["left_shift"],"hold_down_milliseconds":60},{"key_code":"g"},{"key_code":"l"},{"key_code":"spacebar"},{"key_code":"h"},{"key_code":"f"},{"key_code":"return_or_enter"}],
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]},{"type":"frontmost_application_if","bundle_identifiers":["^com\\.blizzard\\.starcraft2$"]}]},
+    {"type":"basic","description":"G4: all-chat gg wp",
+     "from":{"key_code":"f4"},
+     "to":[{"key_code":"return_or_enter","modifiers":["left_shift"],"hold_down_milliseconds":60},{"key_code":"g"},{"key_code":"g"},{"key_code":"spacebar"},{"key_code":"w"},{"key_code":"p"},{"key_code":"return_or_enter"}],
+     "conditions":[{"type":"device_if","identifiers":[{"vendor_id":12815,"product_id":20480}]},{"type":"frontmost_application_if","bundle_identifiers":["^com\\.blizzard\\.starcraft2$"]}]}
   ]
 }</pre>
     <h2 class="sec">Verifying</h2>
@@ -663,7 +687,7 @@ hidutil list --matching '{"PrimaryUsagePage":1,"PrimaryUsage":6}'
 systemextensionsctl list | grep -i karabiner
 # want: [activated enabled], not [activated waiting for user]
 
-# does the installed file still match upstream plus the seven
+# does the installed file still match upstream plus the changes above
 diff upstream.SC2Hotkeys "$HOME/Library/Application Support/Blizzard/\
 StarCraft II/Accounts/&lt;id&gt;/Hotkeys/TheCore Lite Nordic DITI.SC2Hotkeys"</pre>
     <p>To check what a key really sends, open any page with a console and log <code>keydown</code> events. That is how the G keys were found to be F1 to F5, the globe key to be M, and the chord routing to be working. It is non-destructive, unlike SC2's own hotkey editor.</p>
@@ -676,7 +700,9 @@ StarCraft II/Accounts/&lt;id&gt;/Hotkeys/TheCore Lite Nordic DITI.SC2Hotkeys"</p
         <tr><td>Profile missing from the dropdown</td><td>Installed to the top-level Hotkeys folder</td><td>Move it to the per-account folder</td></tr>
         <tr><td>Bindings vanish, Forge stops working</td><td>Unsupported key pressed in SC2's hotkey editor</td><td>Reinstall the file with SC2 closed</td></tr>
         <tr><td>Edits to the file revert</td><td>SC2 was running and rewrote it on exit</td><td>Quit SC2 first, always</td></tr>
-        <tr><td>Caps Lock turns on, chat SHOUTS, group 6 feels laggy</td><td>Caps Lock is a locking key with an OS hold delay</td><td>Karabiner sends O from the pad instead; group 6 rides the O alternates</td></tr>
+        <tr><td>Caps Lock turns on, chat SHOUTS, group 6 feels laggy</td><td>Caps Lock is a locking key with an OS hold delay</td><td>Karabiner makes the pad's Caps Lock a plain Shift (it sent O from 20 to 27 Sep)</td></tr>
+        <tr><td>G3 or G4 drops the first letter, or types outside the game</td><td>The chat box opened late, or SC2 was not the front app</td><td>Lengthen the Shift+Enter hold in the chat rule; check its frontmost-app condition</td></tr>
+        <tr><td>Units stay in their old group after regrouping</td><td>Alt was down: Shift+Alt+key creates without steal, by TheCore design</td><td>Create with P+Caps+key (decision 16)</td></tr>
         <tr><td>Select all army does nothing, or the app switcher appears</td><td>A chord rule missing <code>optional: any</code>, so it stopped matching with Alt or Shift also held</td><td>Every chord rule now carries <code>"optional":["any"]</code></td></tr>
         <tr><td>Ctrl+W toggles a UI panel</td><td>Upstream conflict with <code>ToggleWorldPanel</code></td><td>Use Alt+Q for the Nexus group</td></tr>
       </tbody>
@@ -699,7 +725,7 @@ StarCraft II/Accounts/&lt;id&gt;/Hotkeys/TheCore Lite Nordic DITI.SC2Hotkeys"</p
   </section>
 
 
-  <p class="note">Built with Claude over 18-20 September 2026. Key tables machine-checked against <a href="https://github.com/bobo38/TheCoreLite" style="color:var(--gold)">bobo38/TheCoreLite</a>, Nordic variant. The Terran and Zerg tabs were read out of the same file on 20 September and have not yet been played.</p>
+  <p class="note">Built with Claude over 18-20 September 2026, updated 4 October. Key tables machine-checked against <a href="https://github.com/bobo38/TheCoreLite" style="color:var(--gold)">bobo38/TheCoreLite</a>, Nordic variant. The Terran and Zerg tabs were read out of the same file on 20 September and have not yet been played.</p>
 </div>
 <script>
 const R={group:"k-group",cam:"k-cam",rapid:"k-rapid",prec:"k-prec",ui:"k-ui",mod:"k-mod",add:"k-add",open:"k-open",off:"k-off"};
@@ -717,19 +743,19 @@ const GCOL=[["g2","G2 · F2"],["g3","G3 · F3"],["g4","G4 · F4"],["g5","G5 · F
 const RCOL=[["g1","G1 · F1"],["space","Space"]];
 
 const base={
- esc:["Cancel","ui"], f1:["Idle worker","ui"], f2:["Minimap colours","ui"], f3:["free","off"], f4:["free","off"],
+ esc:["Cancel","ui"], f1:["Idle worker","ui"], f2:["Minimap colours","ui"], f3:["Chat: gl hf","add"], f4:["Chat: gg wp","add"],
  m:["Warp Gate → Gateway","rapid"], grave:["Trash group → 6","group"],
  "1":["Group 1","group"],"2":["Group 2","group"],"3":["Group 3","group"],
  "4":["Command","rapid"],"5":["Command","rapid"],"6":["Command","rapid"],
  tab:["Subgroup next","ui"], q:["Group 4 · army","group"], w:["Group 5 · bases","group"],
  e:["Precision key 1","prec"], r:["Command","rapid"], t:["Patrol","rapid"],
- caps:["Group 6 · pad sends O","group"], a:["Group 7","group"], s:["Group 8","group"],
+ caps:["Shift · pad remap","mod"], a:["Group 7","group"], s:["Group 8","group"],
  d:["Attack","rapid"], f:["Command","rapid"], g:["Hold","rapid"],
  shift:["Modifier","mod"], z:["Group 9","group"], x:["Group 0","group"],
  c:["Precision key 2","prec"], v:["Stop / cancel","rapid"], b:["Base camera","cam"],
  ctrl:["Modifier","mod"], fn:["Fn only","off"], alt:["Modifier","mod"],
- n:["free","off"], p:["Gather","add"], space:["Primary ability / train","rapid"],
- g1:["Idle worker","ui"], g2:["Minimap colours","ui"], g3:["free","off"], g4:["free","off"], g5:["Select all army","add"]
+ n:["Move","add"], p:["Ctrl · pad remap","mod"], space:["Primary ability / train","rapid"],
+ g1:["Idle worker","ui"], g2:["Minimap colours","ui"], g3:["Chat: gl hf","add"], g4:["Chat: gg wp","add"], g5:["Select all army","add"]
 };
 const shift={
  esc:["Cancel","ui"], f1:["Terrain minimap","ui"], f2:["Team resources","ui"],
@@ -759,7 +785,7 @@ const shiftalt={
  "4":["AI: build","ui"],"5":["AI: communication","ui"],
  q:["Assign → 4 · no steal","group"], w:["Assign → 5 · no steal","group"],
  e:["Town camera · cycle bases","cam"], r:["AI: army","ui"], t:["AI: scout","ui"],
- caps:["Assign → 6 · no steal","group"], a:["Assign → 7 · no steal","group"], s:["Assign → 8 · no steal","group"],
+ a:["Assign → 7 · no steal","group"], s:["Assign → 8 · no steal","group"],
  f:["AI: detect","ui"], g:["AI: clear all","ui"],
  z:["Assign → 9 · no steal","group"], x:["Assign → 0 · no steal","group"],
  c:["AI: expand","ui"], v:["AI: delete","ui"],
@@ -769,7 +795,7 @@ const ctrl={
  "1":["Add + steal → 1","group"],"2":["Add + steal → 2","group"],"3":["Add + steal → 3","group"],
  tab:["Select all army","ui"], q:["Add + steal → 4","group"], w:["Add + steal → 5 · prefer Alt+Q","group"],
  e:["Jump cam 3","cam"], r:["Make cam 3","cam"],
- caps:["Add + steal → 6","group"], a:["Add + steal → 7","group"], s:["Add + steal → 8","group"],
+ a:["Add + steal → 7","group"], s:["Add + steal → 8","group"],
  d:["Jump cam 2","cam"], f:["Make cam 2","cam"],
  z:["Add + steal → 9","group"], x:["Add + steal → 0","group"],
  c:["Jump cam 1","cam"], v:["Make cam 1","cam"], ctrl:["Show enemy life","mod"]
@@ -777,13 +803,13 @@ const ctrl={
 const ctrlshift={
  "1":["Create + steal → 1","group"],"2":["Create + steal → 2","group"],"3":["Create + steal → 3","group"],
  tab:["Select all army","ui"], q:["Create + steal → 4","group"], w:["Create + steal → 5","group"],
- caps:["Create + steal → 6","group"], a:["Create + steal → 7","group"], s:["Create + steal → 8","group"],
+ a:["Create + steal → 7","group"], s:["Create + steal → 8","group"],
  z:["Create + steal → 9","group"], x:["Create + steal → 0","group"]
 };
 const ctrlalt={
  "1":["Append → 1 · no steal","group"],"2":["Append → 2 · no steal","group"],"3":["Append → 3 · no steal","group"],
  q:["Append → 4 · no steal","group"], w:["Append → 5 · no steal","group"],
- caps:["Append → 6 · no steal","group"], a:["Append → 7 · no steal","group"], s:["Append → 8 · no steal","group"],
+ a:["Append → 7 · no steal","group"], s:["Append → 8 · no steal","group"],
  z:["Append → 9 · no steal","group"], x:["Append → 0 · no steal","group"],
  ctrl:["Show enemy life","mod"], alt:["Show enemy life","mod"]
 };
@@ -797,6 +823,8 @@ const LAYERS={
  shiftalt:{label:"Shift+Alt",map:shiftalt}
 };
 
+/* Pad remaps since 27 Sep: Caps Lock is a second Shift and P a second Ctrl, on every layer */
+Object.entries(LAYERS).forEach(([k,v])=>{if(k==="base")return; const m=v.map; if(!m.caps) m.caps=m.shift||["Modifier","mod"]; if(!m.p) m.p=m.ctrl||["Modifier","mod"];});
 const RACES={
  prot:{label:"Protoss",ctx:{
   nexus:{label:"Nexus",keys:{space:["Probe","rapid"],e:["Chrono Boost","prec"],c:["Energy Recharge","prec"],r:["Mass Recall","rapid"],f:["Mothership","rapid"]}},

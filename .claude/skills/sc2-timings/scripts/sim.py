@@ -21,8 +21,8 @@ until it starts). '#' starts a comment. 'race Terran' and 'end 7:30' are optiona
             scout <seconds>                    one worker leaves minerals for that long
             recharge                           Energy Recharge: spends 50 Nexus energy
             gas <N>                            at most N workers on gas
-            gas <N>+<M>                        N on gas, plus up to M more once minerals hold
-                                               16 per finished base
+            gas <N>+<M>                        N on gas first, M more only after their base's
+                                               minerals hold 16
             loop <Unit> [<Unit> ...]           every free producer keeps making these; a step
                                                waiting for money reserves its cost first, then
                                                earlier units reserve theirs before later ones
@@ -35,7 +35,9 @@ until it starts). '#' starts a comment. 'race Terran' and 'end 7:30' are optiona
 
 Model (Faster seconds): minerals 54/min per worker for the first 16 on a base and 35/min
 for workers 17-24, gas 54/min per worker (3 per geyser), fitted to replays (see the DB's
-constants.mining). Workers
+constants.mining). Ordered gas first, then each worker takes the next open job: main
+minerals to 16, main gases, natural minerals to 16, natural gases; only workers beyond
+every job oversaturate. Workers
 split evenly across finished bases. A Protoss builder is off minerals 6s (14s for a Nexus),
 a Terran builder for the whole build. Chrono +50% for 20s. MULE ~225 over 64s. Warp-in
 3.6s in a fast field, cooldown runs during it. Gateways auto-transform once Warp Gate
@@ -117,15 +119,27 @@ class Sim:
         return s.workers - sum(n for u, n in s.away if u > s.t)
 
     def income(s):
-        bases = max(1, len([x for x in s.b if x.typ in TOWN and s.up(x)]))
-        geys = len([x for x in s.b if x.typ in GASB and s.up(x)])
-        free = s.free_workers()
-        gw = max(0, min(3 * geys, free - 1, s.gascap))
-        if s.gasextra:
-            # extra gas workers only once every finished base has 16 on minerals
-            gw = min(3 * geys, gw + max(0, min(s.gasextra, free - gw - 16 * bases)))
-        per = (free - gw) / bases
-        f = (min(per, 16) * R1 + max(0.0, min(per, 24) - 16) * R2) * bases
+        # Jobs fill in order, the way probes rally out of the Nexuses. Gas the build ordered
+        # explicitly ('gas N', e.g. three probes in at the Core) is staffed first, from the
+        # main's geysers. Then each base's minerals fill to 16, then that base's remaining gas
+        # jobs (within 'gas N+M'), then the next base. Geysers belong to bases in build order,
+        # two per base. Nobody is moved; only workers left over after every job oversaturate
+        # minerals (17-24 on a base, 35/min each).
+        bases = sorted([x for x in s.b if x.typ in TOWN and s.up(x)], key=lambda x: x.done) or s.b[:1]
+        geys = [x for x in s.b if x.typ in GASB]
+        cap = s.gascap + s.gasextra
+        rem, gw, mins = float(s.free_workers()), 0.0, []
+        load = [0.0] * len(geys)
+        for j, gx in enumerate(geys):
+            if s.up(gx) and j < 2 * len(bases):
+                t = max(0.0, min(3.0, rem - 1, s.gascap - gw)); load[j] = t; gw += t; rem -= t
+        for i in range(len(bases)):
+            take = min(16.0, rem); mins.append(take); rem -= take
+            for j in range(2 * i, min(2 * i + 2, len(geys))):
+                if s.up(geys[j]):
+                    t = max(0.0, min(3.0 - load[j], rem, cap - gw)); load[j] += t; gw += t; rem -= t
+        over = rem / len(bases)
+        f = sum(m * R1 + max(0.0, min(over, 24 - m)) * R2 for m in mins)
         f += 3.52 * len([u for u in s.mule if u > s.t])
         return f, gw * RG
 

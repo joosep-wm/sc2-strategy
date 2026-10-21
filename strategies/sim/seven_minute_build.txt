@@ -27,7 +27,7 @@
 - Observer
 - Immortal
 - chrono Robotics Facility
-- workers 44
+- workers 38                # 16+6 main, 16 natural: every job full, nobody oversaturated
 - autosupply
 - loop Immortal Zealot      # Immortals first, Zealots with the rest
 - Charge
@@ -44,4 +44,8 @@
 7:00 report                 # hit
 7:30 report
 7:30 Nexus
-end 7:45
+- Assimilator               # natural gases only after the hit; probes 39-44 fill them
+- Assimilator
+- gas 6+6
+- workers 44
+end 8:10

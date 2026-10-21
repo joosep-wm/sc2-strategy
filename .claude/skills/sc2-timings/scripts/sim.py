@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build-order simulator on top of data/sc2_data.json (Protoss and Terran).
 
-Usage: sim.py <build.txt> [--rate 54] [--trace]
+Usage: sim.py <build.txt> [--rate 54] [--slack 0] [--trace]
 
 Build file: one step per line, executed strictly in order (a step blocks the next
 until it starts). '#' starts a comment. 'race Terran' and 'end 7:30' are optional headers.
@@ -31,6 +31,8 @@ until it starts). '#' starts a comment. 'race Terran' and 'end 7:30' are optiona
             bank <minerals>                    wait until the bank holds this much (use with save)
             keep gateways                      stop the default auto-transform to Warp Gate
             autosupply                         Pylon/Depot whenever supply runs short
+            queue <Research>                   start it whenever its building is free and it is
+                                               affordable, without holding up later steps
             report                             print the state at the trigger time
   'save' stops worker production while that step waits for money.
 
@@ -52,6 +54,9 @@ DT = 0.05
 args = sys.argv[1:]
 TRACE = '--trace' in args
 RATE = float(args[args.index('--rate') + 1]) if '--rate' in args else 54.0
+# --slack S: a unit producer (Warp Gate, Robo, Barracks...) is used S seconds after it frees up,
+# a stand-in for warp-ins and queues done late. Workers are queued, so they are not affected.
+SLACK = float(args[args.index('--slack') + 1]) if '--slack' in args else 0.0
 R1, R2, RG = RATE / 60, 35 / 60, 54 / 60
 db = load()
 WG = db['constants']['macro_mechanics']['WarpGate']
@@ -74,7 +79,7 @@ class B:
     def __init__(s, typ, done):
         s.typ, s.done, s.item, s.left, s.chrono = typ, done, None, 0.0, -1.0
         s.energy = 50.0 if typ in ('Nexus', 'Orbital Command') else 0.0
-        s.addon, s.extra, s.cd = None, [], 0.0
+        s.addon, s.extra, s.cd, s.wait = None, [], 0.0, 0.0
 
 
 class Sim:
@@ -85,7 +90,7 @@ class Sim:
         s.used, s.away = 12, []
         s.b = [B('Nexus' if race == 'Protoss' else 'Command Center', 0.0)]
         s.ups, s.upprog = {}, set()
-        s.loops, s.autosupply, s.autochrono = [], False, []
+        s.loops, s.autosupply, s.autochrono, s.queued = [], False, [], []
         s.mule, s.log, s.units = [], [], []
         s.mined = 0.0
         s.keepgates = False
@@ -153,7 +158,7 @@ class Sim:
             names += ['Command Center', 'Orbital Command', 'Planetary Fortress']
         lab = any(r.endswith('Tech Lab') for r in e.get('req', []))
         for x in s.b:
-            if not s.up(x):
+            if not s.up(x) or x.wait > 0:
                 continue
             if x.typ == 'Warp Gate' and 'Gateway' in names:
                 if x.cd <= 0:
@@ -215,12 +220,18 @@ class Sim:
             if not s.up(x):
                 continue
             sp = 1.5 if x.chrono > s.t else 1.0
+            if x.wait > 0:
+                x.wait -= DT
             if x.cd > 0:
                 x.cd -= DT * sp
+                if x.cd <= 0 and x.typ == 'Warp Gate':
+                    x.wait = SLACK
             if x.item:
                 x.left -= DT * sp
                 if x.left <= 0:
                     it, x.item = x.item, None
+                    if it not in ('Probe', 'SCV') and not it.startswith('@'):
+                        x.wait = SLACK
                     s.finish(x, it)
             for ex in list(x.extra):
                 ex[1] -= DT * sp
@@ -286,6 +297,8 @@ class Sim:
             return True
         if a == 'autosupply':
             s.autosupply = True; return True
+        if a.startswith('queue '):
+            s.queued.append(a.split(None, 1)[1].strip()); return True
         if a.startswith('autochrono '):
             s.autochrono = [n.strip() for n in a.split(None, 1)[1].split(',')]; return True
         if a == 'transform':
@@ -426,6 +439,9 @@ class Sim:
                     if x.typ in TOWN and s.up(x) and x.item is None and s.workers + s.wprod < s.wcap \
                             and s.m >= 50 and s.used < s.cap():
                         s.m -= 50; s.used += 1; s.wprod += 1; x.item, x.left = wk, 12.0
+            for q in list(s.queued):
+                if s.m >= wm and s.g >= wg and s.do({'act': q, 'raw': q}):
+                    s.queued.remove(q); s.log.append((s.t, s.used, q + ' (queued)'))
             if s.loops and not s.loopfirst:
                 s.run_loops(wm, wg)
             s.away = [(u, n) for u, n in s.away if u > s.t]

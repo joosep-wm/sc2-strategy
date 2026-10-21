@@ -21,6 +21,8 @@ until it starts). '#' starts a comment. 'race Terran' and 'end 7:30' are optiona
             scout <seconds>                    one worker leaves minerals for that long
             recharge                           Energy Recharge: spends 50 Nexus energy
             gas <N>                            at most N workers on gas
+            gas <N>+<M>                        N on gas, plus up to M more once minerals hold
+                                               16 per finished base
             loop <Unit> [<Unit> ...]           every free producer keeps making these; a step
                                                waiting for money reserves its cost first, then
                                                earlier units reserve theirs before later ones
@@ -77,7 +79,7 @@ class Sim:
     def __init__(s, race, steps):
         s.race, s.steps, s.i = race, steps, 0
         s.t, s.m, s.g = 0.0, 50.0, 0.0
-        s.workers, s.wprod, s.wcap, s.gascap = 12, 0, 80, 99
+        s.workers, s.wprod, s.wcap, s.gascap, s.gasextra = 12, 0, 80, 99, 0
         s.used, s.away = 12, []
         s.b = [B('Nexus' if race == 'Protoss' else 'Command Center', 0.0)]
         s.ups, s.upprog = {}, set()
@@ -119,6 +121,9 @@ class Sim:
         geys = len([x for x in s.b if x.typ in GASB and s.up(x)])
         free = s.free_workers()
         gw = max(0, min(3 * geys, free - 1, s.gascap))
+        if s.gasextra:
+            # extra gas workers only once every finished base has 16 on minerals
+            gw = min(3 * geys, gw + max(0, min(s.gasextra, free - gw - 16 * bases)))
         per = (free - gw) / bases
         f = (min(per, 16) * R1 + max(0.0, min(per, 24) - 16) * R2) * bases
         f += 3.52 * len([u for u in s.mule if u > s.t])
@@ -254,7 +259,9 @@ class Sim:
         if a.startswith('scout '):
             s.away.append((s.t + float(a.split()[1]), 1)); return True
         if a.startswith('gas '):
-            s.gascap = int(a.split()[1]); return True
+            v = a.split()[1]
+            first, _, extra = v.partition('+')
+            s.gascap, s.gasextra = int(first), int(extra or 0); return True
         if a.startswith('loop '):
             s.loops = a.split(None, 1)[1].replace(',', ' ').split()
             s.loopfirst = s.loops[0] == 'first'

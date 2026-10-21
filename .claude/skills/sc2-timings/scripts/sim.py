@@ -31,8 +31,8 @@ until it starts). '#' starts a comment. 'race Terran' and 'end 7:30' are optiona
             bank <minerals>                    wait until the bank holds this much (use with save)
             keep gateways                      stop the default auto-transform to Warp Gate
             autosupply                         Pylon/Depot whenever supply runs short
-            queue <Research>                   start it whenever its building is free and it is
-                                               affordable, without holding up later steps
+            asap <Research>                    start it the moment it can be researched (e.g. +2
+                                               when +1 finishes) without holding up later steps
             report                             print the state at the trigger time
   'save' stops worker production while that step waits for money.
 
@@ -297,7 +297,7 @@ class Sim:
             return True
         if a == 'autosupply':
             s.autosupply = True; return True
-        if a.startswith('queue '):
+        if a.startswith('asap '):
             s.queued.append(a.split(None, 1)[1].strip()); return True
         if a.startswith('autochrono '):
             s.autochrono = [n.strip() for n in a.split(None, 1)[1].split(',')]; return True
@@ -329,6 +329,9 @@ class Sim:
             hs = [x for x in s.ready(at) if x.item is None]
             if a in s.ups or a in s.upprog or not hs or s.m < e['mins'] or s.g < e['gas']:
                 return False
+            lv = re.match(r'(.+ L)(\d)$', a)
+            if lv and int(lv.group(2)) > 1 and lv.group(1) + str(int(lv.group(2)) - 1) not in s.ups:
+                return False  # level 2 needs level 1 finished; SC2 cannot queue it behind level 1
             if not all(s.have(q) for q in e.get('req', [])):
                 return False
             s.m -= e['mins']; s.g -= e['gas']; s.upprog.add(a)
@@ -441,7 +444,7 @@ class Sim:
                         s.m -= 50; s.used += 1; s.wprod += 1; x.item, x.left = wk, 12.0
             for q in list(s.queued):
                 if s.m >= wm and s.g >= wg and s.do({'act': q, 'raw': q}):
-                    s.queued.remove(q); s.log.append((s.t, s.used, q + ' (queued)'))
+                    s.queued.remove(q); s.log.append((s.t, s.used, q + ' (asap)'))
             if s.loops and not s.loopfirst:
                 s.run_loops(wm, wg)
             s.away = [(u, n) for u, n in s.away if u > s.t]

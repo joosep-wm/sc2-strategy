@@ -1,5 +1,5 @@
 # The 7:00 Protoss Build, patch 5.0.17. Chargelot-Immortal +1 off four Warp Gates and three Robos,
-# buildings in groups, two bases on three gases (41 probes filled in order), hit 7:00.
+# buildings in groups, two bases fully saturated (44 probes, four gases, filled in order), hit 7:00.
 # Clean:     python3 .claude/skills/sc2-timings/scripts/sim.py strategies/sim/seven_minute_build.txt
 # Realistic: add --rate 50 --slack 5 (7% slower mining, every warp-in and Immortal 5 s late)
 - gas 0
@@ -25,17 +25,18 @@
 - Twilight Council          # group: Twilight and Forge together
 - Forge
 - Observer
-- Assimilator               # the natural's one gas, before probe 39
-- gas 6+3                   # filled once the natural's minerals hold 16
+- Assimilator               # the natural's two gases, ready before probe 39
+- Assimilator
+- gas 6+6                   # filled once the natural's minerals hold 16
 - Immortal
 - chrono Robotics Facility
-- workers 41                # 16+6 main, 16+3 natural
+- workers 44                # two bases full: 16 + 6 each
 - autosupply
 - loop Immortal Zealot      # a free Robo holds 250/100 for its Immortal; Zealots with the rest
 - Charge
 - chrono Twilight Council
 - Ground Weapons L1
-- queue Ground Weapons L2   # starts when the Forge frees up
+- asap Ground Weapons L2    # clicked the moment +1 finishes
 - autochrono Robotics Facility, Forge, Warp Gate
 - bank 300
 - Robotics Facility         # group: Robos 2 and 3 together

@@ -1,0 +1,24 @@
+# Joosep: Marine-Cyclone one-base hit with a CC behind it, patch 5.0.17.
+race Terran
+14 Supply Depot
+16 Barracks
+16 Refinery
+- Tech Lab on Barracks
+- Orbital Command
+- loop first Marine
+- Refinery
+- Supply Depot
+- Factory
+- Barracks
+- Supply Depot
+- Tech Lab on Factory
+- Cyclone
+- Stimpack
+- workers 23
+- autosupply
+- Cyclone
+- Command Center
+- report
+4:00 report
+4:30 report
+end 4:31

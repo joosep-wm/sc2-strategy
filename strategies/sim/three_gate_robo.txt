@@ -1,0 +1,25 @@
+# 3-Gate Robo Stalker-Prism punch (PvP / PvT), one base, patch 5.0.17.
+- chrono Nexus
+14 Pylon
+16 Gateway
+17 Assimilator
+18 Assimilator
+1:04 chrono Nexus
+- Gateway
+- Cybernetics Core
+- Pylon
+- workers 22
+- Stalker
+- chrono Gateway
+- Warp Gate (research)
+- Gateway
+- Robotics Facility
+- autosupply
+- loop Stalker
+- Warp Prism
+- chrono Robotics Facility
+- autochrono Warp Gate, Gateway
+4:00 report
+4:30 report
+5:00 report
+end 5:01

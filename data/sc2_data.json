@@ -1,17 +1,19 @@
 {
   "meta": {
     "title": "StarCraft II Ground-Truth Timings & Costs Database",
-    "patch": "5.0.16b",
-    "patch_date": "2026-07-16",
-    "patch_notes": "https://news.blizzard.com/en-us/article/24291949/starcraft-ii-5-0-16b-hotfix-patch-notes",
-    "generated": "2026-09-20",
+    "patch": "5.0.17",
+    "patch_date": "2026-10-08",
+    "patch_notes": "https://news.blizzard.com/en-us/article/24309308/",
+    "generated": "2026-10-21",
     "primary_sources": [
+      "https://news.blizzard.com/en-us/article/24309308/",
+      "https://liquipedia.net/starcraft2/Patch_5.0.17",
+      "https://news.blizzard.com/en-us/article/24289266/starcraft-ii-5-0-16-hotfix-patch-notes",
       "https://news.blizzard.com/en-us/article/24291949/starcraft-ii-5-0-16b-hotfix-patch-notes",
+      "https://news.blizzard.com/en-us/article/24259080/starcraft-ii-5-0-16-patch-notes",
       "https://liquipedia.net/starcraft2/Unit_Statistics_(Legacy_of_the_Void)",
       "https://liquipedia.net/starcraft2/Building_Statistics_(Legacy_of_the_Void)",
-      "https://liquipedia.net/starcraft2/Upgrades",
-      "https://news.blizzard.com/en-us/article/24259080/starcraft-ii-5-0-16-patch-notes",
-      "https://liquipedia.net/starcraft2/Patches"
+      "https://liquipedia.net/starcraft2/Upgrades"
     ],
     "field_glossary": {
       "mins": "mineral cost",
@@ -40,24 +42,30 @@
       "building_fix_2026_07_05": "Building bt values were double-converted (real-time values had been labeled normal and divided again). Fixed: bt_faster now holds the real-time/Faster value, bt_normal recomputed as faster*1.399902. Empirically verified against a 5.0.16 EU ladder replay (2026-07-04): observed Pylon 17.9f, Gateway 46.4f, Cybernetics Core 35.7f, Stargate 42.9f, Nexus 71.4f, Assimilator 21.4f, Shield Battery 28.6f, Forge 32.1f, Fleet Beacon 42.9f, Robotics Facility 46.4f — all matching the corrected bt_faster. Unit times were already correct (observed Probe 12f, Stalker 27f, Oracle 37f). bt_normal snapped to the nearest multiple of 5 when within 1 (canonical Normal times are 5-multiples: CC 100, Barracks 65, Depot 30)."
     },
     "provenance_notes": [
-      "Unit costs/supply/times: Liquipedia Unit Statistics (Faster), reconciled with 5.0.16 patch notes (Ghost supply 3, Ghost HP 100).",
-      "Building costs/times: Liquipedia Building Statistics (Normal, converted to Faster), with 5.0.16 fixes (Hatchery cost 300, CC/Nexus provides_supply 13, Hatchery/Lair/Hive provides_supply 4).",
-      "Upgrades: Liquipedia upgrade/building pages (Faster). Zerg Ground Carapace costs updated to 5.0.16 (100/150/200) — Liquipedia page still stale at 150/200/250.",
+      "Patch values: Blizzard 5.0.17 notes and Liquipedia Patch 5.0.17 agree line for line (checked 2026-10-21). Liquipedia unit pages are stale (pre-5.0.14 numbers) and were not used.",
+      "Checked against Dante's 5.0.17 ladder replay (Rust Bucket 2v2, 2026-10-20, build 98310): 12 workers and 12/15 supply at 0:00 (Zerg 12/14); warp-ins 3.6s (275 cases) and 11.4s (12 cases); a Gateway after Warp Gate research trains a Stalker every 27.1s, so the speedup is gone.",
+      "Chrono Boost 20s Faster: in a 5.0.15-rules replay a Nexus chronoed at 0:11.5 produced boosted Probes until 0:31.4 (19.9s).",
+      "Mining rates: median replay Collection Rate over 84 replays from 2026-08-25, one base and no gas, about 49 minerals per worker-minute up to 19 workers (Faster); saturated geysers cluster at 156-167 gas/min each. Per-trip yields did not change in 5.0.17.",
+      "Unit costs/supply/times: Liquipedia Unit Statistics (Faster) reconciled with patch notes. Building costs/times: Liquipedia Building Statistics (Normal, converted to Faster).",
       "Weapon/armor upgrade bt_normal values are back-computed (faster*1.4) and may differ +/-1s from the exact catalog integer.",
-      "Combat stats (hp/shield/armor/attributes) are supplementary and stable across recent patches; for exhaustive combat data (DPS, range, bonus-vs-type) consult Liquipedia unit pages.",
-      "Raw multi-agent research dump kept at scratchpad tasks/wxr9np23v.output for audit."
+      "Combat stats (hp/shield/armor/attributes) are supplementary; for exhaustive combat data consult Liquipedia unit pages, which are currently stale."
     ],
     "verify_flags": [
-      "5.0.16 is a very large patch; per-unit combat reworks beyond the captured cost/supply/time deltas (e.g. Ghost attack/Steady Targeting, Infestor Microbial Shroud rework, Mutalisk Glaives) are noted but combat numbers should be re-checked if used for fine balance.",
-      "Worker mining rates are distance/saturation-dependent approximations, not exact engine constants."
+      "High/Dark Templar Gateway train time 40s: from the 30 Jun 2026 hotfix; 5.0.17 notes are silent. Pre-5.0.16 value was 39 per Liquipedia. Check the first Gateway-trained Templar in a replay.",
+      "Gateway/Warp Gate transform duration 4s both ways: from 5.0.16b; 5.0.17 notes are silent (5.0.15 was 7s/5s).",
+      "Rich vespene return per trip 6: from 5.0.16; 5.0.17 notes are silent (5.0.15 was 8).",
+      "Shield Battery starting energy: 5.0.17 says 100 near a Nexus, otherwise 50.",
+      "Worker mining rates are replay-calibrated medians, not engine constants; they include workers walking to build."
     ],
     "patch_history": [
       "5.0.16 live 2026-06-22",
-      "hotfix 2026-06-30",
-      "5.0.16b hotfix 2026-07-16"
+      "5.0.16 hotfix 2026-06-30 (geyser 2000, larva 9.9, Reaper 34, Adept 33, HT/DT 40, Mothership 200/400; missed by this DB until 2026-10-21)",
+      "5.0.16b hotfix 2026-07-16",
+      "5.0.17 live 2026-10-07 NA/KR, 2026-10-08 EU, build 98310 (rolls most of 5.0.16 back to 5.0.15)"
     ],
     "patch_notes_5_0_16": "https://news.blizzard.com/en-us/article/24259080/starcraft-ii-5-0-16-patch-notes",
-    "revision_note": "Updated 2026-09-20 for the 5.0.16b hotfix (2026-07-16), which this DB predated. Changed: Warp Gate research train-time reduction 40% -> 50%; Gateway/Warp Gate transform duration 7s/5s -> 4s; Command Center 400 -> 300 minerals; Planetary Fortress 150/150 -> 250/150; Ghost supply 3 -> 2; Colossus damage 10(+5 vs Light) -> 12(+3 vs Light); Adept weapon-upgrade step 1(+1 vs Light) -> 2(+2 vs Light); Disruptor phantom weapon range 11.35 -> 7."
+    "revision_note": "Updated 2026-10-21 to 5.0.17, which reverts most of 5.0.16. Economy: 12 starting workers, large/small patch 1800/900, geyser 2250 (4500 per base). Supply: CC/Orbital/PF/Nexus 15, Hatchery/Lair/Hive 6 (cost 275). Command Center 400, Planetary Fortress 150/150. Warp Gate: research no longer speeds Gateway production; transform free; warp-in 3.6s in a fast field, 11.4s in a slow one; cooldowns Zealot/Adept 20, Stalker/Sentry 23, HT/DT 32. Adept 30s and +1(+1 vs Light) per upgrade; Psi Storm 110; Colossus 10(+5 vs Light); Mothership 350/350; Disruptor phantom weapon removed; Forcefield breaks to one Bile. Ghost HP 125, 10(+10 vs Light), range 6, Steady Targeting 130(+40 vs Psionic) for 50 energy; Widow Mine delay 1.07s; Reaper 32s. Zerg: larva 10.7s, Carapace 150/200/250, Microbial Shroud needs research again (range 9), Infestor weapon removed, Spore +10 vs Biological, Overlord 0.9, creep 0.45s, Viper Abduct cannot target Siege Tanks, Mutalisk arc 45. Also fixed two pre-existing errors found against replays: Chrono Boost lasts 20s Faster (was stored as 14.3), and mining/gas rates recalibrated from 84 replays. High/Dark Templar Gateway time 40s carried from the 30 Jun 2026 hotfix, which 5.0.17 does not mention.",
+    "patch_build": 98310
   },
   "constants": {
     "game_speed": {
@@ -67,24 +75,16 @@
       "conversion": "faster_s = normal_s / 1.399902; normal_s = faster_s * 1.399902"
     },
     "start": {
-      "workers": 8,
+      "workers": 12,
       "minerals": 50,
       "gas": 0,
-      "supply_used": 8,
+      "supply_used": 12,
       "supply_cap": {
-        "Terran": 13,
-        "Protoss": 13,
-        "Zerg": 12
+        "Terran": 15,
+        "Protoss": 15,
+        "Zerg": 14
       },
-      "note": "5.0.16 reduced starting workers 12->8. Zerg cap 12 = Hatchery(4) + starting Overlord(8). Terran/Protoss cap 13 = Command Center/Nexus(13)."
-    },
-    "resources_5_0_16": {
-      "large_mineral_patch": 1600,
-      "small_mineral_patch": 1100,
-      "vespene_geyser": 2500,
-      "gas_per_base_default": 5000,
-      "rich_vespene_harvest_per_trip": 6,
-      "note": "5.0.16 economy rework: large patch 1800->1600, small patch 900->1100, geyser 2250->2500, rich vespene return 8->6. Intent: keep 1-3 base play viable longer."
+      "note": "5.0.17 restored 12 starting workers (5.0.16 had 8). Terran/Protoss cap 15 = Command Center/Nexus. Zerg cap 14 = Hatchery 6 + starting Overlord 8. Verified in a 5.0.17 replay."
     },
     "mining": {
       "minerals_per_trip": 5,
@@ -96,9 +96,9 @@
       "third_worker_per_patch_marginal": "roughly half of the first two (~a saturated 3-worker patch ~2.5x a 1-worker patch)",
       "geysers_per_base": 2,
       "workers_per_geyser_saturated": 3,
-      "approx_minerals_per_worker_per_min_faster": "~40-55 (distance dependent)",
-      "approx_gas_per_worker_per_min_faster": "~38 (3 workers/geyser ~114)",
-      "note": "Rates are FASTER real-time approximations; exact income depends on patch distance and pathing. 5.0.16 changed patch SIZES (depletion), not per-trip yield."
+      "approx_minerals_per_worker_per_min_faster": "~49 per worker up to 16 on a base; workers 17-24 add ~35 each (replay medians, 84 games)",
+      "approx_gas_per_worker_per_min_faster": "~54 (saturated geyser ~162/min; replay medians 156-167)",
+      "note": "Rates are Faster (in-game clock) per-minute medians of the replay Collection Rate stat, which integrates to within ~5% of actual mined totals. They include workers temporarily walking to build. Per-trip yield unchanged since 5.0.15."
     },
     "macro_mechanics": {
       "MULE": {
@@ -113,16 +113,30 @@
         "energy": 50,
         "from": "Nexus",
         "effect": "+50% production/research speed",
-        "duration_faster_s": 14.3,
-        "duration_normal_s": 20,
-        "note": "Continuously boosted item finishes in 2/3 its normal time."
+        "duration_faster_s": 20,
+        "duration_normal_s": 28,
+        "note": "+50% speed for 20s on the in-game clock, so 30s of work finishes in 20s. Replay-verified (19.9s). The DB previously stored 14.3s, which was wrong."
       },
       "WarpGate": {
-        "research": "Warp Gate (research) at Cybernetics Core, 50/50, 100f (unchanged in 5.0.16; PTR proposal to move it to the Gateway was reverted)",
-        "transform_cost": "25/25 one-time per Gateway (5.0.16; was free). Switch between Gateway/Warp Gate modes free after purchase. Transform duration is 4s in both directions (5.0.16b; was 7s and 5s).",
-        "gateway_production_speedup": "50% train-time reduction for Gateway units once Warp Gate research completes (5.0.16b, raised from 40%). Resulting Gateway times in faster-s: Zealot 13.5, Stalker 13.5, Sentry 11.5, Adept 15, High/Dark Templar 21.5.",
-        "warp_in_time_faster_s": 4,
-        "note": "Warp-in time 4s (5.0.16, from 3.6s/11.4s slow-field); HT/DT warp gate cooldown 35, basic units 22. A researched-but-untransformed Gateway builds a Zealot in 13.5s against a Warp Gate cycle of 22s cooldown + 4s warp-in, so plain Gateways outproduce Warp Gates roughly 2:1. Transform only for forward warp-ins and positioning."
+        "research": "Warp Gate (research) at Cybernetics Core, 50/50, 100f.",
+        "transform_cost": "Free (5.0.17; 5.0.16 charged 25/25 per Gateway).",
+        "transform_duration_faster_s": 4,
+        "transform_note": "4s both ways since 5.0.16b; 5.0.17 notes are silent (verify).",
+        "gateway_production_speedup": "None. 5.0.17 removed it (5.0.16 40%, 5.0.16b 50%). A Gateway trains at the base bt_faster whether or not the research is done; replay-verified 27.1s Stalker after research.",
+        "warp_in_time_faster_s": {
+          "fast_field": 3.6,
+          "slow_field": 11.4
+        },
+        "fast_field": "A Pylon power field near a Nexus or a Warp Gate, or a phasing Warp Prism. Anywhere else is slow.",
+        "cooldown_faster_s": {
+          "Zealot": 20,
+          "Adept": 20,
+          "Stalker": 23,
+          "Sentry": 23,
+          "High Templar": 32,
+          "Dark Templar": 32
+        },
+        "note": "The cooldown runs during the warp-in, so a Warp Gate cycle equals its cooldown: Zealot every 20s against a Gateway's 27s, Stalker every 23s against 27s. Replay-verified: Stalker rounds 24s apart from the same Warp Gates. Chrono Boost speeds the cooldown. Transform as soon as the research lands."
       },
       "SpawnLarva_Inject": {
         "energy": 25,
@@ -132,10 +146,10 @@
         "duration_normal_s": 40
       },
       "base_larva_spawn": {
-        "interval_faster_s": 9.5,
-        "interval_normal_s": 13.3,
+        "interval_faster_s": 10.7,
+        "interval_normal_s": 15,
         "cap_without_inject": 3,
-        "note": "5.0.16 sped periodic larva 10.7->9.5 faster-s; natural spawn stops at 3 larvae, inject can exceed."
+        "note": "5.0.17 restored 10.7s (5.0.16 9.5, 30 Jun hotfix 9.9). Natural spawn stops at 3 larvae; inject can exceed."
       },
       "energy": {
         "Orbital_start": 50,
@@ -144,6 +158,14 @@
         "caster_max": 200,
         "regen_per_s": 0.7875
       }
+    },
+    "resources": {
+      "large_mineral_patch": 1800,
+      "small_mineral_patch": 900,
+      "vespene_geyser": 2250,
+      "gas_per_base_default": 4500,
+      "rich_vespene_harvest_per_trip": 6,
+      "note": "5.0.17 restored the 5.0.15 economy (5.0.16 had 1600/1100 and geysers 2500, cut to 2000 on 30 Jun). Rich vespene 6 is the 5.0.16 value; 5.0.17 is silent."
     }
   },
   "units": {
@@ -216,7 +238,7 @@
           "Biological",
           "Light"
         ],
-        "note": "Cliff jump; KD8 grenade; HP regen."
+        "note": "Cliff jump; KD8 grenade; HP regen. 5.0.17: 32s (30 Jun hotfix had 34)."
       },
       {
         "name": "Ghost",
@@ -230,13 +252,13 @@
           "Ghost Academy",
           "Barracks Tech Lab"
         ],
-        "hp": 100,
+        "hp": 125,
         "armor": 0,
         "attributes": [
           "Biological",
           "Psionic"
         ],
-        "note": "5.0.16: supply 2->3, HP 125->100, attack->15, range 6->7, Steady Targeting dmg->170 / energy 75. 5.0.16b: supply 3->2."
+        "note": "5.0.17: HP 125, damage 10 (+10 vs Light), range 6, speed 3.94; Steady Targeting 130 (+40 vs Psionic), 50 energy, cancelled by damage. Supply 2 (5.0.16b)."
       },
       {
         "name": "Hellion",
@@ -289,7 +311,8 @@
         "attributes": [
           "Light",
           "Mechanical"
-        ]
+        ],
+        "note": "5.0.17: attack launch delay 1.07s (5.0.16 hotfix had 0.85)."
       },
       {
         "name": "Cyclone",
@@ -529,7 +552,7 @@
           "Light",
           "Biological"
         ],
-        "note": "Warp-in cd 22s (5.0.16). Charge upgrade at Twilight. Researched Gateway train time 13.5f (5.0.16b 50% reduction)."
+        "note": "Warp Gate cooldown 20s (5.0.17). Charge at Twilight. No Gateway speedup from Warp Gate research since 5.0.17."
       },
       {
         "name": "Stalker",
@@ -549,7 +572,7 @@
           "Armored",
           "Mechanical"
         ],
-        "note": "5.0.14 train time 30->27 (faster). Blink upgrade. Researched Gateway train time 13.5f (5.0.16b 50% reduction)."
+        "note": "5.0.14 train time 30->27. Warp Gate cooldown 23s (5.0.17). Blink at Twilight."
       },
       {
         "name": "Sentry",
@@ -570,7 +593,7 @@
           "Mechanical",
           "Psionic"
         ],
-        "note": "Guardian Shield, Force Field, Hallucination (baseline). Researched Gateway train time 11.5f (5.0.16b 50% reduction)."
+        "note": "Guardian Shield, Force Field, Hallucination. Warp Gate cooldown 23s (5.0.17). A Forcefield breaks to one Corrosive Bile (5.0.17)."
       },
       {
         "name": "Adept",
@@ -578,7 +601,7 @@
         "gas": 25,
         "supply": 2,
         "bt_faster": 30,
-        "bt_normal": 42,
+        "bt_normal": 42.0,
         "from": "Gateway / Warp Gate",
         "req": [
           "Cybernetics Core"
@@ -590,15 +613,15 @@
           "Light",
           "Biological"
         ],
-        "note": "Psionic Transfer (shade). 5.0.16b: weapon upgrade step 1(+1 vs Light)->2(+2 vs Light). Researched Gateway train time 15f."
+        "note": "Psionic Transfer. 5.0.17: train 30s (30 Jun hotfix had 33), Warp Gate cooldown 20s, weapon upgrade step 1 (+1 vs Light)."
       },
       {
         "name": "High Templar",
         "mins": 50,
         "gas": 150,
         "supply": 2,
-        "bt_faster": 43,
-        "bt_normal": 60,
+        "bt_faster": 40,
+        "bt_normal": 56,
         "from": "Gateway / Warp Gate",
         "req": [
           "Templar Archives"
@@ -611,15 +634,15 @@
           "Biological",
           "Psionic"
         ],
-        "note": "Psi Storm (needs research), Feedback. Merges to Archon."
+        "note": "Psi Storm (research, 110 damage in 5.0.17), Feedback. Merges to Archon. Warp Gate cooldown 32s (5.0.17). Gateway time 40s from the 30 Jun 2026 hotfix; 5.0.17 is silent (verify)."
       },
       {
         "name": "Dark Templar",
         "mins": 125,
         "gas": 125,
         "supply": 2,
-        "bt_faster": 43,
-        "bt_normal": 60,
+        "bt_faster": 40,
+        "bt_normal": 56,
         "from": "Gateway / Warp Gate",
         "req": [
           "Dark Shrine"
@@ -632,7 +655,7 @@
           "Biological",
           "Psionic"
         ],
-        "note": "Permanent cloak. Merges to Archon."
+        "note": "Permanent cloak. Merges to Archon. Warp Gate cooldown 32s (5.0.17). Gateway time 40s from the 30 Jun 2026 hotfix; 5.0.17 is silent (verify)."
       },
       {
         "name": "Archon",
@@ -727,7 +750,7 @@
           "Mechanical",
           "Massive"
         ],
-        "note": "Attacked by both air & ground weapons. 5.0.16b: damage 10(+5 vs Light)->12(+3 vs Light)."
+        "note": "Attacked by air and ground weapons. 5.0.17: damage 10 (+5 vs Light)."
       },
       {
         "name": "Disruptor",
@@ -747,7 +770,7 @@
           "Armored",
           "Mechanical"
         ],
-        "note": "Purification Nova. 5.0.16b: phantom weapon range 11.35->7."
+        "note": "Purification Nova. 5.0.17: phantom weapon removed."
       },
       {
         "name": "Phoenix",
@@ -866,7 +889,7 @@
           "Massive",
           "Psionic"
         ],
-        "note": "5.0.14 cost 300/300->400/400, supply 6->8. One per player. Cloak field, Time Warp."
+        "note": "5.0.14 cost 400/400, supply 8. 5.0.17: 350 HP / 350 shields. One per player. Cloak field, Time Warp."
       },
       {
         "name": "Interceptor",
@@ -922,7 +945,7 @@
           "Biological",
           "Armored"
         ],
-        "note": "Supply provider; slow. Speed via Pneumatized Carapace."
+        "note": "Supply provider. 5.0.17: base speed 0.9 without Pneumatized Carapace."
       },
       {
         "name": "Queen",
@@ -1075,7 +1098,7 @@
           "Armored",
           "Psionic"
         ],
-        "note": "Fungal Growth, Neural Parasite (research), Microbial Shroud (5.0.16: no upgrade needed, range 12, gains auto-attack)."
+        "note": "Fungal Growth, Neural Parasite. 5.0.17: no weapon; Microbial Shroud needs research again, range 9."
       },
       {
         "name": "Swarm Host",
@@ -1113,7 +1136,7 @@
           "Biological",
           "Light"
         ],
-        "note": "Bouncing Glaive attack (5.0.16 prioritizes targets, arc 180)."
+        "note": "Bouncing Glaive. 5.0.17: glaive ignores attack priorities, arc 45."
       },
       {
         "name": "Corruptor",
@@ -1173,7 +1196,7 @@
           "Armored",
           "Psionic"
         ],
-        "note": "Abduct, Blinding Cloud, Parasitic Bomb (5.0.16 Abduct hits sieged Tanks)."
+        "note": "Abduct, Blinding Cloud, Parasitic Bomb. 5.0.17: Abduct cannot target Siege Tanks."
       },
       {
         "name": "Ultralisk",
@@ -1221,15 +1244,15 @@
     "Terran": [
       {
         "name": "Command Center",
-        "mins": 300,
+        "mins": 400,
         "gas": 0,
         "bt_normal": 100,
         "bt_faster": 71,
         "from": "SCV",
         "req": [],
-        "provides_supply": 13,
+        "provides_supply": 15,
         "hp": 1500,
-        "note": "5.0.16 supply 15->13. Morphs to Orbital/Planetary; can lift. 5.0.16b: cost 400->300 minerals."
+        "note": "5.0.17: 400 minerals, 15 supply. Morphs to Orbital/Planetary; can lift."
       },
       {
         "name": "Orbital Command",
@@ -1242,13 +1265,13 @@
           "Barracks"
         ],
         "morph_from": "Command Center",
-        "provides_supply": 13,
+        "provides_supply": 15,
         "hp": 1500,
         "note": "+cost on top of CC. Calldown MULE/Scan/Supply. Starts 50 energy."
       },
       {
         "name": "Planetary Fortress",
-        "mins": 250,
+        "mins": 150,
         "gas": 150,
         "bt_normal": 50,
         "bt_faster": 36,
@@ -1257,9 +1280,9 @@
           "Engineering Bay"
         ],
         "morph_from": "Command Center",
-        "provides_supply": 13,
+        "provides_supply": 15,
         "hp": 1500,
-        "note": "+cost on top of CC. Cannon; cannot lift; armor 3. 5.0.16b: cost 150/150->250/150."
+        "note": "+cost on top of CC. Cannon; cannot lift; armor 3. 5.0.17: 150/150."
       },
       {
         "name": "Supply Depot",
@@ -1441,10 +1464,10 @@
         "bt_faster": 71,
         "from": "Probe",
         "req": [],
-        "provides_supply": 13,
+        "provides_supply": 15,
         "hp": 1000,
         "shield": 1000,
-        "note": "5.0.16 supply 15->13. Chrono Boost (starts 50 energy). Builds Probes & Mothership."
+        "note": "5.0.17 supply 15. Chrono Boost (starts 50 energy). Builds Probes and Mothership."
       },
       {
         "name": "Pylon",
@@ -1482,12 +1505,12 @@
         ],
         "hp": 500,
         "shield": 500,
-        "note": "Morphs to Warp Gate after research."
+        "note": "Transforms to Warp Gate (free, 5.0.17) once the research is done; Warp Gates are the faster producer."
       },
       {
         "name": "Warp Gate",
-        "mins": 25,
-        "gas": 25,
+        "mins": 0,
+        "gas": 0,
         "bt_normal": 5.6,
         "bt_faster": 4,
         "from": "morph from Gateway",
@@ -1497,7 +1520,7 @@
         "morph_from": "Gateway",
         "hp": 500,
         "shield": 500,
-        "note": "Transform costs 25/25 (5.0.16, was free) and takes 4s in both directions (5.0.16b, was 7s and 5s). Warps units in (4s warp-in). Warp Gate research also speeds Gateway production 50% (5.0.16b)."
+        "note": "Transform is free (5.0.17) and takes 4s. Warp-in 3.6s in a fast field (near a Nexus or Warp Gate, or a phasing Warp Prism), 11.4s elsewhere. Cooldowns: Zealot/Adept 20, Stalker/Sentry 23, HT/DT 32."
       },
       {
         "name": "Cybernetics Core",
@@ -1553,7 +1576,7 @@
         ],
         "hp": 150,
         "shield": 150,
-        "note": "5.0.16 starts with 75 energy. Restores shields to nearby units."
+        "note": "5.0.17: starts with 100 energy near a Nexus, otherwise 50. Restores shields."
       },
       {
         "name": "Twilight Council",
@@ -1657,15 +1680,15 @@
     "Zerg": [
       {
         "name": "Hatchery",
-        "mins": 300,
+        "mins": 275,
         "gas": 0,
         "bt_normal": 100,
         "bt_faster": 71,
         "from": "Drone",
         "req": [],
-        "provides_supply": 4,
+        "provides_supply": 6,
         "hp": 1500,
-        "note": "5.0.16 cost 275->300, supply 6->4. Spawns larva; morphs to Lair."
+        "note": "5.0.17: 275 minerals, 6 supply. Spawns larva every 10.7s; morphs to Lair."
       },
       {
         "name": "Lair",
@@ -1678,7 +1701,7 @@
           "Spawning Pool"
         ],
         "morph_from": "Hatchery",
-        "provides_supply": 4,
+        "provides_supply": 6,
         "hp": 1800,
         "note": "+cost on top of Hatchery. Unlocks tier-2 tech."
       },
@@ -1693,7 +1716,7 @@
           "Infestation Pit"
         ],
         "morph_from": "Lair",
-        "provides_supply": 4,
+        "provides_supply": 6,
         "hp": 2500,
         "note": "+cost on top of Lair. Unlocks tier-3 tech."
       },
@@ -1757,7 +1780,7 @@
           "Spawning Pool"
         ],
         "hp": 400,
-        "note": "Detector; anti-air. 5.0.16 +5 vs Biological."
+        "note": "Detector; anti-air. 5.0.17: 20 (+10 vs Biological)."
       },
       {
         "name": "Roach Warren",
@@ -2232,7 +2255,7 @@
         "req": [
           "Cybernetics Core"
         ],
-        "effect": "Enables Gateway->Warp Gate (transform 25/25 each, 5.0.16); ~40% faster Gateway production."
+        "effect": "Enables the free Gateway -> Warp Gate transform (5.0.17). No longer speeds Gateway production."
       },
       {
         "name": "Charge",
@@ -2280,7 +2303,7 @@
         "req": [
           "Templar Archives"
         ],
-        "effect": "High Templar AoE (5.0.16 damage 110->100)."
+        "effect": "High Templar AoE, 110 damage (5.0.17)."
       },
       {
         "name": "Shadow Stride",
@@ -2702,7 +2725,7 @@
         "rt_normal": 110,
         "at": "Infestation Pit",
         "req": [],
-        "effect": "Infestor anti-air damage-reduction cloud (5.0.16: no longer needs upgrade; kept for reference)."
+        "effect": "Infestor damage-reduction cloud, range 9. Required again in 5.0.17."
       },
       {
         "name": "Anabolic Synthesis",
@@ -2804,37 +2827,37 @@
       },
       {
         "name": "Ground Carapace L1",
-        "mins": 100,
-        "gas": 100,
+        "mins": 150,
+        "gas": 150,
         "rt_faster": 114,
         "rt_normal": 160,
         "at": "Evolution Chamber",
         "req": [],
-        "effect": "+1 ground armor. 5.0.16 cost 150/150->100/100."
+        "effect": "+1 ground armor (L1). 5.0.17 cost 150/150."
       },
       {
         "name": "Ground Carapace L2",
-        "mins": 150,
-        "gas": 150,
+        "mins": 200,
+        "gas": 200,
         "rt_faster": 136,
         "rt_normal": 190,
         "at": "Evolution Chamber",
         "req": [
           "Lair"
         ],
-        "effect": "+1 (L2). 5.0.16 cost 200/200->150/150."
+        "effect": "+1 ground armor (L2). 5.0.17 cost 200/200."
       },
       {
         "name": "Ground Carapace L3",
-        "mins": 200,
-        "gas": 200,
+        "mins": 250,
+        "gas": 250,
         "rt_faster": 157,
         "rt_normal": 220,
         "at": "Evolution Chamber",
         "req": [
           "Hive"
         ],
-        "effect": "+1 (L3). 5.0.16 cost 250/250->200/200."
+        "effect": "+1 ground armor (L3). 5.0.17 cost 250/250."
       },
       {
         "name": "Flyer Attacks L1",
@@ -2909,7 +2932,7 @@
     ]
   },
   "benchmarks": {
-    "note": "Community/empirical reference landmarks in the FASTER in-game clock (mm:ss). Use to sanity-check computed timings. Travel-dependent events (proxy hits) vary with map/spawn distance. These are approximate, not derived from the tables above.",
+    "note": "Community/empirical reference landmarks in the FASTER in-game clock (mm:ss). Use to sanity-check computed timings. Travel-dependent events (proxy hits) vary with map/spawn distance. These are approximate, not derived from the tables above. These landmarks are 12-worker-era numbers, valid again under 5.0.17.",
     "orders": [
       {
         "name": "Terran 1-Rax Reaper Expand",

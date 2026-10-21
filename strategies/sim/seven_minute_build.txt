@@ -1,0 +1,45 @@
+# The 7:00 Protoss Build, patch 5.0.17. Gate expand, four Warp Gates, hit 7:00, third Nexus after.
+# Run: python3 .claude/skills/sc2-timings/scripts/sim.py strategies/sim/seven_minute_build.txt
+- gas 0
+- chrono Nexus
+14 Pylon
+16 Gateway
+17 Assimilator               # no workers in it yet
+1:04 chrono Nexus
+19 Nexus save
+- Cybernetics Core
+- gas 3
+- Assimilator
+- Pylon
+- gas 6                     # two gases are the whole plan until the third
+- Stalker
+- chrono Gateway
+- Warp Gate (research)
+- Sentry
+- Pylon
+- Robotics Facility
+2:51 recharge               # Sentry born 2:50: Energy Recharge, hallucinated Phoenix
+- bank 600 save
+- Twilight Council          # one batch: Twilight and three Gateways
+- Gateway
+- Gateway
+- Gateway
+- Observer
+- Immortal
+- chrono Robotics Facility
+- workers 44
+- Charge                    # or Blink, decided when the Twilight finishes
+- chrono Twilight Council
+- autosupply
+- autochrono Robotics Facility, Warp Gate
+4:00 report
+- Immortal
+- loop Stalker Zealot
+4:45 Immortal
+5:00 report
+5:45 Warp Prism
+6:00 report
+6:40 report                 # move out with Joosep
+7:00 report                 # hit
+7:30 Nexus
+end 7:35

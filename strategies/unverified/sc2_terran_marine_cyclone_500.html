@@ -246,56 +246,58 @@
       .cols, .summary-grid { grid-template-columns: 1fr; }
       header { padding: 26px 22px; }
     }
+      code { overflow-wrap:anywhere; }
   </style>
 </head>
 <body>
   <main>
     <header>
-      <h1>Marine-Cyclone: a <span class="payload">1-base 5:00 hit</span> with a CC behind it</h1>
+      <h1>Marine-Cyclone: a <span class="payload">1-base 4:30 hit</span> with a CC behind it</h1>
       <p class="subtitle">
-        The Terran half of the 2v2 five-minute punch: move out at 4:25 with 11-13 Marines and
-        2 Cyclones (both pop before you leave), and Stim completes at 5:00 sharp — the moment
-        you arrive at the enemy gates alongside the Protoss Chargelot round. The natural
-        Command Center starts the moment you move out, so a defended hit doesn't leave you behind.
+        The same build re-timed for 5.0.17's 12 starting SCVs, which moves everything about 30
+        seconds earlier: move out about 4:00 with 11 Marines and 2 Cyclones (both pop before you
+        leave), and Stim completes about 4:31, as you arrive. The natural Command Center now goes
+        down at 3:47, before the move-out, so a defended hit doesn't leave you behind.
       </p>
       <div class="chips">
         <span class="chip race">Terran</span>
         <span class="chip">2v2</span>
         <span class="chip">1-base</span>
         <span class="chip warn">UNVERIFIED DRAFT</span>
-        <span class="chip">patch 5.0.16</span>
+        <span class="chip">patch 5.0.17</span>
       </div>
     </header>
 
     <section class="summary-grid">
       <div class="card">
         <h3>Yes, it's <span class="payload">realistic</span></h3>
-        <p>One Barracks with Tech Lab never stops making Marines from 1:46; a second naked
-          Barracks joins ~3:06. Factory Tech Lab gives Cyclone #1 at 3:47 and #2 at 4:19 —
-          both in the army before it leaves. 11-13 Marines + 2 Cyclones at the 4:25 move-out.</p>
+        <p>One Barracks with Tech Lab never stops making Marines from 1:41; a second naked
+          Barracks joins at 2:44. Factory Tech Lab gives Cyclone #1 at 3:21 and #2 at 3:53 —
+          both in the army before it leaves. 11 Marines + 2 Cyclones at the 4:00 move-out,
+          14 by 4:30.</p>
       </div>
       <div class="card">
-        <h3>Gas is the <span class="payload">binding constraint</span></h3>
-        <p>The whole plan costs 450 gas, all spent by 3:47. Two Refineries (second at 1:50)
-          mine ~525 by 4:00 (114/min each once staffed) — early enough that only the Factory
-          is gas-gated; everything after is structure-gated. One gas, and this build does
-          not exist.</p>
+        <h3>Gas is <span class="payload">no longer tight</span></h3>
+        <p>The whole plan costs 450 gas, all spent by 3:21. Two Refineries (second at 1:25)
+          mine about 160 a minute each once staffed, so roughly 380 gas sits unspent at 4:00.
+          Two Refineries are still required; one gas and this build does not exist.</p>
       </div>
       <div class="card">
         <h3>CC <span class="payload">behind the push</span></h3>
-        <p>Cutting SCVs at ~23 (3:30) plus MULE income pays for the 400-mineral Command
-          Center at the natural as you move out. It finishes ~5:36. If they hold the 5:00
-          hit, you're expanding, not dead.</p>
+        <p>Cutting SCVs at about 23 (3:00) plus MULE income pays for the 400-mineral Command
+          Center at the natural at 3:47. It finishes 4:58. If they hold the hit, you're
+          expanding, not dead.</p>
       </div>
     </section>
 
     <h2>Key times</h2>
     <div class="keytimes">
-      <div class="kt"><span class="kt-t">2:14</span><span class="kt-l">Factory</span></div>
-      <div class="kt"><span class="kt-t">3:20</span><span class="kt-l">Stim starts</span></div>
-      <div class="kt"><span class="kt-t">3:47</span><span class="kt-l">Cyclone #1 pops</span></div>
-      <div class="kt"><span class="kt-t">4:25</span><span class="kt-l">move out + CC</span></div>
-      <div class="kt"><span class="kt-t">5:00</span><span class="kt-l">hit the gates, Stim completes</span></div>
+      <div class="kt"><span class="kt-t">1:48</span><span class="kt-l">Factory</span></div>
+      <div class="kt"><span class="kt-t">2:51</span><span class="kt-l">Stim starts</span></div>
+      <div class="kt"><span class="kt-t">3:21</span><span class="kt-l">Cyclone #1 pops</span></div>
+      <div class="kt"><span class="kt-t">3:47</span><span class="kt-l">CC at the natural</span></div>
+      <div class="kt"><span class="kt-t">4:00</span><span class="kt-l">move out</span></div>
+      <div class="kt"><span class="kt-t">4:31</span><span class="kt-l">hit the gates, Stim completes</span></div>
     </div>
 
     <h2>Build order (Faster clock)</h2>
@@ -306,56 +308,52 @@
             <tr><th scope="col">Supply</th><th scope="col">Time</th><th scope="col">Action</th></tr>
           </thead>
           <tbody>
-            <tr><td class="supply">8</td><td class="time">0:00</td><td class="act">SCVs nonstop from the start (12s each)</td></tr>
-            <tr><td class="supply">10</td><td class="time">0:19</td><td class="act">Supply Depot (done 0:40)</td></tr>
-            <tr class="milestone"><td class="supply">12</td><td class="time">0:42</td><td class="act">Barracks (done 1:28)</td></tr>
-            <tr><td class="supply">12</td><td class="time">0:45</td><td class="act">Refinery #1 — 3 SCVs in at ~1:08</td></tr>
-            <tr><td class="supply">15</td><td class="time">1:28</td><td class="act">Tech Lab on Barracks (done 1:46)</td></tr>
-            <tr><td class="supply">16</td><td class="time">1:36</td><td class="act">Orbital Command (done 2:01; SCV production pauses)</td></tr>
-            <tr class="milestone"><td class="supply">16</td><td class="time">1:46</td><td class="act">Marine #1 — this Barracks never idles again (18s each)</td></tr>
-            <tr><td class="supply">17</td><td class="time">1:50</td><td class="act">Refinery #2 — 3 SCVs in at ~2:15</td></tr>
-            <tr><td class="supply">17</td><td class="time">1:55</td><td class="act">Supply Depot #2</td></tr>
-            <tr class="milestone"><td class="supply">18</td><td class="time">2:14</td><td class="act">Factory (gas-gated; done 2:57). MULE on cooldown from 2:01</td></tr>
-            <tr><td class="supply">19</td><td class="time">2:20</td><td class="act">Barracks #2, no add-on (may slip to ~2:35 on minerals; done ~3:06-3:21)</td></tr>
-            <tr><td class="supply">24</td><td class="time">2:45</td><td class="act">Supply Depot #3</td></tr>
-            <tr><td class="supply">26</td><td class="time">2:57</td><td class="act">Tech Lab on Factory (done 3:15)</td></tr>
-            <tr class="milestone"><td class="supply">32</td><td class="time">3:15</td><td class="act">Cyclone #1 (pops 3:47) — start the moment the Factory Tech Lab finishes</td></tr>
-            <tr class="milestone"><td class="supply">32</td><td class="time">3:20</td><td class="act">Stim at the Barracks Tech Lab — done 5:00 sharp (gas is there from 3:15; 3:20 is the choice, not the gate)</td></tr>
-            <tr><td class="supply">34</td><td class="time">3:30</td><td class="act">Supply Depot #4 · stop SCV production at ~23</td></tr>
-            <tr><td class="supply">38</td><td class="time">3:47</td><td class="act">Cyclone #2 (pops 4:19)</td></tr>
-            <tr><td class="supply">41</td><td class="time">4:10</td><td class="act">Supply Depot #5 (keeps reinforcements flowing)</td></tr>
-            <tr class="milestone"><td class="supply">44</td><td class="time">4:25</td><td class="act">MOVE OUT with everything · start Command Center at the natural (done ~5:36)</td></tr>
-            <tr class="milestone"><td class="supply">·</td><td class="time">5:00</td><td class="act">Arrive at the enemy gates with the Protoss Chargelot round — Stim completes as you engage</td></tr>
+            <tr><td class="supply">12</td><td class="time">0:00</td><td class="act">SCVs nonstop from the start (12s each)</td></tr>
+            <tr><td class="supply">14</td><td class="time">0:16</td><td class="act">Supply Depot (done 0:37)</td></tr>
+            <tr class="milestone"><td class="supply">16</td><td class="time">0:37</td><td class="act">Barracks (done 1:23)</td></tr>
+            <tr><td class="supply">16</td><td class="time">0:44</td><td class="act">Refinery #1 — 3 SCVs in at ~1:05</td></tr>
+            <tr><td class="supply">19</td><td class="time">1:23</td><td class="act">Tech Lab on Barracks (done 1:41)</td></tr>
+            <tr><td class="supply">19</td><td class="time">1:25</td><td class="act">Orbital Command (done 1:50; SCV production pauses) and Refinery #2 — 3 SCVs in at ~1:46</td></tr>
+            <tr><td class="supply">19</td><td class="time">1:26</td><td class="act">Supply Depot #2</td></tr>
+            <tr class="milestone"><td class="supply">19</td><td class="time">1:41</td><td class="act">Marine #1 — this Barracks never idles again (18s each)</td></tr>
+            <tr class="milestone"><td class="supply">20</td><td class="time">1:48</td><td class="act">Factory (done 2:31). MULE from 1:50</td></tr>
+            <tr><td class="supply">21</td><td class="time">1:58</td><td class="act">Barracks #2, no add-on (done 2:44)</td></tr>
+            <tr><td class="supply">23</td><td class="time">2:12</td><td class="act">Supply Depot #3, then Depots as supply needs</td></tr>
+            <tr><td class="supply">26</td><td class="time">2:31</td><td class="act">Tech Lab on Factory (done 2:49)</td></tr>
+            <tr class="milestone"><td class="supply">32</td><td class="time">2:49</td><td class="act">Cyclone #1 (pops 3:21) — start the moment the Factory Tech Lab finishes</td></tr>
+            <tr class="milestone"><td class="supply">32</td><td class="time">2:51</td><td class="act">Stim at the Barracks Tech Lab — done 4:31 · stop SCV production at ~23</td></tr>
+            <tr><td class="supply">39</td><td class="time">3:21</td><td class="act">Cyclone #2 (pops 3:53)</td></tr>
+            <tr class="milestone"><td class="supply">41</td><td class="time">3:47</td><td class="act">Command Center at the natural (done 4:58)</td></tr>
+            <tr class="milestone"><td class="supply">43</td><td class="time">4:00</td><td class="act">MOVE OUT with everything: 11 Marines, 2 Cyclones</td></tr>
+            <tr class="milestone"><td class="supply">·</td><td class="time">4:31</td><td class="act">Arrive at the enemy gates — Stim completes as you engage</td></tr>
           </tbody>
         </table>
       </div>
       <div class="rail">
         <div class="card">
           <h3>Marine upgrades: pick <span class="payload">one</span></h3>
-          <p>The upgrade slot opens at 3:15 (Rax Tech Lab free, gas available); 3:20 is the
-            5:00-sharp choice. One Tech Lab runs one research at a time:</p>
+          <p>The upgrade slot opens at 2:51 (Rax Tech Lab free, gas available). One Tech Lab
+            runs one research at a time:</p>
           <ul>
-            <li><strong>Stim</strong> (100/100, 100s) — start 3:20, done <span class="em">5:00 sharp</span>. Recommended: biggest swing in the fight, timed to arrival.</li>
-            <li><strong>Combat Shield</strong> (100/100, 79s) — done <span class="em">~4:39</span>. Safest if you hate Stim HP-loss micro.</li>
-            <li><strong>+1 Infantry Weapons</strong> (100/100, 114s) — done <span class="em">~5:14</span>, too late in this slot; only makes 5:00 (4:52) if it takes gas priority over Cyclone #1 and you build a 125-mineral Engineering Bay by ~2:33.</li>
+            <li><strong>Stim</strong> (100/100, 100s) — start 2:51, done <span class="em">4:31</span>. Recommended: biggest swing in the fight, timed to arrival.</li>
+            <li><strong>Combat Shield</strong> (100/100, 79s) — done <span class="em">~4:10</span>. Safest if you hate Stim HP-loss micro.</li>
+            <li><strong>+1 Infantry Weapons</strong> (100/100, 114s) — needs an Engineering Bay; even started at 2:51 it lands <span class="em">~4:45</span>, after arrival.</li>
           </ul>
-          <p style="margin-top:8px">A second upgrade before 5:00 means cutting a Cyclone.
-            Otherwise queue Combat Shield when Stim finishes (5:00 → done ~6:19, for the
-            reinforcement wave).</p>
+          <p style="margin-top:8px">The spare gas now pays for a second upgrade: queue
+            Combat Shield when Stim finishes (4:31 → done ~5:50, for the reinforcement wave).</p>
         </div>
         <div class="card">
           <h3>Why only 2 Cyclones</h3>
-          <p>Cyclones are 100 gas each and 32s each from one Factory Tech Lab. Gas mined by
-            4:00 is ~525; the build already spends 450 by 3:47. A third Cyclone (start 4:19,
-            pop 4:51) would miss the move-out and delay Stim — reinforce with Marines instead,
-            they're pure minerals.</p>
+          <p>Cyclones are 32s each from one Factory Tech Lab, so the Factory, not gas, is the
+            limit now. A third Cyclone starts 3:53 and pops 4:25, which misses a 4:00 move-out.
+            Take it only if you hold the move-out to 4:25; otherwise reinforce with Marines.</p>
         </div>
         <div class="card">
           <h3>Execution</h3>
           <ul>
             <li><strong>Pull 2 SCVs</strong> with the push to repair Cyclones — they're your only tanky units.</li>
             <li><strong>Both Barracks keep producing</strong> during the attack; rally to the front.</li>
-            <li><strong>2v2 sync:</strong> shared resources unlock at 5:00 — your ally can help fund the CC/Orbital if the hit stalls.</li>
+            <li><strong>2v2 sync:</strong> no Protoss page hits at 4:30 any more. The 3-Gate Robo punch (about 4:35) is the closest; the Three Nexus Chargelot walks at about 6:06.</li>
           </ul>
         </div>
       </div>
@@ -365,36 +363,33 @@
       <span class="tag">The two ways this dies in the build phase</span>
       <h3>One gas, or the wrong add-on</h3>
       <p><span class="hot">One Refinery is not enough.</span> On single gas you afford the
-        Factory tech and either Stim or one Cyclone — not both. Refinery #2 by <span class="t">1:50</span>
+        Factory tech and either Stim or one Cyclone — not both. Refinery #2 by <span class="t">1:30</span>
         is as load-bearing as the Barracks. And the first Barracks takes a <span class="hot">Tech Lab,
         not a Reactor</span>: without it there is nowhere to research Stim, and the Factory's own
         Tech Lab is busy being the Cyclone prerequisite.</p>
     </div>
 
-    <h2>Timing math (DB, patch 5.0.16)</h2>
+    <h2>Timing math (DB + simulator, patch 5.0.17)</h2>
     <div class="note">
       DB-chained (from <code>data/sc2_data.json</code>, Faster seconds): Depot 100m/21s ·
       Barracks 150m/46s · Refinery 75m/21s · Factory 150m 100g/43s · Tech Lab 50m 25g/18s ·
       Orbital 150m/25s · CC 400m/71s · Marine 50m/18s · Cyclone 150m 100g/32s (requires Factory
       Tech Lab) · Stim 100/100/100s · Combat Shield 100/100/79s · +1 Infantry Weapons
-      100/100/114s. Gas model: 3 SCVs/geyser ≈ 114 gas/min (Refinery #1 staffed ~1:08, #2
-      ~2:15). Chain check: Barracks 0:42+46s = 1:28 → Tech Lab +18s = 1:46 → Marine +18s pops
-      2:04; Factory 2:14+43s = 2:57 → Tech Lab +18s = 3:15; Cyclones 3:15/3:47 +32s pop
-      3:47/4:19; Stim 3:20+100s = 5:00; CC 4:25+71s = 5:36.
+      100/100/114s. Chain check: Barracks 0:37+46s = 1:23 → Tech Lab +18s = 1:41 → Marine +18s pops
+      1:59; Factory 1:48+43s = 2:31 → Tech Lab +18s = 2:49; Cyclones 2:49/3:21 +32s pop
+      3:21/3:53; Stim 2:51+100s = 4:31; CC 3:47+71s = 4:58.
       <br /><br />
-      <strong>Unverified:</strong> the supply column, Depot #2-5, Barracks #2 start, the SCV
-      cut, and CC affordability come from an income model (~40-55 min/worker/min + MULE 225),
-      not the DB — mineral float is near the edge, so expect 11-13 Marines, not always 13.
-      The 4:25 move-out assumes a <span class="em">30-40s cross-map walk</span> (map- and
-      spawn-dependent); calibrate on your map so arrival, not departure, is the 5:00 anchor.
-      Ally sync (Chargelot round at the gates 5:00-5:30) is from
-      <a href="sc2_protoss_chargelot_five.html">Chargelot Five</a>, itself unplayed.
+      Supply, Depots, the Barracks #2 start, the SCV cut and the CC come from the repo simulator
+      (<code>strategies/sim/terran_marine_cyclone.txt</code>): 12 SCVs, 54 minerals per SCV-minute,
+      162 gas per staffed geyser, MULE about 225. Times are clean execution; expect a few seconds
+      per step. The 4:00 move-out assumes a <span class="em">30-40s cross-map walk</span> (map- and
+      spawn-dependent); calibrate on your map so arrival, not departure, lines up with Stim.
     </div>
 
     <p class="footer-note">
-      Unverified draft, 2026-08-16 · timings computed from
-      <a href="../../data/sc2_data.json"><code>data/sc2_data.json</code></a> (patch 5.0.16,
-      Faster clock) · promote per <code>strategies/unverified/README.md</code> after a replay pass.
+      Unverified draft, 2026-08-16, re-timed 2026-10-21 for patch 5.0.17 · timings from
+      <a href="../../data/sc2_data.json"><code>data/sc2_data.json</code></a> (Faster clock) · promote per
+      <code>strategies/unverified/README.md</code> after a replay pass.
     </p>
   </main>
 </body>

@@ -1,3 +1,5 @@
+> **Patch note, 2026-10-21:** written for 5.0.16 (8 starting workers). Patch 5.0.17 restored 12 workers and removed the Warp Gate speedup for Gateways; the timings below are not re-timed.
+
 # 2v2 Protoss + Terran — patch 5.0.16 research notes
 
 **Status:** unverified (web research, 2026-07-05). §1 patch facts + §5 DT-rush timings ARE verified (release notes + `data/sc2_data.json`); §2–§4 strategy/resources are web-sourced and not DB-checked.

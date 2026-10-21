@@ -1,0 +1,43 @@
+# Three Nexus Double Oracle Chargelot, patch 5.0.17 (default PvZ).
+- gas 0
+- chrono Nexus
+14 Pylon
+- scout 75                  # the Pylon Probe goes to the Zerg natural and stays a while
+16 Gateway
+17 Assimilator
+- gas 1                     # one worker in the first gas
+1:04 chrono Nexus
+19 Nexus save
+- Cybernetics Core
+- gas 3
+- Pylon
+- Assimilator
+- gas 6
+- Adept
+- chrono Gateway
+- Warp Gate (research)
+- Stargate
+- Adept
+- Gateway
+- Oracle
+- chrono Stargate
+- Nexus save
+- Oracle
+- Twilight Council
+- autosupply
+- Oracle
+- Gateway
+- Gateway
+- Gateway
+- Charge
+- chrono Twilight Council
+- autochrono Stargate, Warp Gate
+- Stalker
+- loop Zealot
+- workers 60
+5:00 report
+5:30 report
+6:00 report
+6:20 report
+6:40 report
+end 6:41

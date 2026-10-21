@@ -1,0 +1,19 @@
+# 2v2 proxy timing, Protoss half, patch 5.0.17. Proxy walk assumed 25s.
+- chrono Nexus
+14 Pylon
+- scout 60                  # probe walks, places the proxy Pylon and Gateway, comes home
+0:40 Pylon                  # proxy Pylon
+0:58 Gateway                # proxy Gateway, when the Pylon powers it
+- loop first Zealot
+- Nexus save
+- Assimilator
+- Cybernetics Core
+- Pylon
+- report
+3:00 report
+3:15 report
+- Assimilator
+- Warp Gate (research)
+- autosupply
+5:00 report
+end 5:01

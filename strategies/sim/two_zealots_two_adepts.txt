@@ -1,0 +1,42 @@
+# Two Zealots, Two Adepts: the pool-first branch of the Three Nexus Chargelot, patch 5.0.17.
+- gas 0
+- chrono Nexus
+14 Pylon
+- scout 75
+16 Gateway
+17 Assimilator
+- gas 3
+1:04 chrono Nexus
+- Zealot
+- Cybernetics Core
+- Pylon
+- Gateway
+- Zealot
+- chrono Gateway
+- Pylon
+- Adept
+- Adept
+- Assimilator
+- gas 6
+- Nexus save
+- Warp Gate (research)
+- report
+- Stargate
+- Oracle
+- chrono Stargate
+- Nexus save
+- Twilight Council
+- autosupply
+- Oracle
+- Gateway
+- Gateway
+- Gateway
+- Charge
+- chrono Twilight Council
+- autochrono Stargate, Warp Gate
+- Oracle
+- loop Zealot
+- workers 60
+6:00 report
+6:20 report
+end 6:21

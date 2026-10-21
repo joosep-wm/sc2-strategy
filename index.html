@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="StarCraft II hotkey setup and build orders whose timings are reproduced from a verified patch 5.0.16b data set.">
+<meta name="description" content="StarCraft II hotkey setup and build orders whose timings are reproduced from a verified patch 5.0.17 data set.">
 <title>SC2 Strategies</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
@@ -63,9 +63,9 @@ footer a:hover{color:var(--gold);border-color:var(--gold)}
 
   <h1>SC2 Strategies</h1>
   <p class="sub">A hotkey setup and two build orders, kept deliberately short. Every timing is either
-  reproduced from a patch 5.0.16b data set or read frame by frame off a VOD clock.</p>
+  reproduced from a patch 5.0.17 data set and a build simulator checked against real replays.</p>
   <div class="rule"></div>
-  <div class="meta"><span>Patch 5.0.16b</span><span>Faster clock</span><span>Protoss</span></div>
+  <div class="meta"><span>Patch 5.0.17</span><span>Faster clock</span><span>Protoss</span></div>
 
   <h2 class="sec">Start here</h2>
 
@@ -89,10 +89,11 @@ footer a:hover{color:var(--gold);border-color:var(--gold)}
       <h3>Three Nexus Double Oracle Chargelot</h3>
       <span class="badge now">Default PvZ</span>
     </div>
-    <p>Three bases, three Gateways, two to three Oracles. Nexus #2 at 1:38, Stargate 3:00, Nexus #3 at
-    4:28, Twilight 4:40. Warp Gate research lands 4:48 and the Zealot drops from 27s to 13.5s, so the army
-    goes from five units at 5:19 to fifteen at 6:32. Charge done 6:33, move out 6:37, Queens dead 7:10.</p>
-    <div class="tags"><span class="tag">1v1</span><span class="tag">2v2</span><span class="tag p">Protoss</span><span class="tag">vs Zerg</span><span class="tag">VOD-timed</span></div>
+    <p>Three bases, five Warp Gates, three Oracles. Nexus #2 at 1:22, Stargate 2:31, Nexus #3 at
+    3:26, Twilight 3:50. Warp Gate research lands 3:52 and the Gateways become Warp Gates, a Zealot
+    every 20 seconds each, so about 16 Zealots are out by 6:00. Charge done about 6:06, move out with it,
+    Queens dead about 6:40.</p>
+    <div class="tags"><span class="tag">1v1</span><span class="tag">2v2</span><span class="tag p">Protoss</span><span class="tag">vs Zerg</span><span class="tag">Simulated</span></div>
   </a>
   <p class="aside">Zerg opens pool first or walls you in?
     <a href="strategies/unverified/sc2_protoss_double_adept_pressure.html">Two Zealots, Two Adepts</a>
@@ -104,10 +105,10 @@ footer a:hover{color:var(--gold);border-color:var(--gold)}
       <h3>3-Gate Robo: Stalker-Prism Punch</h3>
       <span class="badge">PvP / PvT</span>
     </div>
-    <p>One base, Robo 2:46, Prism born 3:59, warp round down by 5:00, punch at 5:10. Observed over twelve
-    games: 6-0 in PvP, 2-4 in PvT. Tanks measured at 5:19-5:45, so in PvT it lands by 5:10 or not at all,
-    and the pull-back branch has a hard Nexus-by-6:00 rule.</p>
-    <div class="tags"><span class="tag">1v1</span><span class="tag p">Protoss</span><span class="tag">Replay-observed</span></div>
+    <p>One base, Robo 2:15, Prism born about 3:36, warp round about 4:25, punch about 4:35 on 5.0.17.
+    Played twelve games on 5.0.16: 6-0 in PvP, 2-4 in PvT. Tanks then came at 5:19-5:45; expect them
+    about 30 seconds earlier now, so in PvT it lands by about 4:30 or not at all.</p>
+    <div class="tags"><span class="tag">1v1</span><span class="tag p">Protoss</span><span class="tag">Replay-observed</span><span class="tag">Simulated</span></div>
   </a>
 
   <h2 class="sec">Joosep's builds</h2>
@@ -125,16 +126,16 @@ footer a:hover{color:var(--gold);border-color:var(--gold)}
 
   <a class="card" href="strategies/unverified/sc2_terran_marine_cyclone_500.html">
     <div class="head">
-      <h3>Terran Marine-Cyclone 1-Base 5:00 Hit</h3>
+      <h3>Terran Marine-Cyclone 1-Base 4:30 Hit</h3>
       <span class="badge">Draft</span>
     </div>
-    <p>Eleven to thirteen Marines and two Cyclones, move out 4:25, Stim finishing exactly as the push
-    arrives at 5:00, natural Command Center behind it. Two Refineries are mandatory; the second at 1:50.</p>
+    <p>Eleven Marines and two Cyclones, move out about 4:00, Stim finishing as the push arrives at
+    about 4:31, natural Command Center already down at 3:47. Two Refineries are mandatory; the second at 1:25.</p>
     <div class="tags"><span class="tag">2v2</span><span class="tag t">Terran</span></div>
   </a>
 
   <footer>
-    <span>Timings validated against <a href="data/sc2_data.json">data/sc2_data.json</a></span>
+    <span>Timings validated against <a href="data/sc2_data.json">data/sc2_data.json</a> (patch 5.0.17)</span>
     <span><a href="https://github.com/joosep-wm/sc2-strategy">Source on GitHub</a></span>
   </footer>
 

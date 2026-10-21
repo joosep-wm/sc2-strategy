@@ -1,0 +1,20 @@
+# 2v2 proxy timing, Terran half, patch 5.0.17. Proxy walk assumed 25s (60-70% across).
+race Terran
+14 Supply Depot
+- scout 25                  # builder walks to the proxy
+0:41 Barracks               # proxy, placed on arrival
+- Orbital Command
+- loop first Marine
+- Command Center save
+- Refinery
+- Supply Depot
+- report
+3:00 report
+3:15 report
+- Refinery
+- Barracks
+- Tech Lab on Barracks
+- Stimpack
+- autosupply
+5:00 report
+end 5:01

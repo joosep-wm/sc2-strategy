@@ -21,9 +21,9 @@ until it starts). '#' starts a comment. 'race Terran' and 'end 7:30' are optiona
             scout <seconds>                    one worker leaves minerals for that long
             recharge                           Energy Recharge: spends 50 Nexus energy
             gas <N>                            at most N workers on gas
-            loop <Unit> [<Unit> ...]           every free producer keeps making these when no
-                                               step is waiting for money; earlier units have
-                                               priority and reserve their cost
+            loop <Unit> [<Unit> ...]           every free producer keeps making these; a step
+                                               waiting for money reserves its cost first, then
+                                               earlier units reserve theirs before later ones
             loop first <Unit> [...]            same, but ahead of the build steps
             bank <minerals>                    wait until the bank holds this much (use with save)
             keep gateways                      stop the default auto-transform to Warp Gate
@@ -313,10 +313,18 @@ class Sim:
             s.start_unit(x, a, e); st['made'] += 1
         return True
 
-    def run_loops(s):
+    def reserve(s, cm, cg):
+        # What must stay banked now so an item costing cm/cg is not delayed: only the part
+        # that income will not refill before the scarcer resource arrives anyway.
+        f, g = s.income()
+        t = max((cm - s.m) / f if f > 0 else (0 if s.m >= cm else 1e9),
+                (cg - s.g) / g if g > 0 else (0 if s.g >= cg else 1e9), 0.0)
+        return max(0.0, cm - f * t) if t < 1e8 else cm, max(0.0, cg - g * t) if t < 1e8 else cg
+
+    def run_loops(s, rm=0.0, rg=0.0):
         # Units are in priority order: a higher one whose producer is free but which
-        # cannot be afforded yet reserves its cost before lower ones may spend.
-        rm = rg = 0.0
+        # cannot be afforded yet reserves its cost before lower ones may spend. A build
+        # step that is waiting for money reserves its cost first (rm, rg).
         for u in s.loops:
             e = ent(u)[2]
             x = s.unit_ok(e, rm, rg)
@@ -324,7 +332,8 @@ class Sim:
                 s.start_unit(x, u, e); x = s.unit_ok(e, rm, rg)
             if s.producer_for(e) and s.used + e['supply'] <= s.cap() and all(
                     s.have(r) for r in e.get('req', []) if not r.endswith('Tech Lab')):
-                rm += e['mins']; rg += e['gas']
+                am, ag = s.reserve(e['mins'] + rm, e['gas'] + rg)
+                rm, rg = max(rm, am), max(rg, ag)
 
     def triggered(s, st):
         tr = st['trig']
@@ -371,6 +380,7 @@ class Sim:
             if s.loops and s.loopfirst:
                 s.run_loops()
             saving = waiting = False
+            wm = wg = 0.0
             while s.i < len(s.steps):
                 st = s.steps[s.i]
                 if not s.triggered(st):
@@ -384,6 +394,7 @@ class Sim:
                 if st['act'].startswith('bank '):
                     cm = float(st['act'].split()[1])
                 waiting = s.m < cm or s.g < cg
+                wm, wg = s.reserve(cm, cg) if waiting else (0.0, 0.0)
                 saving = st['save'] and waiting
                 break
             if not saving:
@@ -392,8 +403,8 @@ class Sim:
                     if x.typ in TOWN and s.up(x) and x.item is None and s.workers + s.wprod < s.wcap \
                             and s.m >= 50 and s.used < s.cap():
                         s.m -= 50; s.used += 1; s.wprod += 1; x.item, x.left = wk, 12.0
-            if s.loops and not waiting and not s.loopfirst:
-                s.run_loops()
+            if s.loops and not s.loopfirst:
+                s.run_loops(wm, wg)
             s.away = [(u, n) for u, n in s.away if u > s.t]
             s.t = round(s.t + DT, 3)
 

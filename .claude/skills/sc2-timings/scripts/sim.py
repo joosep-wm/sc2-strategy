@@ -28,7 +28,8 @@ until it starts). '#' starts a comment. 'race Terran' and 'end 7:30' are optiona
                                                waiting for money reserves its cost first, then
                                                earlier units reserve theirs before later ones
             loop first <Unit> [...]            same, but ahead of the build steps
-            bank <minerals>                    wait until the bank holds this much (use with save)
+            bank <minerals> [<gas>]            wait until the bank holds this much (use with save),
+                                               e.g. 'bank 300 200' to place two Robos together
             keep gateways                      stop the default auto-transform to Warp Gate
             autosupply                         Pylon/Depot whenever supply runs short
             asap <Research>                    start it the moment it can be researched (e.g. +2
@@ -273,7 +274,8 @@ class Sim:
         if a.startswith('workers '):
             v = a.split()[1]; s.wcap = 80 if v == 'on' else int(v); return True
         if a.startswith('bank '):
-            return s.m >= float(a.split()[1])
+            v = a.split()
+            return s.m >= float(v[1]) and s.g >= (float(v[2]) if len(v) > 2 else 0.0)
         if a == 'keep gateways':
             s.keepgates = True; return True
         if a == 'recharge':
@@ -431,7 +433,8 @@ class Sim:
                     continue
                 cm, cg = s.cost(st['act'])
                 if st['act'].startswith('bank '):
-                    cm = float(st['act'].split()[1])
+                    v = st['act'].split()
+                    cm, cg = float(v[1]), (float(v[2]) if len(v) > 2 else 0.0)
                 waiting = s.m < cm or s.g < cg
                 wm, wg = s.reserve(cm, cg) if waiting else (0.0, 0.0)
                 saving = st['save'] and waiting

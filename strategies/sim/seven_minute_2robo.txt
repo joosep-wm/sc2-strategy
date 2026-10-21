@@ -19,16 +19,16 @@
 - Warp Gate (research)
 - Sentry                    # second unit: hallucinated Phoenix
 - Pylon
-- bank 300 save
-- Robotics Facility         # group: both Robos together (the second as gas allows)
-- Robotics Facility
+- bank 300 100 save
+- Twilight Council          # group: Twilight and Forge together
+- Forge
 2:51 recharge               # Energy Recharge, hallucinated Phoenix
 - Assimilator               # the natural's two gases, ready before probe 39
 - Assimilator
 - gas 6+6                   # filled once the natural's minerals hold 16
-- bank 300
-- Twilight Council          # group: Twilight and Forge together
-- Forge
+- bank 300 200
+- Robotics Facility         # group: both Robos together, 300/200 saved first
+- Robotics Facility
 - Observer
 - Immortal
 - chrono Robotics Facility

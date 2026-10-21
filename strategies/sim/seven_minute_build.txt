@@ -1,9 +1,10 @@
-# The 7:00 Protoss Build, patch 5.0.17. Chargelot/Immortal +1 off three Warp Gates and two Robos, hit 7:00.
+# The 7:00 Protoss Build, patch 5.0.17. Max Immortals off three Robos and one Warp Gate, two bases
+# fully saturated (44 probes, four gases, filled in order), +1 Chargelots, hit 7:00.
 # Run: python3 .claude/skills/sc2-timings/scripts/sim.py strategies/sim/seven_minute_build.txt
 - gas 0
 - chrono Nexus
 14 Pylon
-16 Gateway
+16 Gateway                  # the only Gateway
 17 Assimilator               # no workers in it yet
 1:04 chrono Nexus
 19 Nexus save
@@ -11,32 +12,32 @@
 - gas 3
 - Assimilator
 - Pylon
-- gas 6                     # two gases are the whole plan until the third
-- Stalker                   # first unit
+- gas 6                     # main full: 16 on minerals, 6 in gas
+- Stalker                   # first unit, the only Stalker
 - chrono Gateway
 - Warp Gate (research)
 - Sentry                    # second unit: hallucinated Phoenix
 - Pylon
 - Robotics Facility
 2:51 recharge               # Sentry born 2:50: Energy Recharge, hallucinated Phoenix
-- bank 600 save
-- Twilight Council          # one batch: Twilight, Forge, two Gateways
+- bank 450 save
+- Twilight Council          # one batch: Twilight, Forge, second Robo
 - Forge
-- Gateway
-- Gateway
+- Robotics Facility
 - Observer
+- Assimilator               # the natural's gases, done 3:54, before probe 39 pops at 4:09
+- Assimilator
+- gas 6+6                   # they fill only once the natural's minerals hold 16
 - Immortal
 - chrono Robotics Facility
-- workers 38                # 16+6 main, 16 natural: every job full, nobody oversaturated
+- workers 44                # two bases full: 16 + 6 each
 - autosupply
-- loop Immortal Zealot      # Immortals first, Zealots with the rest
+- loop Immortal Sentry Zealot   # Immortals first, spare gas into Sentries, Zealots with the rest
 - Charge
 - chrono Twilight Council
 - Ground Weapons L1
 - autochrono Robotics Facility, Forge, Warp Gate
-4:00 report
-- Stalker                   # the second and last Stalker
-- Robotics Facility         # second Robo, straight after
+- Robotics Facility         # third Robo
 5:00 report
 5:20 Warp Prism             # from whichever Robo frees up first
 6:00 report
@@ -44,8 +45,4 @@
 7:00 report                 # hit
 7:30 report
 7:30 Nexus
-- Assimilator               # natural gases only after the hit; probes 39-44 fill them
-- Assimilator
-- gas 6+6
-- workers 44
 end 8:10

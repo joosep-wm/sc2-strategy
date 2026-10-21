@@ -23,7 +23,8 @@ until it starts). '#' starts a comment. 'race Terran' and 'end 7:30' are optiona
             gas <N>                            at most N workers on gas
             gas <N>+<M>                        N on gas first, M more only after their base's
                                                minerals hold 16
-            loop <Unit> [<Unit> ...]           every free producer keeps making these; a step
+            loop <Unit> [<Unit> ...]           every free producer keeps making these (comma-
+                                               separate names with spaces); a step
                                                waiting for money reserves its cost first, then
                                                earlier units reserve theirs before later ones
             loop first <Unit> [...]            same, but ahead of the build steps
@@ -37,8 +38,7 @@ Model (Faster seconds): minerals 54/min per worker for the first 16 on a base an
 for workers 17-24, gas 54/min per worker (3 per geyser), fitted to replays (see the DB's
 constants.mining). Ordered gas first, then each worker takes the next open job: main
 minerals to 16, main gases, natural minerals to 16, natural gases; only workers beyond
-every job oversaturate. Workers
-split evenly across finished bases. A Protoss builder is off minerals 6s (14s for a Nexus),
+every job oversaturate. A Protoss builder is off minerals 6s (14s for a Nexus),
 a Terran builder for the whole build. Chrono +50% for 20s. MULE ~225 over 64s. Warp-in
 3.6s in a fast field, cooldown runs during it. Gateways auto-transform once Warp Gate
 research is done (the in-game default). Output is clean-execution timing: a real
@@ -277,10 +277,12 @@ class Sim:
             first, _, extra = v.partition('+')
             s.gascap, s.gasextra = int(first), int(extra or 0); return True
         if a.startswith('loop '):
-            s.loops = a.split(None, 1)[1].replace(',', ' ').split()
-            s.loopfirst = s.loops[0] == 'first'
+            rest = a.split(None, 1)[1].strip()
+            s.loopfirst = rest.split()[0] == 'first'
             if s.loopfirst:
-                s.loops = s.loops[1:]
+                rest = rest.split(None, 1)[1]
+            # 'loop Immortal, High Templar, Zealot' for names with spaces
+            s.loops = [u.strip() for u in rest.split(',')] if ',' in rest else rest.split()
             return True
         if a == 'autosupply':
             s.autosupply = True; return True

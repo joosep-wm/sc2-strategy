@@ -22,7 +22,8 @@ until it starts). '#' starts a comment. 'race Terran' and 'end 7:30' are optiona
             recharge                           Energy Recharge: spends 50 Nexus energy
             gas <N>                            at most N workers on gas
             loop <Unit> [<Unit> ...]           every free producer keeps making these when no
-                                               step is waiting for money
+                                               step is waiting for money; earlier units have
+                                               priority and reserve their cost
             loop first <Unit> [...]            same, but ahead of the build steps
             bank <minerals>                    wait until the bank holds this much (use with save)
             keep gateways                      stop the default auto-transform to Warp Gate
@@ -150,10 +151,10 @@ class Sim:
                 return x
         return None
 
-    def unit_ok(s, e):
+    def unit_ok(s, e, rm=0.0, rg=0.0):
         if s.used + e['supply'] > s.cap():
             return None
-        if s.m < e['mins'] or s.g < e['gas']:
+        if s.m < e['mins'] + rm or s.g < e['gas'] + rg:
             return None
         if not all(s.have(r) for r in e.get('req', []) if not r.endswith('Tech Lab')):
             return None
@@ -313,11 +314,17 @@ class Sim:
         return True
 
     def run_loops(s):
+        # Units are in priority order: a higher one whose producer is free but which
+        # cannot be afforded yet reserves its cost before lower ones may spend.
+        rm = rg = 0.0
         for u in s.loops:
             e = ent(u)[2]
-            x = s.unit_ok(e)
+            x = s.unit_ok(e, rm, rg)
             while x:
-                s.start_unit(x, u, e); x = s.unit_ok(e)
+                s.start_unit(x, u, e); x = s.unit_ok(e, rm, rg)
+            if s.producer_for(e) and s.used + e['supply'] <= s.cap() and all(
+                    s.have(r) for r in e.get('req', []) if not r.endswith('Tech Lab')):
+                rm += e['mins']; rg += e['gas']
 
     def triggered(s, st):
         tr = st['trig']
@@ -353,6 +360,14 @@ class Sim:
                 for nx in s.ready('Nexus'):
                     if nx.energy >= 50:
                         any(s.chrono_on(nx, tg) for tg in s.autochrono)
+            if s.autosupply and s.cap(True) < 200:
+                prods = len([x for x in s.b if x.typ in PROD])
+                towns = len([x for x in s.b if x.typ in TOWN])
+                pending = len([x for x in s.b if x.typ in ('Pylon', 'Supply Depot') and not s.up(x)])
+                if s.cap(True) - s.used < 4 + 2 * prods + 2 * towns and pending < 1 + (prods + 1) // 3:
+                    nm = 'Pylon' if s.race == 'Protoss' else 'Supply Depot'
+                    if s.build(nm, ent(nm)[2]):
+                        s.log.append((s.t, s.used, nm + ' (auto)'))
             if s.loops and s.loopfirst:
                 s.run_loops()
             saving = waiting = False
@@ -379,14 +394,6 @@ class Sim:
                         s.m -= 50; s.used += 1; s.wprod += 1; x.item, x.left = wk, 12.0
             if s.loops and not waiting and not s.loopfirst:
                 s.run_loops()
-            if s.autosupply and s.cap(True) < 200:
-                prods = len([x for x in s.b if x.typ in PROD])
-                towns = len([x for x in s.b if x.typ in TOWN])
-                pending = len([x for x in s.b if x.typ in ('Pylon', 'Supply Depot') and not s.up(x)])
-                if s.cap(True) - s.used < 4 + 2 * prods + 2 * towns and pending < 1 + prods // 4:
-                    nm = 'Pylon' if s.race == 'Protoss' else 'Supply Depot'
-                    if s.build(nm, ent(nm)[2]):
-                        s.log.append((s.t, s.used, nm + ' (auto)'))
             s.away = [(u, n) for u, n in s.away if u > s.t]
             s.t = round(s.t + DT, 3)
 

@@ -1,0 +1,53 @@
+# The 7:00 Protoss Build, two-Robo version, patch 5.0.17. Chargelot-Immortal +1 off four Warp Gates and
+# two Robos built together, two bases fully saturated (44 probes, four gases), third Nexus on the move-out.
+# Clean:     python3 .claude/skills/sc2-timings/scripts/sim.py strategies/sim/seven_minute_2robo.txt
+# Realistic: add --rate 50 --slack 5
+- gas 0
+- chrono Nexus
+14 Pylon
+16 Gateway
+17 Assimilator
+1:04 chrono Nexus
+19 Nexus save
+- Cybernetics Core
+- gas 3
+- Assimilator
+- Pylon
+- gas 6
+- Stalker                   # first unit, the only Stalker
+- chrono Gateway
+- Warp Gate (research)
+- Sentry                    # second unit: hallucinated Phoenix
+- Pylon
+- bank 300 save
+- Robotics Facility         # group: both Robos together (the second as gas allows)
+- Robotics Facility
+2:51 recharge               # Energy Recharge, hallucinated Phoenix
+- Assimilator               # the natural's two gases, ready before probe 39
+- Assimilator
+- gas 6+6                   # filled once the natural's minerals hold 16
+- bank 300
+- Twilight Council          # group: Twilight and Forge together
+- Forge
+- Observer
+- Immortal
+- chrono Robotics Facility
+- workers 44                # two bases full: 16 + 6 each
+- autosupply
+- loop Immortal Zealot      # a free Robo holds 250/100 for its Immortal; Zealots with the rest
+- Charge
+- chrono Twilight Council
+- Ground Weapons L1
+- asap Ground Weapons L2    # clicked the moment +1 finishes
+- autochrono Robotics Facility, Forge, Warp Gate
+5:00 bank 450
+- Gateway                   # group: Gateways 2-4 together
+- Gateway
+- Gateway
+5:20 Warp Prism
+6:00 report
+6:40 report                 # move out with Joosep
+6:40 Nexus                  # third Nexus, under construction at the hit
+7:00 report                 # hit
+7:30 report
+end 9:00
